@@ -1,0 +1,68 @@
+---
+import BookIcon from "@/assets/icons/book.svg";
+import GuiasIcon from "@/assets/icons/guias.svg";
+import HeadsetIcon from "@/assets/icons/headset.svg";
+
+const highlights = [
+  {
+    title: "Itinerarios Personalizados",
+    description:
+      "Diseñamos cada viaje a tu medida, ajustándonos a tus gustos y presupuesto para crear experiencias únicas.",
+    Icon: BookIcon,
+  },
+  {
+    title: "Guías Expertos Locales",
+    description:
+      "Contamos con los mejores expertos locales que te mostrarán el Perú auténtico más allá de las rutas turísticas.",
+    Icon: GuiasIcon,
+  },
+  {
+    title: "Soporte 24/7",
+    description:
+      "Tu tranquilidad es nuestra prioridad. Estamos disponibles a cualquier hora para asistirte durante todo tu viaje.",
+    Icon: HeadsetIcon,
+  },
+];
+---
+
+<section class="py-24 px-6 bg-brand-bg">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Area -->
+    <div class="mb-20">
+      <span
+        class="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6 border border-brand-primary/20 backdrop-blur-sm"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mr-2"></span>
+        Lo que ofrecemos
+      </span>
+      <h2
+        class="text-4xl md:text-6xl font-medium tracking-tight text-brand-dark leading-[1.1] max-w-2xl"
+      >
+        Qué Esperar De Tu Proxima <span class="text-brand-primary italic"
+          >Aventura</span
+        > Con Nosotros
+      </h2>
+    </div>
+
+    <!-- Features Grid -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-12 pt-12 border-t border-brand-dark/5"
+    >
+      {
+        highlights.map((item) => (
+          <div class="group">
+            <div class="w-16 h-16 rounded-2xl bg-white border border-brand-dark/5 shadow-soft flex items-center justify-center text-brand-primary mb-8 transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white group-hover:shadow-elevated">
+              <item.Icon class="w-8 h-8" />
+            </div>
+            <h3 class="text-2xl font-semibold text-brand-dark mb-4 transition-colors duration-300 group-hover:text-brand-primary">
+              {item.title}
+            </h3>
+            <p class="text-lg text-brand-dark-muted leading-relaxed max-w-sm">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,109 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "@/assets/hero-mapi.avif";
+---
+
+<section class="relative h-dvh w-full overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <Image
+      id="hero-bg"
+      src={heroImage}
+      alt="Amanecer en la Ciudadela de Machu Picchu"
+      class="w-full h-full object-cover"
+      widths={[375, 768, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      quality={75}
+    />
+    <div
+      class="absolute inset-0 bg-linear-to-t from-brand-dark/70 via-brand-dark/30 to-brand-dark/10"
+    >
+    </div>
+  </div>
+
+  <!-- Content Container -->
+  <div
+    class="relative z-10 h-full w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-end pb-16 md:pb-20"
+  >
+    <!-- Layout: texto izquierda, botones derecha abajo -->
+    <div
+      class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12"
+    >
+      <!-- Bloque de texto -->
+      <div class="max-w-2xl">
+        <span
+          class="hero-fade inline-block text-brand-primary font-semibold tracking-[0.25em] uppercase text-xs md:text-sm mb-4 md:mb-5"
+          style="animation-delay: 0.1s"
+        >
+          Viajes extraordinarios
+        </span>
+
+        <h1
+          class="hero-fade text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[0.92] tracking-tight mb-6 md:mb-8"
+          style="animation-delay: 0.25s"
+        >
+          Descubre<br />
+          <span class="text-brand-primary">Perú</span>
+        </h1>
+
+        <p
+          class="hero-fade text-base md:text-lg text-white/75 font-light max-w-lg leading-relaxed"
+          style="animation-delay: 0.4s"
+        >
+          Paquetes de viaje diseñados para quienes buscan experiencias
+          auténticas. Desde las alturas de Cusco hasta la inmensidad del
+          Amazonas.
+        </p>
+      </div>
+
+      <!-- Botones — esquina inferior derecha en desktop -->
+      <div
+        class="hero-fade flex flex-col sm:flex-row md:flex-col gap-3 md:gap-4 shrink-0"
+        style="animation-delay: 0.55s"
+      >
+        <a
+          href="#tours"
+          class="group btn-brand px-8 py-4 rounded-full font-bold text-center flex items-center justify-center gap-2 text-sm md:text-base"
+        >
+          Explorar Tours
+          <svg
+            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+        <a
+          href="#destinos"
+          class="btn-outline-light px-8 py-4 rounded-full font-bold text-center text-sm md:text-base"
+        >
+          Nuestros Destinos
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes heroFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

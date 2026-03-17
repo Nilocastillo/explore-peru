@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Premium Palette ─── */
+  /* Primary: Teal spectrum */
+  --color-brand-primary: oklch(0.65 0.11 200);
+  --color-brand-primary-light: oklch(0.75 0.15 200);
+  --color-brand-primary-dark: oklch(0.55 0.10 200);
+  --color-brand-primary-subtle: oklch(0.96 0.02 200);
+
+  /* Base: Deep navy spectrum */
+  --color-brand-dark: oklch(0.25 0.05 240);
+  --color-brand-dark-soft: oklch(0.32 0.06 240);
+  --color-brand-dark-muted: oklch(0.35 0.05 240);
+
+  /* Neutrals */
+  --color-brand-black: oklch(0.18 0.01 200);
+  --color-brand-bg: oklch(0.96 0.01 200);
+  --color-brand-gray: oklch(0.94 0.01 200);
+  --color-brand-gray-warm: oklch(0.90 0.01 200);
+  --color-brand-light: oklch(0.99 0.005 200);
+
+  /* Accent: Gold for premium highlights */
+  --color-brand-accent: oklch(0.75 0.12 85);
+  --color-brand-accent-light: oklch(0.85 0.10 85);
+
+  /* Semantic */
+  --color-brand-success: oklch(0.78 0.16 170);
+  --color-brand-error: oklch(0.65 0.18 25);
+
+  /* ─── Shadows ─── */
+  --shadow-glass: 0 8px 32px 0 oklch(0.25 0.05 240 / 0.12);
+  --shadow-nav: 0px 4px 24px 0px oklch(0 0 0 / 0.04);
+  --shadow-soft: 0 10px 40px -10px oklch(0.25 0.05 240 / 0.08);
+  --shadow-card:
+    0 4px 6px -1px oklch(0.25 0.05 240 / 0.08),
+    0 2px 4px -1px oklch(0.25 0.05 240 / 0.04);
+  --shadow-elevated:
+    0 20px 60px -12px oklch(0.25 0.05 240 / 0.15),
+    0 8px 24px -8px oklch(0.65 0.11 200 / 0.06);
+}
+
+@layer components {
+
+  .glass-pill-nav {
+    background-color: oklch(1 0 0 / 0.8);
+    box-shadow: var(--shadow-nav);
+    backdrop-filter: blur(7px);
+    @apply border border-white/5 rounded-full px-6 py-3 transition-all duration-300;
+  }
+
+  .btn-brand {
+    @apply bg-linear-to-br from-brand-primary to-brand-primary-dark text-white font-medium transition-all duration-300;
+  }
+
+  .btn-brand:hover {
+    @apply -translate-y-0.5 shadow-xl shadow-brand-primary/20;
+  }
+
+  .btn-outline-light {
+    @apply bg-white/8 border border-white/20 text-white backdrop-blur-sm transition-all duration-300;
+  }
+
+  .btn-outline-light:hover {
+    @apply bg-white/15 border-brand-primary/40 text-brand-primary-light;
+  }
+
+}

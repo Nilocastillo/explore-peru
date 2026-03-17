@@ -1,0 +1,43 @@
+---
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<Font cssVariable="--font-manrope" preload />
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="description"
+      content="Explore Peru - Agencia de viajes especializada en experiencias auténticas por Perú. Tours a Machu Picchu, Cusco, Amazonas y más."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <meta property="og:title" content="Explore Peru - Viajes Extraordinarios" />
+    <meta
+      property="og:description"
+      content="Paquetes de viaje diseñados para quienes buscan experiencias auténticas en Perú."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <title>Explore Peru - Viajes Extraordinarios</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    font-family: var(--font-manrope);
+    background-color: #f3f0ee;
+  }
+</style>

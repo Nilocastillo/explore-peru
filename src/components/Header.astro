@@ -1,0 +1,114 @@
+---
+const navItems = [
+  { text: "Empresa", href: "/#empresa" },
+  { text: "Tours", href: "/#tours" },
+  { text: "Paquetes", href: "/#paquetes" },
+  { text: "Blog", href: "/#" },
+  { text: "Transporte", href: "/#transporte" },
+];
+---
+
+<header
+  class="fixed top-4 md:top-6 left-0 right-0 z-[100] flex justify-center px-4 w-full"
+>
+  <nav
+    class="glass-pill-nav flex items-center font-semibold justify-between gap-4 md:gap-8 max-w-7xl w-full lg:px-10 lg:py-6 px-6 py-3 text-brand-black"
+  >
+    <a
+      href="/"
+      class="flex items-center gap-2 group cursor-pointer text-base"
+      onclick="window.scrollTo(0,0)"
+    >
+      <img
+        src="/explore.svg"
+        alt="Logotipo Agencia de Viajes Explore Peru"
+        class="h-10 lg:h-15 w-auto object-contain"
+        width={350}
+        height={146}
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
+    <div class="hidden md:flex items-center gap-6">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="px-4 py-2 text-brand-black hover:text-brand-primary transition-colors"
+          >
+            {item.text}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-1">
+      <a
+        href="/#contacto"
+        class="hidden md:inline-flex btn-brand px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider shadow-lg"
+      >
+        Contactanos
+      </a>
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-full transition"
+      >
+        <span class="flex flex-col gap-1.5">
+          <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
+          <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
+          <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
+        </span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Menu -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[110] bg-slate-900/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex items-center justify-center"
+>
+  <button
+    id="close-menu"
+    class="absolute top-8 right-8 text-white text-2xl w-10 h-10 flex items-center justify-center"
+  >
+    <span class="flex flex-col gap-1.5">
+      <span class="w-6 h-0.5 bg-white rounded rotate-45 translate-y-1.5"></span>
+      <span class="w-6 h-0.5 bg-white rounded -rotate-45 -translate-y-1.5"
+      ></span>
+    </span>
+  </button>
+  <div class="flex flex-col items-center gap-6 w-full px-8 text-center">
+    {
+      navItems.map((item) => (
+        <a href={item.href} class="mobile-link text-xl font-medium text-white">
+          {item.text}
+        </a>
+      ))
+    }
+    <a
+      href="/#contacto"
+      class="mobile-link btn-brand px-8 py-3 rounded-full text-lg font-bold w-full max-w-xs mt-4"
+      >Contactanos</a
+    >
+  </div>
+</div>
+
+<script>
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const closeMenuBtn = document.getElementById("close-menu");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
+
+  function toggleMenu() {
+    mobileMenu?.classList.toggle("translate-x-full");
+  }
+
+  mobileMenuBtn?.addEventListener("click", toggleMenu);
+  closeMenuBtn?.addEventListener("click", toggleMenu);
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", toggleMenu);
+  });
+</script>
