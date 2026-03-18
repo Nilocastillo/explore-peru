@@ -1,0 +1,87 @@
+---
+import TourCard from "@/components/TourCard.astro";
+
+const tours = [
+  { 
+    title: "Tours a Machupicchu (Full Day)", 
+    days: "1 día", 
+    difficulty: "Moderada",
+    price: "$150"
+  },
+  { 
+    title: "Tours a Machupicchu (2D/1N)", 
+    days: "2 días", 
+    difficulty: "Moderada",
+    price: "$280"
+  },
+  { 
+    title: "Camino Inca", 
+    days: "4 días", 
+    difficulty: "Difícil",
+    price: "$550"
+  },
+  { 
+    title: "Salkantay - Inka Jungle", 
+    days: "5 días", 
+    difficulty: "Moderada",
+    price: "$480"
+  },
+  { 
+    title: "City Tour", 
+    days: "1 día", 
+    difficulty: "Fácil",
+    price: "$45"
+  },
+  { 
+    title: "Valle Sagrado", 
+    days: "1 día", 
+    difficulty: "Fácil",
+    price: "$65"
+  },
+];
+
+const popularTours = tours.slice(0, 6);
+---
+
+<section id="tours" class="py-24 px-6 bg-brand-bg">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16">
+      <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6 border border-brand-primary/20">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mr-2"></span>
+        Experiencias Destacadas
+      </span>
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <h2 class="text-4xl md:text-6xl font-medium tracking-tight text-brand-dark leading-[1.1] max-w-xl">
+          Tours Más <span class="text-brand-primary italic">Populares</span>
+        </h2>
+        <a
+          href="/tours"
+          class="btn-brand px-8 py-4 rounded-full font-bold inline-flex items-center gap-2 shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand-primary/20 transition-all duration-300"
+        >
+          Ver más paquetes
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {popularTours.map((tour) => (
+        <TourCard {...tour} />
+      ))}
+    </div>
+
+    <div class="mt-12 text-center md:hidden">
+      <a
+        href="/tours"
+        class="btn-brand px-8 py-4 rounded-full font-bold inline-flex items-center gap-2 shadow-lg"
+      >
+        Ver más paquetes
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

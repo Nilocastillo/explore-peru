@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "@/assets/hero-mapi.avif";
+
+interface Props {
+  title: string;
+  description?: string;
+  days?: string;
+  difficulty?: string;
+  price?: string;
+  imageSrc?: ImageMetadata;
+  href?: string;
+}
+
+const { 
+  title, 
+  description = "Vive una experiencia única explorando los paisajes más impresionante del Perú con guías locales expertos.",
+  days = "1 día",
+  difficulty = "Moderada",
+  price = "$120",
+  imageSrc = heroImage, 
+  href = "/tours" 
+} = Astro.props;
+---
+
+<article class="group relative overflow-hidden rounded-2xl bg-white shadow-card hover:shadow-elevated transition-all duration-300 flex flex-col">
+  <a href={href} class="block flex flex-col h-full">
+    <div class="relative aspect-[4/3] overflow-hidden">
+      <Image
+        src={imageSrc}
+        alt={title}
+        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.03]"
+        widths={[375, 640, 800]}
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/10 transition-all duration-300"></div>
+      <div class="absolute top-4 right-4">
+        <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-brand-dark text-xs font-semibold shadow-md">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          Popular
+        </span>
+      </div>
+    </div>
+    
+    <div class="p-6 flex flex-col flex-grow transition-colors duration-300">
+      <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors duration-300 mb-2">
+        {title}
+      </h3>
+      
+      <p class="text-sm text-brand-dark-muted leading-relaxed mb-4 line-clamp-2">
+        {description}
+      </p>
+      
+      <div class="flex items-center gap-4 mb-4 text-sm">
+        <div class="flex items-center gap-1.5 text-brand-dark">
+          <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span class="font-medium">{days}</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-brand-dark">
+          <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+          </svg>
+          <span class="font-medium">{difficulty}</span>
+        </div>
+      </div>
+      
+      <div class="mt-auto flex items-center justify-between pt-4 border-t border-brand-dark/5">
+        <div>
+          <span class="text-xs text-brand-dark-muted">Desde</span>
+          <p class="text-2xl font-bold text-brand-primary">{price}</p>
+        </div>
+        <span class="btn-brand px-5 py-2.5 rounded-full text-sm font-semibold">
+          Ver detalles
+        </span>
+      </div>
+    </div>
+  </a>
+</article>
