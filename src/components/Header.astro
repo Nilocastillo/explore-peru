@@ -48,11 +48,15 @@ const navItems = [
         href="/#contacto"
         class="hidden md:inline-flex btn-brand px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider shadow-lg"
       >
-        Contactanos
+        Contáctanos
       </a>
       <button
         id="mobile-menu-btn"
-        class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-full transition"
+        type="button"
+        aria-label="Abrir menú"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        class="md:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full transition"
       >
         <span class="flex flex-col gap-1.5">
           <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
@@ -67,11 +71,14 @@ const navItems = [
 <!-- Mobile Menu -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 z-[110] bg-slate-900/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex items-center justify-center"
+  aria-hidden="true"
+  class="fixed inset-0 z-[110] bg-brand-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex items-center justify-center"
 >
   <button
     id="close-menu"
-    class="absolute top-8 right-8 text-white text-2xl w-10 h-10 flex items-center justify-center"
+    type="button"
+    aria-label="Cerrar menú"
+    class="absolute top-8 right-8 text-white text-2xl w-10 h-10 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full"
   >
     <span class="flex flex-col gap-1.5">
       <span class="w-6 h-0.5 bg-white rounded rotate-45 translate-y-1.5"></span>
@@ -90,7 +97,7 @@ const navItems = [
     <a
       href="/#contacto"
       class="mobile-link btn-brand px-8 py-3 rounded-full text-lg font-bold w-full max-w-xs mt-4"
-      >Contactanos</a
+      >Contáctanos</a
     >
   </div>
 </div>
@@ -101,14 +108,19 @@ const navItems = [
   const mobileMenu = document.getElementById("mobile-menu");
   const mobileLinks = document.querySelectorAll(".mobile-link");
 
-  function toggleMenu() {
-    mobileMenu?.classList.toggle("translate-x-full");
+  function setMenuOpen(isOpen) {
+    mobileMenu?.classList.toggle("translate-x-full", !isOpen);
+    mobileMenu?.setAttribute("aria-hidden", String(!isOpen));
+    mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));
   }
 
-  mobileMenuBtn?.addEventListener("click", toggleMenu);
-  closeMenuBtn?.addEventListener("click", toggleMenu);
+  mobileMenuBtn?.addEventListener("click", () => {
+    const isOpen = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+    setMenuOpen(!isOpen);
+  });
+  closeMenuBtn?.addEventListener("click", () => setMenuOpen(false));
 
   mobileLinks.forEach((link) => {
-    link.addEventListener("click", toggleMenu);
+    link.addEventListener("click", () => setMenuOpen(false));
   });
 </script>

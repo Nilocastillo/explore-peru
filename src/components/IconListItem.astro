@@ -1,0 +1,23 @@
+---
+interface Props {
+  icon: any;
+  tone?: "check" | "x" | "accent";
+}
+
+const { icon: Icon, tone = "check" } = Astro.props;
+
+const toneClasses = {
+  check: "bg-brand-primary/10 text-brand-primary",
+  x: "bg-brand-error/10 text-brand-error",
+  accent: "bg-brand-accent/20 text-brand-dark",
+}[tone];
+---
+
+<div class="my-3 flex gap-3 text-base leading-relaxed text-brand-dark-muted">
+  <span class={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${toneClasses}`}>
+    <Icon />
+  </span>
+  <p class="min-w-0 pt-0.5">
+    <slot />
+  </p>
+</div>

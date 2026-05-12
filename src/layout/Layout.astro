@@ -5,6 +5,20 @@ import { ClientRouter } from "astro:transitions";
 
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const {
+  title = "XPLORE PERÚ - Viajes Extraordinarios",
+  description = "XPLORE PERÚ - Agencia de viajes especializada en experiencias auténticas por Perú. Tours a Machu Picchu, Cusco, Amazonas y más.",
+  image,
+  type = "website",
+} = Astro.props;
 ---
 
 <Font cssVariable="--font-manrope" preload />
@@ -13,19 +27,19 @@ import Footer from "@/components/Footer.astro";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta
-      name="description"
-      content="XPLORE PERÚ - Agencia de viajes especializada en experiencias auténticas por Perú. Tours a Machu Picchu, Cusco, Amazonas y más."
-    />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url} />
     <meta name="theme-color" content="#0f172a" />
-    <meta property="og:title" content="XPLORE PERÚ - Viajes Extraordinarios" />
-    <meta
-      property="og:description"
-      content="Paquetes de viaje diseñados para quienes buscan experiencias auténticas en Perú."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={Astro.url} />
-    <title>XPLORE PERÚ - Viajes Extraordinarios</title>
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {image && <meta name="twitter:image" content={image} />}
+    <title>{title}</title>
     <ClientRouter />
   </head>
   <body>
@@ -38,6 +52,6 @@ import Footer from "@/components/Footer.astro";
 <style is:global>
   body {
     font-family: var(--font-manrope);
-    background-color: #f3f0ee;
+    background-color: var(--color-brand-bg);
   }
 </style>
