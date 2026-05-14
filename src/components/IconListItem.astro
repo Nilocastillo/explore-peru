@@ -7,14 +7,14 @@ interface Props {
 const { icon: Icon, tone = "check" } = Astro.props;
 
 const toneClasses = {
-  check: "bg-brand-primary/10 text-brand-primary",
-  x: "bg-brand-error/10 text-brand-error",
-  accent: "bg-brand-accent/20 text-brand-dark",
+  check: "bg-green-100 text-green-600 ring-green-500/25",
+  x: "bg-red-100 text-red-600 ring-red-500/25",
+  accent: "bg-amber-100 text-amber-600 ring-amber-500/30",
 }[tone];
 ---
 
 <div class="my-3 flex gap-3 text-base leading-relaxed text-brand-dark-muted">
-  <span class={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${toneClasses}`}>
+  <span class={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-1 ${toneClasses}`}>
     <Icon />
   </span>
   <p class="min-w-0 pt-0.5">
