@@ -1,0 +1,127 @@
+---
+interface Props {
+  tour?: string;
+  duration?: string;
+  departure?: string;
+  price?: string;
+}
+
+const {
+  tour = "",
+  duration = "",
+  departure = "",
+  price = "",
+} = Astro.props;
+---
+
+<consultation-form>
+  <form class="rounded-2xl border border-brand-dark/10 bg-white p-6 shadow-card sm:p-8" data-consultation-form>
+    <h2 class="text-2xl font-black leading-tight text-brand-dark">
+      {tour || "Consulta de viaje"}
+    </h2>
+
+    <input name="tour" type="hidden" value={tour} />
+    <input name="duration" type="hidden" value={duration} />
+    <input name="departure" type="hidden" value={departure} />
+    <input name="price" type="hidden" value={price} />
+    <input class="hidden" name="company" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <label class="mt-6 block text-sm font-bold text-brand-dark">
+      Nombre completo
+      <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="name" type="text" autocomplete="name" required />
+    </label>
+
+    <label class="mt-4 block text-sm font-bold text-brand-dark">
+      WhatsApp
+      <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="phone" type="tel" autocomplete="tel" required />
+    </label>
+
+    <label class="mt-4 block text-sm font-bold text-brand-dark">
+      Correo electrónico
+      <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="email" type="email" autocomplete="email" />
+    </label>
+
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      <label class="block text-sm font-bold text-brand-dark">
+        Fecha tentativa
+        <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="date" type="date" />
+      </label>
+
+      <label class="block text-sm font-bold text-brand-dark">
+        Pasajeros
+        <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="travelers" type="number" min="1" inputmode="numeric" placeholder="2" />
+      </label>
+    </div>
+
+    <label class="mt-4 block text-sm font-bold text-brand-dark">
+      Mensaje
+      <textarea class="mt-2 min-h-28 w-full resize-y rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="message" placeholder="Cuéntanos qué tour te interesa o qué necesitas saber."></textarea>
+    </label>
+
+    <button class="btn-brand mt-5 flex w-full items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-70" type="submit" data-submit-button>
+      Solicitar información
+    </button>
+
+    <p class="mt-4 hidden rounded-xl px-4 py-3 text-sm font-semibold" data-form-status aria-live="polite"></p>
+  </form>
+</consultation-form>
+
+<script>
+  class ConsultationFormElement extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector("[data-consultation-form]");
+      const status = this.querySelector("[data-form-status]");
+      const button = this.querySelector("[data-submit-button]");
+
+      if (!(form instanceof HTMLFormElement) || !(status instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      if (form.dataset.bound === "true") {
+        return;
+      }
+
+      form.dataset.bound = "true";
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        button.disabled = true;
+        button.textContent = "Enviando...";
+        status.className = "mt-4 rounded-xl bg-brand-primary/10 px-4 py-3 text-sm font-semibold text-brand-primary";
+        status.textContent = "Estamos enviando tu consulta.";
+
+        try {
+          const response = await fetch("/api/consultar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            throw new Error(result?.message ?? "No pudimos enviar la consulta.");
+          }
+
+          form.reset();
+          status.className = "mt-4 rounded-xl bg-brand-success/15 px-4 py-3 text-sm font-semibold text-brand-dark";
+          status.textContent = "Consulta enviada. Te responderemos pronto.";
+        } catch (error) {
+          status.className = "mt-4 rounded-xl bg-brand-error/10 px-4 py-3 text-sm font-semibold text-brand-error";
+          status.textContent = error instanceof Error ? error.message : "No pudimos enviar la consulta. Intenta nuevamente.";
+        } finally {
+          button.disabled = false;
+          button.textContent = "Solicitar información";
+        }
+      });
+    }
+  }
+
+  if (!customElements.get("consultation-form")) {
+    customElements.define("consultation-form", ConsultationFormElement);
+  }
+</script>

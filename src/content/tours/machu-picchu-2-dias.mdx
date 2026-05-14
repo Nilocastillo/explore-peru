@@ -1,0 +1,107 @@
+---
+title: "Machu Picchu 2 Días"
+duration: "2 días / 1 noche"
+location: "Cusco, Valle Sagrado y Machu Picchu"
+departure: "Salidas diarias"
+category:
+  - "Machu Picchu"
+description: "Vive una experiencia completa hacia Machu Picchu combinando el Valle Sagrado de los Incas, viaje en tren a Aguas Calientes y visita guiada a la ciudadela inca. Un itinerario de 2 días ideal para conocer Pisac, Urubamba, Ollantaytambo y la maravilla del mundo con mayor calma."
+image: "../../assets/hero-mapi.avif"
+alt: "Machu Picchu 2 Días"
+meta_title: "Tour Machu Picchu 2 Días | Valle Sagrado, Tren y Ciudadela Inca"
+meta_description: "Reserva el Tour Machu Picchu 2 Días con Valle Sagrado, tren Ollantaytambo - Aguas Calientes, hotel, guiado profesional, ingresos y traslados incluidos."
+difficulty: "Grado I"
+walkingTime: "2 hrs. aprox. en Machu Picchu"
+price: "Consultar"
+badge: "Machu Picchu + Valle Sagrado"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Día 1",
+    title: "Tour al Valle Sagrado de los Incas",
+    description:
+      "Este día realizaremos el tour al Valle Sagrado de los Incas. El recorrido inicia a las 08:00 hrs con el recojo desde su hotel. El primer lugar de visita será Pisac, donde conoceremos su típico mercado de artesanías y el grupo arqueológico, reconocido por sus pintorescas terrazas cultivadas en la montaña.\n\nDespués nos dirigiremos hacia Urubamba, donde tendremos incluido un almuerzo buffet. Continuando con el tour, visitaremos la Fortaleza de Ollantaytambo, conocida también como la ciudad inca viviente.\n\nFinalmente, nos dirigiremos a la estación de trenes de Ollantaytambo para abordar el tren de las 16:36 hrs con destino a Aguas Calientes, donde llegaremos aproximadamente a las 18:09 hrs. Pernoctaremos en el hotel seleccionado en Aguas Calientes, pueblo de Machu Picchu.",
+  },
+  {
+    day: "Día 2",
+    title: "Tour a Machu Picchu, la ciudad perdida de los Incas",
+    description:
+      "Luego de levantarnos muy temprano y tomar desayuno, subiremos a la ciudadela inca de Machu Picchu para apreciar el espectacular amanecer de esta maravilla. Después realizaremos una excursión guiada de aproximadamente 2 horas por la ciudadela, visitando sus recintos más importantes: la Plaza Principal, la Torre Circular, el Sagrado Reloj Solar, los Cuartos Reales, el Templo de las Tres Ventanas y los cementerios.\n\nConcluido el recorrido por Machu Picchu, opcionalmente podrá realizar el trekking hasta la cumbre del Huayna Picchu o al sector Montaña. Esta visita es sin guía y toma algunas horas.\n\nLuego bajaremos en bus a Aguas Calientes y, por la tarde, tomaremos el tren de regreso a Ollantaytambo. Allí nuestro personal estará esperando para trasladarlo en bus hacia la ciudad del Cusco y llevarlo a su hotel.",
+  },
+];
+
+<section id="description">
+  <H2Tours>Descripción de la experiencia</H2Tours>
+
+  <p>
+    Este tour de 2 días une dos experiencias esenciales de Cusco: el Valle
+    Sagrado de los Incas y Machu Picchu. Durante el primer día visitaremos
+    Pisac, Urubamba y Ollantaytambo, combinando mercados tradicionales,
+    terrazas agrícolas, arquitectura inca y paisajes andinos antes de viajar en
+    tren hacia Aguas Calientes.
+  </p>
+
+  <p>
+    El segundo día estará dedicado a la ciudadela de Machu Picchu. Subiremos
+    temprano para disfrutar el amanecer y recorreremos sus principales sectores
+    junto a un guía profesional. Luego retornaremos a Aguas Calientes para tomar
+    el tren hacia Ollantaytambo y continuar en bus hasta Cusco.
+  </p>
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerario</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Incluye</H2Tours>
+  <IconListItem icon={IncludesIcon}>Todos los traslados desde su hotel, estaciones y atractivos turísticos a visitar.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Tours a Machu Picchu y Valle Sagrado de los Incas.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Todos los transportes para los tours.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Pasajes de tren ida y vuelta Ollantaytambo - Machu Picchu - Ollantaytambo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus de Ollantaytambo a Cusco.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus de subida y bajada Aguas Calientes - Machu Picchu - Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Guía profesional de turismo en idioma inglés o español.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ingresos a Machu Picchu y atractivos del Valle Sagrado.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transfer en todos los despachos.</IconListItem>
+  <IconListItem icon={IncludesIcon}>1 noche de hotel en Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>1 desayuno buffet en el hotel y 1 almuerzo buffet durante el tour al Valle Sagrado.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>No incluye</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Ingreso y guiado para Huayna Picchu o sector Montaña.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Alimentación no mencionada en el programa.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Gastos personales y propinas.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recomendaciones</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar documento de identidad o pasaporte vigente durante todo el viaje.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Presentarse con anticipación en la estación de tren según las indicaciones del equipo.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Usar ropa cómoda, calzado ligero para caminata, bloqueador solar, repelente y poncho de lluvia.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Importante a considerar</H2Tours>
+  <p>
+    El trekking a Huayna Picchu o sector Montaña es opcional, se realiza sin
+    guía y requiere disponibilidad de ingreso adicional. Los horarios de tren
+    pueden variar según disponibilidad al momento de la reserva.
+  </p>
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+    <p>
+      <strong>Dificultad:</strong> Grado I. La visita principal contempla una
+      caminata ligera dentro de Machu Picchu, con un guiado aproximado de 2
+      horas.
+    </p>
+  </div>
+</section>

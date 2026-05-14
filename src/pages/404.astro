@@ -1,0 +1,35 @@
+---
+import Layout from "@/layout/Layout.astro";
+---
+
+<Layout
+  title="Página no encontrada | XPLORE PERÚ"
+  description="La página que buscas no existe o fue movida. Explora nuestros tours y experiencias por Perú."
+>
+  <main class="relative min-h-screen overflow-hidden bg-brand-dark px-6 pt-32 text-white sm:px-8 lg:px-12">
+    <div class="absolute inset-0 opacity-20" aria-hidden="true">
+      <div class="absolute left-[-8rem] top-24 h-80 w-80 rounded-full bg-brand-primary blur-3xl"></div>
+      <div class="absolute bottom-[-10rem] right-[-8rem] h-96 w-96 rounded-full bg-brand-accent blur-3xl"></div>
+    </div>
+
+    <section class="relative z-10 mx-auto flex min-h-[72svh] max-w-5xl flex-col items-center justify-center text-center">
+      <span class="rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[0.18em] text-brand-primary-light backdrop-blur-sm">
+        Error 404
+      </span>
+      <h1 class="mt-8 text-6xl font-black leading-none tracking-tight sm:text-7xl lg:text-8xl">
+        Ruta no encontrada
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/72 sm:text-xl">
+        La página que buscas no existe o cambió de ubicación. Puedes volver al inicio o revisar nuestras experiencias disponibles.
+      </p>
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
+        <a href="/" class="btn-brand rounded-full px-8 py-4 text-base font-black shadow-lg">
+          Volver al inicio
+        </a>
+        <a href="/tours" class="rounded-full border border-white/20 bg-white/10 px-8 py-4 text-base font-black text-white backdrop-blur-sm transition hover:bg-white/15">
+          Ver tours
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

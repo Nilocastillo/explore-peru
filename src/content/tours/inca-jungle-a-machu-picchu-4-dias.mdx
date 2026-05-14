@@ -1,0 +1,126 @@
+---
+title: "Inca Jungle a Machu Picchu 4 Días"
+duration: "4 días / 3 noches"
+location: "Cusco, Santa María, Santa Teresa y Machu Picchu"
+departure: "Recojo 07:00 hrs desde hotel"
+category:
+  - "Aventura"
+  - "Machu Picchu"
+  - "Paquetes"
+description: "Vive el Inca Jungle a Machu Picchu en 4 días, una experiencia de aventura que combina bicicleta, caminatas por selva alta, baños termales, paisajes del Valle Sagrado y visita guiada a la ciudadela inca."
+image: "../../assets/hero-mapi.avif"
+alt: "Inca Jungle a Machu Picchu 4 Días"
+meta_title: "Inca Jungle a Machu Picchu 4 Días | Bicicleta, Trekking y Ciudadela Inca"
+meta_description: "Reserva el Inca Jungle a Machu Picchu 4 Días. Incluye transporte privado, bicicleta con casco y guantes, alimentación, albergues, guía profesional, ingreso a Machu Picchu y tren de retorno."
+difficulty: "Grado III"
+walkingTime: "Trekking y bicicleta de aventura"
+price: "Consultar"
+badge: "Aventura Inca Jungle"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Día 1",
+    title: "Cusco, Abra Málaga y Santa María",
+    description:
+      "Salimos de sus respectivos hoteles por la mañana, aproximadamente a las 07:00 hrs, en transporte privado desde Cusco hacia el Valle Sagrado de los Incas. Durante el trayecto observaremos hermosos paisajes y poblados como Chinchero y Ollantaytambo.\n\nLuego continuaremos por carretera hasta llegar al Apu Abra Málaga, a 4350 m.s.n.m., desde donde se pueden apreciar nevados como Wakaywillka o Verónica, de 5650 m.s.n.m. La llegada será aproximadamente al mediodía.\n\nDesde este punto iniciaremos el descenso en bicicleta desde la región altoandina hacia la selva alta, apreciando la flora, fauna y el cambio climático del recorrido. Pasaremos por lugares como Alfa Mayo, Huamanmarca, Amaybamba y Huyro, disfrutando del paisaje y del cruce de ríos hasta llegar a Santa María, donde cenaremos y pasaremos la primera noche.",
+  },
+  {
+    day: "Día 2",
+    title: "Santa María, camino inca y Santa Teresa",
+    description:
+      "Nos despertaremos temprano, aproximadamente a las 06:00 hrs. Después del desayuno comenzaremos la caminata siguiendo las orillas del río Urubamba por unos 2 km. Luego subiremos por un camino de herradura que nos llevará hacia un antiguo sendero inca en medio de la selva alta.\n\nDurante la ruta disfrutaremos de animales de la región, árboles frutales y vistas del entorno hasta llegar a la zona de Wamanqasa, el punto más alto del día. Desde allí recorreremos aproximadamente 5 km por impresionantes gradas, con vistas al nevado Salkantay.\n\nContinuaremos por el valle hasta llegar al pueblo de Qellomayo para almorzar. Después seguiremos hacia los baños termales de Cocalmayo, llegando alrededor de las 16:00 o 17:00 hrs. Finalmente caminaremos unos 30 minutos hasta Santa Teresa, donde cenaremos y pasaremos la segunda noche.",
+  },
+  {
+    day: "Día 3",
+    title: "Santa Teresa, Hidroeléctrica y Aguas Calientes",
+    description:
+      "Nos despertaremos por la mañana, aproximadamente a las 07:00 hrs. Después del desayuno iniciaremos la caminata por la orilla del río Urubamba, cruzando puentes y disfrutando de cascadas hasta llegar a la zona de Hidroeléctrica.\n\nDesde este punto podremos observar la montaña de Machu Picchu y realizar una breve visita a Intiwatana. Luego seguiremos la ruta del tren hasta llegar al lugar de almuerzo en el km 116.\n\nDespués de un buen descanso, continuaremos caminando hasta llegar aproximadamente entre las 15:00 y 16:00 hrs al pueblo de Aguas Calientes. Cena y alojamiento.",
+  },
+  {
+    day: "Día 4",
+    title: "Machu Picchu y retorno a Cusco",
+    description:
+      "Después del desayuno tomaremos uno de los primeros buses hacia la ciudadela de Machu Picchu, donde con un poco de suerte podremos disfrutar de un hermoso amanecer.\n\nEl guía nos ayudará a descubrir sus recintos, la ingeniería arqueológica y la gran historia y cultura de los incas. Luego tendrá tiempo libre para recorrer la ciudadela, tomar fotografías y disfrutar del lugar. Quienes cuenten con energía y entrada adicional podrán optar por subir a la montaña Huayna Picchu, desde donde se obtiene una de las mejores vistas de Machu Picchu.\n\nDespués descenderemos nuevamente a Aguas Calientes para tomar el tren hacia Ollantaytambo y continuar en bus hacia Cusco, con llegada aproximada a las 22:00 hrs.",
+  },
+];
+
+<section id="description">
+  <H2Tours>Descripción de la experiencia</H2Tours>
+
+  <p>
+    El Inca Jungle a Machu Picchu 4 días es una experiencia de aventura que
+    combina descenso en bicicleta, caminatas por selva alta, antiguos senderos
+    incas, baños termales y la visita final a Machu Picchu.
+  </p>
+
+  <p>
+    Durante la ruta cruzaremos paisajes del Valle Sagrado, el Abra Málaga,
+    Santa María, Santa Teresa, Hidroeléctrica y Aguas Calientes. Es una opción
+    dinámica para viajeros que buscan una llegada distinta a la ciudadela inca.
+  </p>
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerario</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Incluye</H2Tours>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Transporte y retorno</h3>
+  <IconListItem icon={IncludesIcon}>Recojo desde el hotel aproximadamente a las 07:00 hrs.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transporte turístico privado.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus de subida de Aguas Calientes a Machu Picchu.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Tren de regreso desde Aguas Calientes a Ollantaytambo y bus hacia Cusco.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Aventura y seguridad</h3>
+  <IconListItem icon={IncludesIcon}>Guantes y casco para bicicleta.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Kit de primeros auxilios.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Alojamiento y alimentación</h3>
+  <IconListItem icon={IncludesIcon}>3 noches de albergue.</IconListItem>
+  <IconListItem icon={IncludesIcon}>3 desayunos, 3 almuerzos y 3 cenas.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Guiado y entradas</h3>
+  <IconListItem icon={IncludesIcon}>Guía profesional en inglés o español, según solicitud.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Entrada al santuario de Machu Picchu.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>No incluye</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Almuerzo del último día.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Bus de bajada Machu Picchu - Aguas Calientes. Puede realizarse caminando en aproximadamente 1 hora y 20 minutos o comprarse por cuenta propia.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Ingreso a Huayna Picchu u otros ingresos adicionales.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Gastos personales y propinas.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recomendaciones</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar ropa cómoda para bicicleta y caminata, zapatillas de trekking y ropa ligera para clima cálido.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar bloqueador solar, repelente, lentes de sol, ropa de baño para Cocalmayo y poncho de lluvia.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Contar con una mochila pequeña para agua, snacks, documentos y artículos personales.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Importante a considerar</H2Tours>
+  <p>
+    El Inca Jungle combina actividades de aventura, bicicleta y caminatas por
+    rutas de selva alta. La subida a Huayna Picchu es opcional, requiere ingreso
+    adicional y está sujeta a disponibilidad.
+  </p>
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+    <p>
+      <strong>Dificultad:</strong> Grado III. El primer día incluye descenso en
+      bicicleta desde Abra Málaga y los días siguientes contemplan caminatas de
+      varias horas.
+    </p>
+  </div>
+</section>

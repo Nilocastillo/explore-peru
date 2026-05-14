@@ -1,0 +1,44 @@
+---
+interface TimelineDay {
+  day: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  days: TimelineDay[];
+}
+
+const { days } = Astro.props;
+---
+
+<ol class="relative space-y-12">
+  {
+    days.map((day, dayIndex) => (
+      <li class="relative grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)]">
+        {dayIndex < days.length - 1 && (
+          <span class="absolute left-5 top-10 hidden h-[calc(100%+3rem)] w-px bg-linear-to-b from-brand-primary/65 via-brand-primary/25 to-brand-primary/5 sm:block" aria-hidden="true" />
+        )}
+
+        <div class="relative z-10 flex sm:justify-center">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-primary/25 bg-brand-primary-subtle text-sm font-black text-brand-primary shadow-soft ring-4 ring-brand-primary/8">
+            {dayIndex + 1}
+          </div>
+        </div>
+
+        <article class="min-w-0 border-l-4 border-brand-primary/25 pl-5 sm:border-l-0 sm:pl-0">
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-brand-primary/20 bg-brand-primary/12 px-4 py-2 text-sm font-black uppercase tracking-[0.14em] text-brand-primary shadow-soft">
+            <span class="h-2 w-2 rounded-full bg-brand-primary" aria-hidden="true" />
+            <span>{day.day}</span>
+          </span>
+          <h3 class="mt-4 text-2xl font-black leading-tight text-brand-dark sm:text-3xl">
+            {day.title}
+          </h3>
+          <p class="mt-4 text-base leading-relaxed text-brand-dark-muted whitespace-pre-line sm:text-lg">
+            {day.description}
+          </p>
+        </article>
+      </li>
+    ))
+  }
+</ol>

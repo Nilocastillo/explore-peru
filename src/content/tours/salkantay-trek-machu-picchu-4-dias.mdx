@@ -1,0 +1,134 @@
+---
+title: "Salkantay Trek Machu Picchu 4 Días"
+duration: "4 días / 3 noches"
+location: "Cusco, Salkantay y Machu Picchu"
+departure: "Salida 05:00 hrs desde Cusco"
+category:
+  - "Machu Picchu"
+description: "Vive el Salkantay Trek a Machu Picchu en 4 días, una ruta de aventura por paisajes altoandinos, lagunas glaciares, bosque nuboso y comunidades locales. Cruza el Paso Salkantay, desciende hacia la ceja de selva y culmina con la visita guiada a Machu Picchu."
+image: "../../assets/hero-mapi.avif"
+alt: "Salkantay Trek Machu Picchu 4 Días"
+meta_title: "Salkantay Trek Machu Picchu 4 Días | Ruta de Aventura en Cusco"
+meta_description: "Reserva el Salkantay Trek Machu Picchu 4 Días. Incluye transporte, domos, hotel en Aguas Calientes, alimentación, guía bilingüe, ingreso a Salkantay y Machu Picchu."
+difficulty: "Grado III"
+walkingTime: "Trekking de 4 días"
+price: "Consultar"
+badge: "Ruta Salkantay"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Día 1",
+    title: "Cusco, Mollepata, Challacancha y Soraypampa",
+    description:
+      "Iniciamos nuestra aventura andina saliendo de Cusco a las 5:00 am hacia Challacancha, ubicado a 3400 m.s.n.m., atravesando el pintoresco pueblo de Mollepata, a 3000 m.s.n.m. En Challacancha nos encontraremos con nuestros arrieros para comenzar uno de los trekkings más espectaculares del Perú.\n\nLa ruta nos lleva por un valle majestuoso custodiado por los nevados Humantay, de 5217 m.s.n.m., y Salkantay, de 6264 m.s.n.m. Nuestro primer campamento de montaña se establece en Soraypampa, a 3700 m.s.n.m.\n\nActividad opcional: después del almuerzo recomendamos una caminata adicional a la Laguna Humantay, un destino fotográfico imperdible por sus aguas turquesas glaciales y vistas panorámicas del nevado. Esta excursión desde Soraypampa hasta la laguna toma aproximadamente 3 horas ida y vuelta.",
+  },
+  {
+    day: "Día 2",
+    title: "Soraypampa, Paso Salkantay y Collpapampa",
+    description:
+      "Después de un desayuno energético enfrentaremos el mayor desafío del trek: el ascenso al Paso Salkantay, ubicado a 4600 m.s.n.m. Este punto culminante del recorrido ofrece vistas impresionantes del majestuoso nevado Salkantay y panoramas inolvidables de los Andes peruanos.\n\nPosteriormente iniciaremos el descenso, viviendo una transición ecosistémica fascinante donde el paisaje cambia gradualmente de alta montaña a un entorno más templado. Acamparemos en Collpapampa, a 3000 m.s.n.m., en un microclima tropical con vegetación exuberante.",
+  },
+  {
+    day: "Día 3",
+    title: "Collpapampa, Wiñaypoco, Granadilla, Hidroeléctrica y Aguas Calientes",
+    description:
+      "Al amanecer, después del desayuno, descenderemos a través de un bosque nuboso repleto de biodiversidad andina, donde podremos admirar orquídeas silvestres, bromelias exóticas y bomareas endémicas.\n\nVisitaremos comunidades locales en Wiñaypoco, a 2650 m.s.n.m., y Granadilla, a 2100 m.s.n.m., donde tendremos una experiencia cultural auténtica con familias andinas. Desde Granadilla tomaremos transporte hacia Hidroeléctrica, punto donde almorzaremos.\n\nPara llegar a Aguas Calientes podremos elegir entre continuar caminando o tomar el tren panorámico, servicio opcional. Pasaremos la noche en un confortable hotel en preparación para la visita a Machu Picchu.",
+  },
+  {
+    day: "Día 4",
+    title: "Aguas Calientes, Machu Picchu y Cusco",
+    description:
+      "Llegó el día esperado. Tras nuestro esfuerzo en el trek de Salkantay, recibiremos la recompensa: la visita a Machu Picchu. Partiremos del hotel a las 5:30 am para tomar el bus hacia la ciudadela inca y llegar durante el amanecer andino, cuando los primeros rayos solares iluminan las antiguas piedras.\n\nAcompañados por nuestro guía especializado, exploraremos los secretos de la civilización inca mientras recorremos templos astronómicos, altares ceremoniales, residencias reales y terrazas agrícolas. Esta experiencia nos permitirá comprender la historia ancestral y el legado cultural de los incas.\n\nAl terminar la visita, descenderemos a Aguas Calientes para almorzar y relajarnos un poco. Por la tarde abordaremos el tren de regreso a Ollantaytambo y desde allí continuaremos en transporte terrestre hasta Cusco.",
+  },
+];
+
+<section id="description">
+  <H2Tours>Descripción de la experiencia</H2Tours>
+
+  <p>
+    El Salkantay Trek Machu Picchu 4 días es una ruta de aventura que conecta
+    paisajes altoandinos, nevados imponentes, lagunas glaciares, bosque nuboso
+    y comunidades locales antes de llegar a la maravilla mundial.
+  </p>
+
+  <p>
+    Durante el recorrido cruzaremos el Paso Salkantay, descenderemos hacia
+    ecosistemas tropicales y finalizaremos con una visita guiada a Machu Picchu.
+    Es una experiencia intensa, escénica y completa para viajeros que buscan una
+    alternativa de trekking a la ruta tradicional.
+  </p>
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerario</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Incluye</H2Tours>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Transporte completo</h3>
+  <IconListItem icon={IncludesIcon}>Traslado privado desde su hotel hasta Mollepata / Challacancha, punto de inicio del trek.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transporte terrestre desde Granadilla hasta la estación Hidroeléctrica.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus turístico de subida y bajada entre Aguas Calientes y Machu Picchu.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Tren panorámico desde Aguas Calientes hasta Ollantaytambo y conexión en bus hasta Cusco.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Alojamiento</h3>
+  <IconListItem icon={IncludesIcon}>Domos privados de camping de alta calidad para la primera noche.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Domos confortables para la segunda noche de camping.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Hotel categoría turística en Aguas Calientes para la tercera noche.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Entradas y guiado</h3>
+  <IconListItem icon={IncludesIcon}>Boleto oficial de ingreso al Parque Nacional de Salkantay.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Entrada a la ciudadela de Machu Picchu.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Guía profesional bilingüe, español e inglés, especializado en cultura andina e historia inca.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Equipamiento y logística</h3>
+  <IconListItem icon={IncludesIcon}>Equipo de camping de alta calidad y tecnología moderna.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Alimentación completa durante la excursión: desayunos, almuerzos, cenas y meriendas para el camino.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Opción vegetariana disponible, solicitándola con anticipación.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Cocinero profesional y asistente para la preparación de comidas frescas.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Arrieros locales y mulas para el transporte de equipaje y equipamiento.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Caballo de emergencia disponible para casos de necesidad.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Botiquín de primeros auxilios y botella de oxígeno para emergencias en altura.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>No incluye</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Desayuno del primer día. Recomendamos desayunar en su hotel.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Almuerzo final en Aguas Calientes el cuarto día.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Segundo autobús para bajar de Machu Picchu si decide quedarse más tiempo.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Saco de dormir, disponible para alquiler si no cuenta con uno propio.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Bastones de senderismo, recomendados para el trek y disponibles para alquiler.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Tren opcional desde Hidroeléctrica a Aguas Calientes durante el tercer día.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recomendaciones</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Aclimatarse en Cusco antes de iniciar el trek.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar botas de trekking, ropa por capas, poncho de lluvia y casaca abrigadora.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar bloqueador solar, repelente, linterna frontal, botella de agua y snacks personales.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Solicitar con anticipación la opción vegetariana o requerimientos alimentarios especiales.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Importante a considerar</H2Tours>
+  <p>
+    El Salkantay Trek es una ruta de varios días con pasos de altura y cambios
+    marcados de clima. Se recomienda contar con buena condición física y estar
+    aclimatado antes de iniciar la caminata.
+  </p>
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+    <p>
+      <strong>Dificultad:</strong> Grado III. El recorrido alcanza el Paso
+      Salkantay a 4600 m.s.n.m., el punto más exigente del trek.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,128 @@
+---
+title: "Choquequirao Trek 4 Días"
+duration: "4 días / 3 noches"
+location: "Cusco, Cachora y Choquequirao"
+departure: "Recojo temprano desde hotel"
+category:
+  - "Aventura"
+  - "Paquetes"
+description: "Explora Choquequirao en una ruta de trekking de 4 días por el cañón del Apurímac, caminos de montaña, campamentos andinos y paisajes de la cordillera Vilcabamba. Una experiencia exigente hacia uno de los complejos arqueológicos más impresionantes del Perú."
+image: "../../assets/hero-image.avif"
+alt: "Choquequirao Trek 4 Días"
+meta_title: "Choquequirao Trek 4 Días | Caminata al Complejo Arqueológico"
+meta_description: "Reserva el Choquequirao Trek 4 Días. Incluye transporte privado, guía bilingüe, entrada a Choquequirao, alimentación, equipo de camping, arrieros, caballos de carga y kit de primeros auxilios."
+difficulty: "Grado III"
+walkingTime: "Trekking de 4 días"
+price: "Consultar"
+badge: "Trekking arqueológico"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Día 1",
+    title: "Cusco, Cachora, Paso Capuliyoc y Chiquisca",
+    description:
+      "Partimos muy temprano desde su hotel en Cusco hasta llegar al pintoresco poblado de Cachora, ubicado a 2850 m.s.n.m. Allí nos encontraremos con el equipo de arrieros, quienes cargarán el equipo de camping.\n\nIniciaremos la caminata ascendiendo moderadamente hacia el paso Capuliyoc, a 2800 m.s.n.m., donde las vistas del cañón de Apurímac y de la imponente montaña nevada Padreyoc nos acompañarán. Luego descenderemos por la ladera de la montaña hasta llegar al campamento en Chiquisca, a 1930 m.s.n.m.\n\nSe prevén aproximadamente 7 horas de caminata. El clima será cálido y el campamento será en Chiquisca.",
+  },
+  {
+    day: "Día 2",
+    title: "Chiquisca, Playa Rosalina, Marampata y Choquequirao",
+    description:
+      "Después del desayuno iniciaremos el descenso hacia Playa Rosalina, aproximadamente durante 1 hora, hasta llegar cerca de los 1500 m.s.n.m., a orillas del río Apurímac. Desde allí comenzaremos el ascenso por senderos empinados hacia Marampata, a 2850 m.s.n.m., con paisajes cambiantes y calor intenso durante la subida.\n\nFinalmente alcanzaremos el campamento cerca del complejo arqueológico de Choquequirao, a 3033 m.s.n.m. Esta noche, las puestas de sol en Choquequirao y el majestuoso descenso del cóndor desde las montañas cercanas serán momentos inolvidables.\n\nSe prevén aproximadamente 7 horas de caminata. El clima combina zonas frías y calientes. El campamento será cerca del Centro Arqueológico de Choquequirao.",
+  },
+  {
+    day: "Día 3",
+    title: "Choquequirao, San Ignacio y Carmen Huerto",
+    description:
+      "Despertarás con el amanecer sobre las ruinas de Choquequirao. Luego realizaremos un recorrido guiado por el complejo arqueológico, visitando templos, terrazas, plazas ceremoniales y paisajes del entorno.\n\nDespués tomaremos un camino alternativo menos transitado para descender hasta San Ignacio, aproximadamente a 1500 m.s.n.m. A continuación, la ruta asciende hacia Carmen Huerto, a 2000 m.s.n.m., atravesando panoramas del cañón de Apurímac, vegetación tropical de montaña y la frescura del bosque montano.\n\nEsta etapa demanda alrededor de 5 horas de caminata. El clima será caliente moderado, con presencia de mosquitos. El campamento será en Carmen Huerto.",
+  },
+  {
+    day: "Día 4",
+    title: "Carmen Huerto, Tambo Bamba, Huanipaca y Cusco",
+    description:
+      "En esta travesía final caminaremos desde Carmen Huerto hasta la Hacienda Tambo Bamba, ubicada a 2500 m.s.n.m., visitando comunidades como Pacobamba y Huanipaca, a 3150 m.s.n.m.\n\nDurante el trayecto se pueden apreciar las imponentes cumbres nevadas de la cordillera Vilcabamba, como el Sacsarayoc. Después de una caminata de aproximadamente 5 horas, un transporte nos llevará de regreso a Cusco, concluyendo la aventura.\n\nEn el trayecto de retorno, algunas rutas permiten una parada opcional en los baños termales de Cconoc para relajar las piernas y celebrar el logro. El clima será moderado y caluroso.",
+  },
+];
+
+<section id="description">
+  <H2Tours>Descripción de la experiencia</H2Tours>
+
+  <p>
+    El Choquequirao Trek 4 días es una ruta exigente y profundamente escénica
+    que conecta el cañón del Apurímac con uno de los complejos arqueológicos más
+    impresionantes del Perú.
+  </p>
+
+  <p>
+    Durante el recorrido atravesaremos pasos de montaña, descensos intensos,
+    comunidades locales, campamentos andinos y paisajes de la cordillera
+    Vilcabamba. La experiencia combina naturaleza, historia y caminata de varios
+    días hacia Choquequirao.
+  </p>
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerario</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Incluye</H2Tours>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Transporte</h3>
+  <IconListItem icon={IncludesIcon}>Transporte privado de Cusco a Cachora.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transporte privado de Huanipaca a Cusco.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Guiado y entradas</h3>
+  <IconListItem icon={IncludesIcon}>Servicio de guía bilingüe en inglés o español, según solicitud.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Entrada al complejo arqueológico de Choquequirao.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Alimentación y campamento</h3>
+  <IconListItem icon={IncludesIcon}>Comida durante el recorrido.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Cocinera y ayudante de cocina.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Tienda y equipamiento de cocina.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Equipamiento de camping: tienda para clientes, alfombras, comedor con mesas y sillas.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Soporte de ruta</h3>
+  <IconListItem icon={IncludesIcon}>Arrieros y porteadores.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Caballo de emergencia.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Caballos de carga para equipo de camping, comida y mochila personal de pasajeros.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Kit de primeros auxilios y globo de oxígeno.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>No incluye</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Desayuno del primer día.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Bolsa de dormir.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Ingreso opcional a baños termales de Cconoc, si la ruta permite la parada.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Gastos personales y propinas.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recomendaciones</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Aclimatarse en Cusco antes de iniciar el trek.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar botas de trekking, ropa por capas, poncho de lluvia y casaca abrigadora.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar bloqueador solar, repelente, linterna frontal, botella de agua y snacks personales.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Prepararse para ascensos y descensos prolongados en clima cálido.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Importante a considerar</H2Tours>
+  <p>
+    Esta ruta exige buena condición física por sus descensos pronunciados,
+    ascensos prolongados y cambios de clima. Se recomienda llevar repelente por
+    la presencia de mosquitos en zonas cálidas.
+  </p>
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+    <p>
+      <strong>Dificultad:</strong> Grado III. Los dos primeros días contemplan
+      jornadas aproximadas de 7 horas de caminata.
+    </p>
+  </div>
+</section>

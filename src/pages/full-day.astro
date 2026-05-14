@@ -20,9 +20,9 @@ function resolveTourImage(imagePath: string) {
   return tourImages[normalizedPath]?.default;
 }
 
-// Filtramos por la categoría "Paquetes"
+// Filtramos por la categoría "Machu Picchu"
 const filteredTours = contentTours
-  .filter((tour) => tour.data.category?.includes("Paquetes"))
+  .filter((tour) => tour.data.category?.includes("Full Day"))
   .map((tour) => ({
     title: tour.data.title,
     description: tour.data.description,
@@ -34,7 +34,10 @@ const filteredTours = contentTours
   }));
 ---
 
-<Layout title="Paquetes | XPLORE PERÚ" description="Descubre nuestros paquetes turísticos. Itinerarios completos para conocer Perú.">
+<Layout
+  title="Machu Picchu | XPLORE PERÚ"
+  description="Descubre nuestros tours a Machu Picchu. Vive la experiencia de conocer la maravilla del mundo."
+>
   <section class="pt-32 pb-24 px-6 bg-brand-bg min-h-screen">
     <div class="max-w-7xl mx-auto">
       <div class="mb-16 text-center">
@@ -47,21 +50,26 @@ const filteredTours = contentTours
         <h1
           class="text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight text-brand-dark leading-[1.1] mb-6"
         >
-          Paquetes <span class="text-brand-primary italic">Turísticos</span>
+          Tours a <span class="text-brand-primary italic">Machu Picchu</span>
         </h1>
         <p class="text-lg md:text-xl text-brand-dark-muted max-w-2xl mx-auto">
-          Aprovecha al máximo tu visita con nuestros paquetes que incluyen múltiples destinos y las mejores experiencias.
+          Vive la experiencia de conocer la maravilla del mundo con nuestras
+          opciones diseñadas para ti.
         </p>
       </div>
 
       <div
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
       >
-        {filteredTours.length > 0 ? (
-          filteredTours.map((tour) => <TourCard {...tour} />)
-        ) : (
-          <p class="text-center col-span-full text-brand-dark-muted text-lg mt-8">Próximamente estaremos publicando más paquetes en esta categoría.</p>
-        )}
+        {
+          filteredTours.length > 0 ? (
+            filteredTours.map((tour) => <TourCard {...tour} />)
+          ) : (
+            <p class="text-center col-span-full text-brand-dark-muted">
+              Próximamente más tours en esta categoría.
+            </p>
+          )
+        }
       </div>
 
       <div class="mt-16 text-center">

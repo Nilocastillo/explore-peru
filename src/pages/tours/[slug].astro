@@ -7,6 +7,8 @@ import Layout from "@/layout/Layout.astro";
 import TourContactForm from "@/components/tours/TourContactForm.astro";
 import TourStat from "@/components/tours/TourStat.astro";
 
+export const prerender = true;
+
 const tourImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*.{avif,webp,jpg,jpeg,png}", {
   eager: true,
 });
@@ -32,6 +34,7 @@ const { tour } = Astro.props;
 const { Content } = await render(tour);
 const data = tour.data;
 const imageSrc = resolveTourImage(data.image);
+const consultationUrl = `/consultar?tour=${encodeURIComponent(data.title)}`;
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
@@ -125,7 +128,7 @@ const structuredData = {
               <TourStat label="Salidas" value={data.departure} />
               <TourStat label="Desde" value={data.price ?? "Consultar"} />
             </div>
-            <a href="/#contacto" class="btn-brand mt-4 flex w-full items-center justify-center rounded-full px-6 py-4 text-sm font-bold shadow-lg">
+            <a href={consultationUrl} class="btn-brand mt-4 flex w-full items-center justify-center rounded-full px-6 py-4 text-sm font-bold shadow-lg">
               Solicitar información
             </a>
           </aside>

@@ -1,0 +1,109 @@
+---
+title: "Camino Inca 2 Días"
+duration: "2 días / 1 noche"
+location: "Cusco, Wiñaywayna y Machu Picchu"
+departure: "Recojo 05:45 hrs desde hotel"
+category:
+  - "Machu Picchu"
+description: "Vive la versión corta del Camino Inca en 2 días, iniciando la caminata en el Km 104, visitando Chachabamba, Wiñaywayna e Inti Punku antes de llegar a Machu Picchu. Una ruta ideal para combinar trekking, arqueología y la experiencia de ingresar a la ciudadela por la Puerta del Sol."
+image: "../../assets/hero-mapi.avif"
+alt: "Camino Inca 2 Días"
+meta_title: "Camino Inca 2 Días | Wiñaywayna, Inti Punku y Machu Picchu"
+meta_description: "Reserva el Camino Inca 2 Días a Machu Picchu. Incluye ruta por Km 104, Chachabamba, Wiñaywayna, Inti Punku, noche en Aguas Calientes y visita guiada a la ciudadela."
+difficulty: "Grado II"
+walkingTime: "Caminata aprox. 2.5 hrs a Wiñaywayna"
+price: "Consultar"
+badge: "Camino Inca corto"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Día 1",
+    title: "Wiñaywayna y llegada a Machu Picchu",
+    description:
+      "Los recogemos a las 05:45 hrs desde el hotel y los llevamos a la estación de trenes, donde abordarán el tren con destino al Km 104. Durante el trayecto se podrán divisar paisajes pintorescos hasta llegar al punto de inicio de la caminata.\n\nDesde el grupo arqueológico de Chachabamba, ubicado a 2250 m.s.n.m., iniciaremos el ascenso de aproximadamente 2 horas y media hacia el fascinante grupo arqueológico de Wiñaywayna, a 2650 m.s.n.m., donde disfrutaremos un picnic.\n\nPor la tarde continuaremos por el bosque semitropical hacia Inti Punku, la Puerta del Sol, desde donde tendremos la primera vista panorámica del majestuoso Machu Picchu. Luego descenderemos caminando hacia el pueblo de Aguas Calientes, donde opcionalmente podrán visitar los baños termales. Pernocte en hostal según disponibilidad.",
+  },
+  {
+    day: "Día 2",
+    title: "Machu Picchu y retorno a Cusco",
+    description:
+      "Después del desayuno subiremos en el primer bus a Machu Picchu para disfrutar del amanecer desde este mágico lugar antes de la llegada de otros turistas desde Cusco.\n\nDisfrutaremos la tranquilidad de la ciudad perdida de los Incas durante un tour guiado por la ciudadela y luego contaremos con tiempo libre para recorrerla. Por la tarde bajaremos en bus al pueblo de Aguas Calientes, donde abordaremos el tren de regreso a Ollantaytambo. Finalmente realizaremos el traslado al hotel.",
+  },
+];
+
+<section id="description">
+  <H2Tours>Descripción de la experiencia</H2Tours>
+
+  <p>
+    El Camino Inca de 2 días es una alternativa corta y completa para quienes
+    desean vivir la experiencia de llegar a Machu Picchu caminando por una ruta
+    histórica. El recorrido inicia en el Km 104 y combina sitios arqueológicos,
+    bosque semitropical y la llegada por Inti Punku, la Puerta del Sol.
+  </p>
+
+  <p>
+    Durante la ruta visitaremos Chachabamba y Wiñaywayna antes de obtener la
+    primera vista panorámica de Machu Picchu. El segundo día estará dedicado a
+    la visita guiada de la ciudadela y el retorno en tren hacia Ollantaytambo.
+  </p>
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerario</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Incluye</H2Tours>
+  <IconListItem icon={IncludesIcon}>Excursión clásica de 4 días y 3 noches.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transporte en bus hasta el inicio del trekking.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Acomodación en carpas dobles.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Toda la alimentación y vajilla durante el trekking.</IconListItem>
+  <IconListItem icon={IncludesIcon}>3 desayunos, 3 almuerzos, 3 cenas y snacks.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Carpas de cocina, comedor y baño.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Porteadores de equipaje grupal.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Guía oficial de turismo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ticket de entrada a la ciudadela.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ticket de bus de bajada a Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ticket de retorno en tren a Ollantaytambo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Traslado de la estación de trenes a la Plaza San Francisco.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>No incluye</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Bebidas extras al desayuno.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Llamadas de teléfono.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Bolsas de dormir.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Ingresos para otros días.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Porteador personal para llevar cosas personales.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Otros costos y gastos no descritos en el programa.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recomendaciones</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar pasaporte o documento vigente durante todo el recorrido.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Usar zapatillas o botas de trekking, ropa cómoda, casaca ligera y poncho de lluvia.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar bloqueador solar, repelente, agua, snacks y cámara fotográfica.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Consultar disponibilidad de permisos para el Camino Inca corto antes de reservar.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Importante a considerar</H2Tours>
+  <p>
+    En los meses de enero a abril, los servicios de las empresas Inka Rail y
+    Peru Rail parten y llegan a las estaciones de Ollantaytambo o Pachar,
+    ubicadas aproximadamente a 2 horas de la ciudad de Cusco.
+  </p>
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+    <p>
+      <strong>Dificultad:</strong> Grado II. La caminata principal inicia en el
+      Km 104 y asciende hacia Wiñaywayna antes de continuar hacia Inti Punku.
+    </p>
+  </div>
+</section>

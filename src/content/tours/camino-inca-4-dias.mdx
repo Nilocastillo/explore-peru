@@ -1,0 +1,123 @@
+---
+title: "Camino Inca 4 Días"
+duration: "4 días / 3 noches"
+location: "Cusco, Camino Inca y Machu Picchu"
+departure: "Recojo temprano desde hotel"
+category:
+  - "Machu Picchu"
+description: "Recorre el Camino Inca clásico de 4 días hacia Machu Picchu, atravesando valles, montañas, zonas arqueológicas y campamentos andinos. Una experiencia de trekking completa con guía, alimentación, porteadores de equipo grupal y visita final a la ciudadela inca."
+image: "../../assets/hero-mapi.avif"
+alt: "Camino Inca 4 Días"
+meta_title: "Camino Inca 4 Días | Trekking Clásico a Machu Picchu"
+meta_description: "Reserva el Camino Inca 4 Días a Machu Picchu. Incluye transporte, campamentos, alimentación durante el trekking, guía oficial, ingreso a la ciudadela, bus de bajada y tren de retorno."
+difficulty: "Grado III"
+walkingTime: "Trekking de 4 días"
+price: "Consultar"
+badge: "Trekking clásico"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Día 1",
+    title: "Inicio del Camino Inca",
+    description:
+      "Este primer día los recogemos del hotel en Cusco muy temprano para trasladarlos por carretera hasta Chilca, a 88 km de distancia. En este lugar nos pondremos en contacto con porteadores, cocineros y el equipo necesario para la excursión.\n\nIniciaremos la caminata bordeando el río Urubamba para llegar a Patallaqta, donde almorzaremos. Luego continuaremos cruzando el Valle de Huayllabamba hasta llegar a Llullucayoc, donde acamparemos, tendremos una agradable cena y pasaremos la noche.",
+  },
+  {
+    day: "Día 2",
+    title: "Camino Inca y abra Warmiwañusca",
+    description:
+      "Luego del desayuno continuaremos con nuestra caminata, apreciando hermosos paisajes y el cambio progresivo de la flora conforme avanzamos. Llegaremos al punto más alto del recorrido: el abra de Warmiwañusca, conocido como donde mueren las mujeres, ubicado a 4200 m.s.n.m.\nDesde este punto tendremos una visión panorámica de nevados, valles y montañas circundantes. Continuaremos con el descenso hacia el gran valle de Pacaymayo, donde tendremos servicio de bebidas calientes. Luego disfrutaremos la cena y finalmente descansaremos en el campamento. Incluye almuerzo y cena.",
+  },
+  {
+    day: "Día 3",
+    title: "Runcuracay, Sayacmarka y Wiñaywayna",
+    description:
+      "Después del desayuno salimos temprano ascendiendo hacia Runcuracay, zona arqueológica ubicada a 3700 m.s.n.m. Continuaremos luego hacia Sayacmarka, donde descansaremos y almorzaremos.\nSeguiremos la caminata hacia Puyupatamarca, conocida como la ciudad encima de las nubes, una impresionante ciudad inca. Luego proseguiremos hacia Wiñaywayna, ubicado a 2690 m.s.n.m. en ceja de selva, donde cenaremos y acamparemos. En este campamento tendrá la opción de duchas con agua caliente por cuenta propia.",
+  },
+  {
+    day: "Día 4",
+    title: "Inti Punku y visita a Machu Picchu",
+    description:
+      "Este último día tendremos que levantarnos muy temprano para tomar desayuno e iniciar la caminata hacia el Inti Punku o Puerta del Sol, desde donde se obtiene una impresionante vista panorámica de Machu Picchu.\nA la llegada a la ciudadela realizaremos un tour guiado visitando los principales recintos, como la Plaza Principal, la Torre Circular, el Sagrado Reloj Solar, los Cuartos Reales, el Templo de las Tres Ventanas y los cementerios. Luego tendrá tiempo libre para pasear por la ciudadela.\nDespués seremos trasladados en bus a Aguas Calientes para almorzar por cuenta propia. Por la tarde retornaremos a Cusco en tren. Fin de los servicios.",
+  },
+];
+
+<section id="description">
+  <H2Tours>Descripción de la experiencia</H2Tours>
+
+  <p>
+    El Camino Inca de 4 días es la ruta clásica de trekking hacia Machu Picchu.
+    Durante el recorrido atravesarás valles andinos, pasos de montaña, zonas
+    arqueológicas y paisajes de ceja de selva antes de llegar a la ciudadela por
+    el Inti Punku, la Puerta del Sol.
+  </p>
+
+  <p>
+    Esta experiencia combina caminata, campamentos, historia inca y naturaleza.
+    El servicio incluye guía oficial, alimentación durante el trekking,
+    porteadores para el equipo grupal, campamentos y los tickets principales
+    para culminar con la visita guiada a Machu Picchu.
+  </p>
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerario</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Incluye</H2Tours>
+  <IconListItem icon={IncludesIcon}>Excursión clásica de 4 días y 3 noches.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transporte en bus hasta el inicio del trekking.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Acomodación en carpas dobles.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Toda la alimentación y vajilla durante el trekking.</IconListItem>
+  <IconListItem icon={IncludesIcon}>3 desayunos, 3 almuerzos, 3 cenas y snacks.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Carpas de cocina, comedor y baño.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Porteadores de equipaje grupal.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Guía oficial de turismo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ticket de entrada a la ciudadela.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ticket de bus de bajada a Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Ticket de retorno en tren a Ollantaytambo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Traslado de la estación de trenes a la Plaza San Francisco.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>No incluye</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Bebidas extras al desayuno.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Llamadas de teléfono.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Bolsas de dormir.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Ingresos para otros días.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Porteador personal para llevar cosas personales.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Otros costos y gastos no descritos en el programa.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recomendaciones</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar pasaporte o documento vigente durante todo el recorrido.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Usar botas de trekking, ropa por capas, poncho de lluvia y casaca abrigadora.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Llevar bloqueador, repelente, linterna frontal, botella de agua y snacks personales.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Consultar con anticipación la disponibilidad de permisos para el Camino Inca.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Importante a considerar</H2Tours>
+  <p>
+    El Camino Inca es una ruta de trekking de varios días y requiere buena
+    condición física, aclimatación previa en Cusco y disponibilidad de permisos.
+    Las duchas con agua caliente en Wiñaywayna son opcionales y por cuenta del
+    pasajero.
+  </p>
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+    <p>
+      <strong>Dificultad:</strong> Grado III. El segundo día alcanza el abra
+      Warmiwañusca a 4200 m.s.n.m., el punto más alto del recorrido.
+    </p>
+  </div>
+</section>
