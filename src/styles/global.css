@@ -76,4 +76,24 @@
     @apply bg-white/15 border-brand-primary/40 text-brand-primary-light;
   }
 
+  .text-primary-glow {
+    display: inline-block;
+    margin: -0.04em -0.14em -0.16em;
+    padding: 0.04em 0.14em 0.16em;
+    color: transparent;
+    background: linear-gradient(
+      180deg,
+      var(--color-brand-primary-light) 0%,
+      var(--color-brand-primary) 50%,
+      var(--color-brand-primary-dark) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 1px color-mix(in srgb, var(--color-brand-primary-light) 60%, transparent),
+      0 2px 18px color-mix(in srgb, var(--color-brand-primary) 55%, transparent),
+      0 6px 40px color-mix(in srgb, var(--color-brand-primary) 25%, transparent);
+  }
+
 }

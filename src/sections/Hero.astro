@@ -3,8 +3,14 @@ import heroImage from "@/assets/hero-mapi.avif";
 ---
 
 <section class="relative h-svh w-full overflow-hidden">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-0.5 bg-linear-to-r from-transparent via-[#c7a86b] to-transparent"
+  >
+  </div>
+
   <!-- Background Image -->
-  <div class="absolute inset-0 z-0">
+  <div class="hero-bg-mask absolute inset-0 z-0">
     <img
       id="hero-bg"
       src={heroImage.src}
@@ -20,9 +26,15 @@ import heroImage from "@/assets/hero-mapi.avif";
     </div>
   </div>
 
+  <div
+    class="hero-bottom-darken pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[48%]"
+    aria-hidden="true"
+  >
+  </div>
+
   <!-- Content Container -->
   <div
-    class="relative z-10 h-full w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-end pb-16 md:pb-20"
+    class="relative z-10 h-full w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-end pb-36 md:pb-44"
   >
     <!-- Layout: texto izquierda, botones derecha abajo -->
     <div
@@ -31,18 +43,18 @@ import heroImage from "@/assets/hero-mapi.avif";
       <!-- Bloque de texto -->
       <div class="max-w-2xl">
         <span
-          class="hero-fade inline-block text-brand-primary font-semibold tracking-[0.25em] uppercase text-xs md:text-sm mb-4 md:mb-5"
+          class="hero-fade text-primary-glow inline-block font-semibold tracking-[0.25em] uppercase text-xs md:text-sm mb-4 md:mb-5"
           style="animation-delay: 0.1s"
         >
           Viajes extraordinarios
         </span>
 
         <h1
-          class="hero-fade text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black text-white leading-[0.92] tracking-tight mb-6 md:mb-8"
+          class="hero-fade hero-title text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.92] tracking-tight mb-6 md:mb-8"
           style="animation-delay: 0.25s"
         >
           Descubre<br />
-          <span class="text-brand-primary">Perú</span>
+          <span>Perú</span>
         </h1>
 
         <p
@@ -87,6 +99,11 @@ import heroImage from "@/assets/hero-mapi.avif";
       </div>
     </div>
   </div>
+
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-32 bg-linear-to-b from-transparent via-brand-bg/70 to-brand-bg"
+  >
+  </div>
 </section>
 
 <style>
@@ -94,6 +111,56 @@ import heroImage from "@/assets/hero-mapi.avif";
     opacity: 0;
     transform: translateY(20px);
     animation: heroFadeIn 0.8s ease-out forwards;
+  }
+
+  .hero-title {
+    display: inline-block;
+    margin: -0.04em -0.14em -0.16em;
+    padding: 0.04em 0.14em 0.16em;
+    color: transparent;
+    background: linear-gradient(
+      180deg,
+      var(--color-brand-light) 0%,
+      var(--color-brand-light) 50%,
+      color-mix(in srgb, var(--color-brand-accent) 95%, var(--color-brand-light))
+        100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 1px color-mix(in srgb, var(--color-brand-light) 45%, transparent),
+      0 2px 10px color-mix(in srgb, var(--color-brand-accent) 28%, transparent),
+      0 5px 24px color-mix(in srgb, var(--color-brand-accent) 14%, transparent);
+  }
+
+  .hero-bg-mask {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 68%,
+      color-mix(in srgb, black 80%, transparent) 80%,
+      color-mix(in srgb, black 35%, transparent) 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 68%,
+      color-mix(in srgb, black 80%, transparent) 80%,
+      color-mix(in srgb, black 35%, transparent) 92%,
+      transparent 100%
+    );
+  }
+
+  .hero-bottom-darken {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in oklch, var(--color-brand-dark) 34%, transparent) 48%,
+      color-mix(in oklch, var(--color-brand-dark) 68%, transparent) 78%,
+      color-mix(in oklch, var(--color-brand-dark) 82%, transparent) 100%
+    );
   }
 
   @keyframes heroFadeIn {

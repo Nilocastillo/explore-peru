@@ -86,7 +86,7 @@ const structuredData = {
       set:html={JSON.stringify(structuredData)}
     />
 
-    <section class="relative min-h-[80svh]">
+    <section class="relative min-h-[80svh] bg-brand-bg">
       <div class="absolute inset-0 overflow-hidden">
         <Image
           src={imageSrc}
@@ -100,17 +100,18 @@ const structuredData = {
           quality={78}
         />
         <div
-          class="absolute inset-0 bg-linear-to-t from-brand-dark via-brand-dark/58 to-brand-dark/18"
+          class="absolute inset-0 z-[1] bg-linear-to-t from-brand-dark/85 via-brand-dark/35 to-transparent"
+          aria-hidden="true"
         >
         </div>
       </div>
 
       <div
-        class="relative z-10 mx-auto flex min-h-[80svh] max-w-7xl flex-col justify-end px-6 pb-64 pt-32 sm:px-8 lg:pb-24 lg:px-12"
+        class="relative z-10 mx-auto flex min-h-[80svh] max-w-7xl flex-col justify-end px-6 pb-72 pt-32 sm:px-8 lg:pb-44 lg:px-12"
       >
         <div class="max-w-4xl">
           <h1
-            class="text-5xl font-black uppercase leading-snug text-white sm:text-6xl lg:text-8xl"
+            class="tour-hero-title text-5xl font-black uppercase leading-snug sm:text-6xl lg:text-8xl"
           >
             {data.title}
           </h1>
@@ -216,6 +217,27 @@ const structuredData = {
   </main>
 
   <style>
+    .tour-hero-title {
+      display: inline-block;
+      margin: -0.04em -0.14em -0.16em;
+      padding: 0.04em 0.14em 0.16em;
+      color: transparent;
+      background: linear-gradient(
+        180deg,
+        var(--color-brand-light) 0%,
+        var(--color-brand-light) 50%,
+        color-mix(in srgb, var(--color-brand-accent) 95%, var(--color-brand-light))
+          100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow:
+        0 0 1px color-mix(in srgb, var(--color-brand-light) 60%, transparent),
+        0 2px 18px color-mix(in srgb, var(--color-brand-accent) 55%, transparent),
+        0 6px 40px color-mix(in srgb, var(--color-brand-accent) 25%, transparent);
+    }
+
     .tour-copy :global(p) {
       color: var(--color-brand-dark-muted);
       font-size: 1.0625rem;
