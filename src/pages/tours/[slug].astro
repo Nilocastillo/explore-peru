@@ -10,7 +10,7 @@ import TourStat from "@/components/tours/TourStat.astro";
 export const prerender = true;
 
 const tourImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{avif,webp,jpg,jpeg,png}",
+  "/src/assets/**/*.{avif,webp,jpg,jpeg}",
   {
     eager: true,
   },
@@ -109,9 +109,19 @@ const structuredData = {
       <div
         class="relative z-10 mx-auto flex min-h-[80svh] max-w-7xl flex-col justify-end px-6 pb-72 pt-32 sm:px-8 lg:pb-44 lg:px-12"
       >
-        <div class="max-w-4xl">
+        <div class="max-w-3xl">
+          <div class="mb-6 flex items-center gap-4" aria-hidden="true">
+            <span
+              class="h-px w-20 bg-linear-to-l from-brand-accent via-brand-accent/85 to-transparent"
+            ></span>
+            <span
+              class="text-xs font-black uppercase tracking-[0.24em] text-brand-light/85"
+            >
+              XPLORE PERÚ
+            </span>
+          </div>
           <h1
-            class="tour-hero-title text-5xl font-black uppercase leading-snug sm:text-6xl lg:text-8xl"
+            class="tour-hero-title text-4xl font-black uppercase leading-tight text-brand-light sm:text-5xl lg:text-6xl xl:text-7xl"
           >
             {data.title}
           </h1>
@@ -123,7 +133,7 @@ const structuredData = {
       >
         <div class="flex-1 rounded-2xl">
           <div
-            class="grid grid-cols-2 gap-y-6 gap-x-2 py-6 px-4 lg:flex lg:justify-between lg:h-full lg:min-w-max lg:items-center lg:divide-x lg:divide-brand-dark/10 lg:px-0 lg:py-6"
+            class="grid grid-cols-2 gap-y-6 gap-x-2 py-6 px-4 lg:flex lg:justify-between lg:h-full lg:min-w-max lg:items-center lg:divide-x lg:divide-brand-accent/35 lg:px-0 lg:py-6"
           >
             <div class="px-0 sm:px-4 lg:px-12">
               <TourStat label="Duración" value={data.duration}>
@@ -218,24 +228,7 @@ const structuredData = {
 
   <style>
     .tour-hero-title {
-      display: inline-block;
-      margin: -0.04em -0.14em -0.16em;
-      padding: 0.04em 0.14em 0.16em;
-      color: transparent;
-      background: linear-gradient(
-        180deg,
-        var(--color-brand-light) 0%,
-        var(--color-brand-light) 50%,
-        color-mix(in srgb, var(--color-brand-accent) 95%, var(--color-brand-light))
-          100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow:
-        0 0 1px color-mix(in srgb, var(--color-brand-light) 60%, transparent),
-        0 2px 18px color-mix(in srgb, var(--color-brand-accent) 55%, transparent),
-        0 6px 40px color-mix(in srgb, var(--color-brand-accent) 25%, transparent);
+      text-wrap: balance;
     }
 
     .tour-copy :global(p) {

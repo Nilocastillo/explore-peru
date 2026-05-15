@@ -24,7 +24,7 @@ const { days } = Astro.props;
         )}
 
         <div class="relative z-10 flex sm:justify-center">
-          <div class="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-primary/25 bg-brand-primary text-md font-black text-white shadow-[0_0_0_4px_oklch(1_0_0/0.9),0_0_24px_oklch(0.65_0.11_200/0.42)] ring-1 ring-brand-primary/20 before:absolute before:inset-[-0.45rem] before:-z-10 before:rounded-full before:bg-brand-primary/25 before:blur-lg before:content-['']">
+          <div class="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-accent/45 bg-brand-accent text-md font-black text-white shadow-[0_0_0_4px_oklch(1_0_0/0.92),0_0_24px_oklch(0.75_0.12_85/0.48)] ring-1 ring-brand-accent/25 before:absolute before:inset-[-0.45rem] before:-z-10 before:rounded-full before:bg-brand-accent/35 before:blur-lg before:content-['']">
             {dayIndex + 1}
           </div>
         </div>
@@ -32,7 +32,7 @@ const { days } = Astro.props;
         <article class="relative min-w-0 pl-10 sm:pl-0">
           <span class="inline-flex w-fit items-center gap-2 rounded-full border border-brand-dark/10 bg-white px-4 py-2 text-sm font-black uppercase tracking-[0.14em] text-brand-dark shadow-soft">
             <span
-              class="h-2 w-2 rounded-full bg-brand-primary-dark"
+              class="h-2 w-2 rounded-full bg-brand-accent shadow-[0_0_12px_oklch(0.75_0.12_85/0.65)]"
               aria-hidden="true"
             />
             <span>{day.day}</span>

@@ -6,7 +6,7 @@ import { getCollection } from "astro:content";
 const contentTours = await getCollection("tours");
 
 const tourImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{avif,webp,jpg,jpeg,png}",
+  "/src/assets/**/*.{avif,webp,jpg,jpeg}",
   {
     eager: true,
   },
@@ -28,6 +28,7 @@ const allTours = contentTours
     difficulty: tour.data.difficulty,
     price: tour.data.price ?? "Consultar",
     imageSrc: resolveTourImage(tour.data.image),
+    imageAlt: tour.data.alt,
     href: `/tours/${tour.id}`,
   }))
   .sort((a, b) => a.title.localeCompare(b.title));

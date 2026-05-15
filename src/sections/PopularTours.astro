@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 const contentTours = await getCollection("tours");
 
 const tourImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{avif,webp,jpg,jpeg,png}",
+  "/src/assets/**/*.{avif,webp,jpg,jpeg}",
   {
     eager: true,
   },
@@ -41,6 +41,9 @@ const popularTours = popularTourOrder
     difficulty: tour.data.difficulty,
     price: tour.data.price ?? "Consultar",
     imageSrc: resolveTourImage(tour.data.image),
+    imageAlt: tour.data.alt,
+    imageSizes:
+      "(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) calc((100vw - 5rem) / 2), calc((min(100vw, 80rem) - 4rem) / 3)",
     href: `/tours/${tour.id}`,
   }));
 ---
