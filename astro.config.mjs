@@ -10,7 +10,7 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   adapter: cloudflare(),
   output: 'server',
-  site: 'https://exploreperu.com',
+  site: 'https://explore.ncastilloumeres.workers.dev',
   vite: {
     plugins: [tailwindcss()]
   },
