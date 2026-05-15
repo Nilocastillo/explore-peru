@@ -20,30 +20,7 @@ function resolveTourImage(imagePath: string) {
   return tourImages[normalizedPath]?.default;
 }
 
-const featuredTourOrder = [
-  "machupicchufullday",
-  "machu-picchu-2-dias",
-  "camino-inca-2-dias",
-  "camino-inca-4-dias",
-  "salkantay-trek-machu-picchu-4-dias",
-  "inca-jungle-a-machu-picchu-4-dias",
-  "choquequirao-trek-4-dias",
-  "city-tour-cusco",
-  "city-tour-lima",
-  "city-tour-arequipa",
-  "sobrevuelo-lineas-de-nazca",
-  "valle-sagrado-de-los-incas",
-  "maras-y-moray",
-  "valle-sur-cusco",
-  "laguna-humantay",
-  "montana-de-colores-vinicunca",
-  "7-lagunas-ausangate",
-  "palcoyo-montana-de-colores",
-];
-
-const allTours = featuredTourOrder
-  .map((id) => contentTours.find((tour) => tour.id === id))
-  .filter((tour) => tour !== undefined)
+const allTours = contentTours
   .map((tour) => ({
     title: tour.data.title,
     description: tour.data.description,
@@ -52,7 +29,8 @@ const allTours = featuredTourOrder
     price: tour.data.price ?? "Consultar",
     imageSrc: resolveTourImage(tour.data.image),
     href: `/tours/${tour.id}`,
-  }));
+  }))
+  .sort((a, b) => a.title.localeCompare(b.title));
 ---
 
 <Layout>
@@ -62,13 +40,16 @@ const allTours = featuredTourOrder
         <span
           class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 text-brand-dark text-sm font-bold mb-6 border border-brand-dark/10 shadow-soft"
         >
-          <span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark mr-2"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark mr-2"
+          ></span>
           Nuestras Experiencias
         </span>
         <h1
           class="text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight text-brand-dark leading-[1.1] mb-6"
         >
-          Tours & <span class="text-brand-primary-dark italic">Experiencias</span>
+          Tours & <span class="text-brand-primary-dark italic"
+            >Experiencias</span
+          >
         </h1>
         <p class="text-lg md:text-xl text-brand-dark-muted max-w-2xl mx-auto">
           Descubre los mejores destinos del Perú con nuestras experiencias

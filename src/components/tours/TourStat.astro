@@ -7,7 +7,18 @@ interface Props {
 const { label, value } = Astro.props;
 ---
 
-<div class="rounded-2xl border border-white/15 bg-white/12 px-5 py-4 text-white backdrop-blur-md shadow-soft">
-  <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/65">{label}</p>
-  <p class="mt-2 text-lg font-bold leading-tight">{value}</p>
+<div class="flex items-center gap-3">
+  <div class="text-brand-primary shrink-0">
+    <slot />
+  </div>
+  <div>
+    <p
+      class="text-[10px] font-bold uppercase tracking-widest text-brand-dark-muted mt-0.5"
+    >
+      {label}
+    </p>
+    <p class="text-sm lg:text-base font-black text-brand-dark leading-tight">
+      {value}
+    </p>
+  </div>
 </div>

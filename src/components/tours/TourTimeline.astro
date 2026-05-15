@@ -17,18 +17,24 @@ const { days } = Astro.props;
     days.map((day, dayIndex) => (
       <li class="relative grid gap-4 sm:grid-cols-[3rem_minmax(0,1fr)]">
         {dayIndex < days.length - 1 && (
-          <span class="absolute left-5 top-10 hidden h-[calc(100%+3rem)] w-px bg-brand-dark/10 sm:block" aria-hidden="true" />
+          <span
+            class="absolute left-5 top-10 bottom-[-3rem] w-[1px] bg-gradient-to-b from-brand-dark/10 to-transparent sm:w-px"
+            aria-hidden="true"
+          />
         )}
 
         <div class="relative z-10 flex sm:justify-center">
-          <div class="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-primary/25 bg-white text-sm font-black text-brand-primary-dark shadow-[0_0_0_4px_oklch(1_0_0/0.9),0_0_24px_oklch(0.65_0.11_200/0.42)] ring-1 ring-brand-primary/20 before:absolute before:inset-[-0.45rem] before:-z-10 before:rounded-full before:bg-brand-primary/25 before:blur-lg before:content-['']">
+          <div class="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-brand-primary/25 bg-brand-primary text-md font-black text-white shadow-[0_0_0_4px_oklch(1_0_0/0.9),0_0_24px_oklch(0.65_0.11_200/0.42)] ring-1 ring-brand-primary/20 before:absolute before:inset-[-0.45rem] before:-z-10 before:rounded-full before:bg-brand-primary/25 before:blur-lg before:content-['']">
             {dayIndex + 1}
           </div>
         </div>
 
-        <article class="min-w-0 border-l-4 border-brand-dark/10 pl-5 sm:border-l-0 sm:pl-0">
+        <article class="relative min-w-0 pl-10 sm:pl-0">
           <span class="inline-flex w-fit items-center gap-2 rounded-full border border-brand-dark/10 bg-white px-4 py-2 text-sm font-black uppercase tracking-[0.14em] text-brand-dark shadow-soft">
-            <span class="h-2 w-2 rounded-full bg-brand-primary-dark" aria-hidden="true" />
+            <span
+              class="h-2 w-2 rounded-full bg-brand-primary-dark"
+              aria-hidden="true"
+            />
             <span>{day.day}</span>
           </span>
           <h3 class="mt-4 text-2xl font-black leading-tight text-brand-dark sm:text-3xl">
