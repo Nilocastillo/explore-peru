@@ -32,7 +32,7 @@ const highlights = [
       <span
         class="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6 border border-brand-primary/20 backdrop-blur-sm"
       >
-        <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mr-2"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mr-2" aria-hidden="true"></span>
         Lo que ofrecemos
       </span>
       <h2
@@ -52,7 +52,7 @@ const highlights = [
         highlights.map((item) => (
           <div class="group">
             <div class="w-16 h-16 rounded-2xl bg-white border border-brand-dark/5 shadow-soft flex items-center justify-center text-brand-primary mb-8 transition-all duration-500 group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white group-hover:shadow-elevated">
-              <item.Icon class="w-8 h-8" />
+              <item.Icon class="w-8 h-8" aria-hidden="true" />
             </div>
             <h3 class="text-2xl font-semibold text-brand-dark mb-4 transition-colors duration-300 group-hover:text-brand-primary">
               {item.title}

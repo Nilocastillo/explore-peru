@@ -36,13 +36,13 @@ const filteredTours = contentTours
 ---
 
 <Layout title="Aventura | XPLORE PERÚ" description="Descubre nuestros tours de aventura. Trekking y paisajes espectaculares.">
-  <section class="pt-32 pb-24 px-6 bg-brand-bg min-h-screen">
+  <main id="main-content" class="pt-32 pb-24 px-6 bg-brand-bg min-h-screen">
     <div class="max-w-7xl mx-auto">
       <div class="mb-16 text-center">
         <span
           class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 text-brand-dark text-sm font-bold mb-6 border border-brand-dark/10 shadow-soft"
         >
-          <span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark mr-2"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark mr-2" aria-hidden="true"></span>
           Categoría
         </span>
         <h1
@@ -72,6 +72,7 @@ const filteredTours = contentTours
         >
           Solicitar Información
           <svg
+            aria-hidden="true"
             class="w-4 h-4"
             fill="none"
             viewBox="0 0 24 24"
@@ -86,7 +87,7 @@ const filteredTours = contentTours
         </a>
       </div>
     </div>
-  </section>
+  </main>
 </Layout>
 
 <style>

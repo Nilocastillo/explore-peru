@@ -6,6 +6,8 @@ const navItems = [
   { text: "Paquetes", href: "/paquetes" },
   { text: "Full Day", href: "/full-day" },
 ];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
 <header
@@ -35,6 +37,7 @@ const navItems = [
         navItems.map((item) => (
           <a
             href={item.href}
+            aria-current={currentPath === item.href ? "page" : undefined}
             class="px-4 py-2 text-brand-black hover:text-brand-primary transition-colors"
           >
             {item.text}
@@ -58,7 +61,7 @@ const navItems = [
         aria-expanded="false"
         class="lg:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full transition"
       >
-        <span class="flex flex-col gap-1.5">
+        <span class="flex flex-col gap-1.5" aria-hidden="true">
           <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
           <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
           <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
@@ -71,7 +74,10 @@ const navItems = [
 <!-- Mobile Menu -->
 <div
   id="mobile-menu"
-  aria-hidden="true"
+  inert
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú principal"
   class="fixed inset-0 z-[110] bg-brand-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex items-center justify-center"
 >
   <button
@@ -80,7 +86,7 @@ const navItems = [
     aria-label="Cerrar menú"
     class="absolute top-8 right-8 text-white text-2xl w-10 h-10 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full"
   >
-    <span class="flex flex-col gap-1.5">
+    <span class="flex flex-col gap-1.5" aria-hidden="true">
       <span class="w-6 h-0.5 bg-white rounded rotate-45 translate-y-1.5"></span>
       <span class="w-6 h-0.5 bg-white rounded -rotate-45 -translate-y-1.5"
       ></span>
@@ -89,7 +95,11 @@ const navItems = [
   <div class="flex flex-col items-center gap-6 w-full px-8 text-center">
     {
       navItems.map((item) => (
-        <a href={item.href} class="mobile-link text-xl font-medium text-white">
+        <a
+          href={item.href}
+          aria-current={currentPath === item.href ? "page" : undefined}
+          class="mobile-link text-xl font-medium text-white"
+        >
           {item.text}
         </a>
       ))
@@ -110,8 +120,14 @@ const navItems = [
 
   function setMenuOpen(isOpen) {
     mobileMenu?.classList.toggle("translate-x-full", !isOpen);
-    mobileMenu?.setAttribute("aria-hidden", String(!isOpen));
+    mobileMenu?.toggleAttribute("inert", !isOpen);
     mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));
+
+    if (isOpen) {
+      closeMenuBtn?.focus();
+    } else {
+      mobileMenuBtn?.focus();
+    }
   }
 
   mobileMenuBtn?.addEventListener("click", () => {
@@ -119,6 +135,11 @@ const navItems = [
     setMenuOpen(!isOpen);
   });
   closeMenuBtn?.addEventListener("click", () => setMenuOpen(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mobileMenuBtn?.getAttribute("aria-expanded") === "true") {
+      setMenuOpen(false);
+    }
+  });
 
   mobileLinks.forEach((link) => {
     link.addEventListener("click", () => setMenuOpen(false));

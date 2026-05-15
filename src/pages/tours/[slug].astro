@@ -38,6 +38,7 @@ const { Content } = await render(tour);
 const data = tour.data;
 const imageSrc = resolveTourImage(data.image);
 const consultationUrl = `/consultar?tour=${encodeURIComponent(data.title)}`;
+const numericPrice = data.price?.replace(/[^0-9.]/g, "") ?? "";
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
@@ -64,10 +65,10 @@ const structuredData = {
       name,
     })),
   },
-  offers: data.price
+  offers: numericPrice
     ? {
         "@type": "Offer",
-        price: data.price.replace(/[^0-9.]/g, ""),
+        price: numericPrice,
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
       }
@@ -80,7 +81,7 @@ const structuredData = {
   description={data.meta_description}
   type="article"
 >
-  <main class="bg-brand-bg">
+  <main id="main-content" class="bg-brand-bg">
     <script
       type="application/ld+json"
       set:html={JSON.stringify(structuredData)}
@@ -97,7 +98,7 @@ const structuredData = {
           loading="eager"
           decoding="async"
           fetchpriority="high"
-          quality={78}
+          quality={70}
         />
         <div
           class="absolute inset-0 z-[1] bg-linear-to-t from-brand-dark/85 via-brand-dark/35 to-transparent"
