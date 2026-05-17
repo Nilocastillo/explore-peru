@@ -40,6 +40,34 @@ const {
     <meta name="twitter:description" content={description} />
     {image && <meta name="twitter:image" content={image} />}
     <title>{title}</title>
+
+    <!-- International SEO (LATAM target) -->
+    <link rel="alternate" hreflang="es-PE" href={Astro.url} />
+    <link rel="alternate" hreflang="es-CO" href={Astro.url} />
+    <link rel="alternate" hreflang="es-AR" href={Astro.url} />
+    <link rel="alternate" hreflang="es-MX" href={Astro.url} />
+    <link rel="alternate" hreflang="es-CL" href={Astro.url} />
+    <link rel="alternate" hreflang="es" href={Astro.url} />
+    <link rel="alternate" hreflang="x-default" href={Astro.url} />
+
+    <!-- OpenGraph Additions -->
+    <meta property="og:site_name" content="XPLORE PERÚ" />
+    <meta property="og:locale" content="es_PE" />
+
+    <!-- Structured Data (Organization) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "XPLORE PERÚ",
+      "description": "Agencia de viajes especializada en experiencias auténticas por Perú.",
+      "url": Astro.site?.toString() ?? Astro.url.origin,
+      "logo": `${Astro.site?.toString() ?? Astro.url.origin}/xplore-logo-horizontal.svg`,
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PE",
+        "addressLocality": "Cusco"
+      }
+    })} />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
