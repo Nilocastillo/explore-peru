@@ -118,7 +118,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
   const mobileMenu = document.getElementById("mobile-menu");
   const mobileLinks = document.querySelectorAll(".mobile-link");
 
-  function setMenuOpen(isOpen) {
+  function setMenuOpen(isOpen: boolean) {
     mobileMenu?.classList.toggle("translate-x-full", !isOpen);
     mobileMenu?.toggleAttribute("inert", !isOpen);
     mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));

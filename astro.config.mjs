@@ -12,7 +12,7 @@ export default defineConfig({
   output: 'server',
   site: 'https://explore.ncastilloumeres.workers.dev',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [/** @type {any} */ (tailwindcss())]
   },
   integrations: [mdx(), sitemap()],
   fonts: [
