@@ -64,11 +64,25 @@
   }
 
   .btn-travel {
-    @apply bg-brand-dark text-white font-bold transition-all duration-300;
+    background: linear-gradient(135deg, var(--color-brand-dark) 0%, var(--color-brand-dark-soft) 100%);
+    box-shadow: 0 0 0 1px oklch(0.75 0.12 85 / 0.15);
+    @apply text-white font-bold transition-all duration-300;
   }
 
   .btn-travel:hover {
-    @apply -translate-y-0.5 bg-brand-primary-dark shadow-xl shadow-brand-dark/15;
+    background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-primary-dark) 100%);
+    box-shadow:
+      0 0 0 1px oklch(0.75 0.12 85 / 0.25),
+      0 8px 24px -4px oklch(0.65 0.11 200 / 0.35);
+    @apply -translate-y-1;
+  }
+
+  .btn-travel svg {
+    @apply transition-transform duration-300;
+  }
+
+  .btn-travel:hover svg {
+    @apply translate-x-1;
   }
 
   .btn-outline-light {

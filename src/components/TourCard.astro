@@ -48,11 +48,11 @@ const {
       </div>
       <div class="absolute top-4 right-4">
         <span
-          class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/50 bg-white/92 backdrop-blur-sm text-brand-dark text-xs font-bold shadow-md"
+          class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-brand-accent/30 bg-white/92 backdrop-blur-sm text-brand-dark text-xs font-bold shadow-md"
         >
           <svg
             aria-hidden="true"
-            class="w-3.5 h-3.5"
+            class="w-3.5 h-3.5 text-amber-500 drop-shadow-[0_0_4px_rgba(245,158,11,0.6)]"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -125,8 +125,9 @@ const {
           <span class="text-xs text-brand-dark-muted">Desde</span>
           <p class="text-2xl font-black text-brand-dark">{price}</p>
         </div>
-        <span class="rounded-full bg-brand-dark px-5 py-2.5 text-sm font-bold text-white transition-colors duration-300 group-hover:bg-brand-primary-dark">
+        <span class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-dark to-brand-dark-soft px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 group-hover:from-brand-primary group-hover:to-brand-primary-dark group-hover:shadow-lg group-hover:shadow-brand-primary/25">
           Ver detalles
+          <svg aria-hidden="true" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
         </span>
       </div>
     </div>
