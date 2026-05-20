@@ -48,7 +48,6 @@ import heroImage from "@/assets/hero-mapi.avif";
       <div class="max-w-2xl">
         <div
           class="hero-fade mb-4 flex items-center gap-4 md:mb-5"
-          style="animation-delay: 0.1s"
         >
           <span
             class="h-px w-20 bg-linear-to-l from-brand-accent via-brand-accent/85 to-transparent"
@@ -62,7 +61,7 @@ import heroImage from "@/assets/hero-mapi.avif";
 
         <h1
           class="hero-fade hero-title text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.92] tracking-tight mb-6 md:mb-8"
-          style="animation-delay: 0.25s"
+          style="animation-delay: 0.1s"
         >
           <span class="hero-title-line">Descubre</span>
           <span class="hero-title-line">Perú</span>
@@ -70,7 +69,7 @@ import heroImage from "@/assets/hero-mapi.avif";
 
         <p
           class="hero-fade text-base md:text-lg text-white/75 font-light max-w-lg leading-relaxed"
-          style="animation-delay: 0.4s"
+          style="animation-delay: 0.2s"
         >
           Paquetes de viaje diseñados para quienes buscan experiencias
           auténticas. Desde las alturas de Cusco hasta la inmensidad del
@@ -81,7 +80,7 @@ import heroImage from "@/assets/hero-mapi.avif";
       <!-- Botones — esquina inferior derecha en desktop -->
       <div
         class="hero-fade flex flex-col sm:flex-row md:flex-col gap-3 md:gap-4 shrink-0"
-        style="animation-delay: 0.55s"
+        style="animation-delay: 0.3s"
       >
         <a
           href="#tours"
@@ -116,13 +115,12 @@ import heroImage from "@/assets/hero-mapi.avif";
   #hero-bg {
     will-change: transform;
     transform-origin: center;
-    transition: transform 0.1s ease-out;
   }
 
   .hero-fade {
     opacity: 0;
-    transform: translateY(20px);
-    animation: heroFadeIn 0.8s ease-out forwards;
+    transform: translateY(15px);
+    animation: heroFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
 
   .hero-title {
