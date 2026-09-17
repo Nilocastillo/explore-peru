@@ -15,7 +15,7 @@ export default defineConfig({
   session: {
     driver: sessionDrivers.lruCache(),
   },
-  site: 'https://explore.ncastilloumeres.workers.dev',
+  site: 'https://explore-peru.ncastilloumeres.workers.dev',
   vite: {
     plugins: [/** @type {any} */ (tailwindcss())]
   },
