@@ -5,10 +5,9 @@ interface Props {
   title: string;
   duration: string;
   departure: string;
-  price?: string;
 }
 
-const { title, duration, departure, price = "Consultar" } = Astro.props;
+const { title, duration, departure } = Astro.props;
 ---
 
-<ConsultationForm tour={title} duration={duration} departure={departure} price={price} />
+<ConsultationForm tour={title} duration={duration} departure={departure} />

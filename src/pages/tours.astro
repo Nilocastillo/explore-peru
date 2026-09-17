@@ -26,7 +26,6 @@ const allTours = contentTours
     description: tour.data.description,
     days: tour.data.duration,
     difficulty: tour.data.difficulty,
-    price: tour.data.price ?? "Consultar",
     imageSrc: resolveTourImage(tour.data.image),
     imageAlt: tour.data.alt,
     href: `/tours/${tour.id}`,

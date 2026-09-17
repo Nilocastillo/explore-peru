@@ -1,7 +1,7 @@
 ---
-const phoneNumber = "51974346252";
-const message = encodeURIComponent("Hola XPLORE PERÚ, quisiera recibir información sobre sus tours.");
-const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+import { getWhatsAppUrl } from "@/data/contact";
+
+const whatsappUrl = getWhatsAppUrl("Hola XPLORE PERÚ, quisiera recibir información sobre sus tours.");
 ---
 
 <a

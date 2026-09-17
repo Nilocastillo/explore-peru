@@ -5,14 +5,12 @@ interface Props {
   tour?: string;
   duration?: string;
   departure?: string;
-  price?: string;
 }
 
 const {
   tour = "",
   duration = "",
   departure = "",
-  price = "",
 } = Astro.props;
 ---
 
@@ -26,7 +24,6 @@ const {
       <input name="tour" type="hidden" value={tour} />
       <input name="duration" type="hidden" value={duration} />
       <input name="departure" type="hidden" value={departure} />
-      <input name="price" type="hidden" value={price} />
       <input class="hidden" name="company" type="text" tabindex="-1" autocomplete="off" />
 
       <label class="mt-6 block text-sm font-bold text-brand-dark">

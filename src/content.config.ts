@@ -16,7 +16,6 @@ const tours = defineCollection({
     alt: z.string(),
     meta_title: z.string(),
     meta_description: z.string(),
-    price: z.string().optional(),
     badge: z.string().optional(),
   }),
 });

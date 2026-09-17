@@ -39,7 +39,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const tour = asText(body.tour) || "Consulta general";
   const duration = asText(body.duration);
   const departure = asText(body.departure);
-  const price = asText(body.price);
   const date = asText(body.date);
   const travelers = asText(body.travelers);
   const message = asText(body.message);
@@ -70,7 +69,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     ["Pasajeros", travelers],
     ["Duración", duration],
     ["Salidas", departure],
-    ["Precio", price],
     ["Mensaje", message],
   ].filter(([, value]) => value);
 

@@ -5,6 +5,7 @@ const navItems = [
   { text: "Aventura", href: "/aventura" },
   { text: "Paquetes", href: "/paquetes" },
   { text: "Full Day", href: "/full-day" },
+  { text: "Código ESNNA", href: "/codigo-esnna" },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -32,13 +33,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       />
     </a>
 
-    <div class="hidden lg:flex items-center gap-6">
+    <div class="hidden xl:flex items-center gap-4">
       {
         navItems.map((item) => (
           <a
             href={item.href}
             aria-current={currentPath === item.href ? "page" : undefined}
-            class="px-4 py-2 text-brand-black hover:text-brand-primary transition-colors"
+            class="px-3 py-2 text-base text-brand-black hover:text-brand-primary transition-colors"
           >
             {item.text}
           </a>
@@ -49,7 +50,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     <div class="flex items-center gap-1">
       <a
         href="/consultar"
-        class="hidden lg:inline-flex btn-brand px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider shadow-lg"
+        class="hidden xl:inline-flex btn-brand px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider shadow-lg"
       >
         Contáctanos
       </a>
@@ -59,7 +60,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
         aria-label="Abrir menú"
         aria-controls="mobile-menu"
         aria-expanded="false"
-        class="lg:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full transition"
+        class="xl:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full transition"
       >
         <span class="flex flex-col gap-1.5" aria-hidden="true">
           <span class="w-6 h-0.5 bg-brand-primary rounded"></span>

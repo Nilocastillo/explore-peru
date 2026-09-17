@@ -37,8 +37,6 @@ const { tour } = Astro.props;
 const { Content } = await render(tour);
 const data = tour.data;
 const imageSrc = resolveTourImage(data.image);
-const consultationUrl = `/consultar?tour=${encodeURIComponent(data.title)}`;
-const numericPrice = data.price?.replace(/[^0-9.]/g, "") ?? "";
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "TouristTrip",
@@ -65,14 +63,6 @@ const structuredData = {
       name,
     })),
   },
-  offers: numericPrice
-    ? {
-        "@type": "Offer",
-        price: numericPrice,
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-      }
-    : undefined,
 };
 ---
 
@@ -134,7 +124,7 @@ const structuredData = {
       >
         <div class="flex-1 rounded-2xl">
           <div
-            class="grid grid-cols-2 gap-y-6 gap-x-2 py-6 px-4 lg:flex lg:justify-between lg:h-full lg:min-w-max lg:items-center lg:divide-x lg:divide-brand-accent/35 lg:px-0 lg:py-6"
+            class="grid grid-cols-1 gap-y-6 gap-x-2 py-6 px-4 sm:grid-cols-3 lg:flex lg:justify-between lg:h-full lg:min-w-max lg:items-center lg:divide-x lg:divide-brand-accent/35 lg:px-0 lg:py-6"
           >
             <div class="px-0 sm:px-4 lg:px-12">
               <TourStat label="Duración" value={data.duration}>
@@ -184,22 +174,6 @@ const structuredData = {
                 >
               </TourStat>
             </div>
-            <div class="px-0 sm:px-4 lg:px-12">
-              <TourStat label="Desde" value={data.price ?? "Consultar"}>
-                <svg
-                  class="h-8 w-8"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  ><path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path></svg
-                >
-              </TourStat>
-            </div>
           </div>
         </div>
       </div>
@@ -220,7 +194,6 @@ const structuredData = {
             title={data.title}
             duration={data.duration}
             departure={data.departure}
-            price={data.price}
           />
         </aside>
       </div>
