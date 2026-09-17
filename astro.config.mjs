@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders, sessionDrivers } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
@@ -10,6 +10,11 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   adapter: cloudflare(),
   output: 'server',
+  // La aplicación no usa sesiones. Este driver evita que el adaptador
+  // aprovisione automáticamente un namespace KV SESSION innecesario.
+  session: {
+    driver: sessionDrivers.lruCache(),
+  },
   site: 'https://explore.ncastilloumeres.workers.dev',
   vite: {
     plugins: [/** @type {any} */ (tailwindcss())]
