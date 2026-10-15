@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -30,8 +31,9 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang={locale}>
+<html lang={locale} transition:animate="none">
   <head>
+    <ClientRouter />
     <Font cssVariable="--font-manrope" preload />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -84,6 +86,17 @@ const {
     <Footer />
   </body>
 </html>
+
+<script>
+  function configureLanguageNavigation() {
+    document.querySelectorAll("a:not([data-language-link]), area:not([data-language-link]), form").forEach((element) => {
+      element.setAttribute("data-astro-reload", "");
+    });
+  }
+
+  configureLanguageNavigation();
+  document.addEventListener("astro:page-load", configureLanguageNavigation);
+</script>
 
 <style is:global>
   html {

@@ -6,6 +6,7 @@ const languages = [
   {
     locale: "es",
     flag: "🇪🇸",
+    otherFlag: "🇺🇸",
     home: "/",
     navLabels: ["Machu Picchu", "Tradicionales", "Aventura", "Paquetes", "Full Day", "Código ESNNA"],
     navPaths: ["/machu-picchu/", "/tradicional/", "/aventura/", "/paquetes/", "/full-day/", "/codigo-esnna/"],
@@ -21,7 +22,6 @@ const languages = [
     chooseLanguage: "Elegir idioma",
     currentLanguage: "Leer esta página en español",
     otherLanguage: "Leer esta página en inglés",
-    lastLanguage: "Leer esta página en inglés",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
     menu: "Menú principal",
@@ -35,6 +35,7 @@ const languages = [
   {
     locale: "en",
     flag: "🇺🇸",
+    otherFlag: "🇪🇸",
     home: "/en/",
     navLabels: ["Machu Picchu", "Traditional Tours", "Adventure", "Packages", "Full Day", "Child Protection"],
     navPaths: ["/en/machu-picchu/", "/en/traditional/", "/en/adventure/", "/en/packages/", "/en/full-day/", "/en/child-protection-code/"],
@@ -50,7 +51,6 @@ const languages = [
     chooseLanguage: "Choose language",
     currentLanguage: "Read this page in English",
     otherLanguage: "Read this page in Spanish",
-    lastLanguage: "Read this page in English",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     menu: "Main menu",
@@ -103,14 +103,14 @@ for (const copy of languages) {
       }
 
       const language = header.locator(`summary[aria-label="${copy.chooseLanguage}"]`);
-      const firstLanguage = header.locator('a[hreflang="es"]');
+      const firstLanguage = header.locator(`a[hreflang="${copy.otherLocale}"]`);
       await expect(language.locator(".language-flag")).toBeVisible();
       await expect(language.locator(".language-flag")).toHaveText(copy.flag);
       await language.focus();
       await language.press("Enter");
       await expect(firstLanguage).toBeVisible();
       await expect(firstLanguage.locator(".language-flag")).toBeVisible();
-      await expect(firstLanguage.locator(".language-flag")).toHaveText("🇪🇸");
+      await expect(firstLanguage.locator(".language-flag")).toHaveText(copy.otherFlag);
       // Safari on macOS uses Option+Tab to include links with its default keyboard settings.
       // https://support.apple.com/guide/safari/cpsh003/mac
       await page.keyboard.press(browserName === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab");
@@ -121,7 +121,8 @@ for (const copy of languages) {
 
       await language.click();
       await expect(header.getByRole("link", { name: copy.currentLanguage, exact: true }))
-        .toHaveAttribute("aria-current", "page");
+        .toHaveCount(0);
+      await expect(header.locator("[data-language-link]")).toHaveCount(1);
       await expect(header.getByRole("link", { name: copy.otherLanguage, exact: true })).toBeVisible();
       await page.getByRole("heading", { level: 1 }).click();
       await expect(header.getByRole("link", { name: copy.otherLanguage, exact: true })).toBeHidden();
@@ -162,11 +163,14 @@ for (const copy of languages) {
       }
       await expect(menu.getByRole("link", { name: copy.contactLabel, exact: true })).toHaveAttribute("href", copy.contact);
       const currentLanguage = menu.getByRole("link", { name: copy.currentLanguage, exact: true });
-      await expect(currentLanguage.locator(".language-flag")).toBeVisible();
-      await expect(currentLanguage.locator(".language-flag")).toHaveText(copy.flag);
+      await expect(currentLanguage).toHaveCount(0);
+      await expect(menu.locator("[data-language-link]")).toHaveCount(1);
+      const otherLanguage = menu.getByRole("link", { name: copy.otherLanguage, exact: true });
+      await expect(otherLanguage.locator(".language-flag")).toBeVisible();
+      await expect(otherLanguage.locator(".language-flag")).toHaveText(copy.otherFlag);
 
       const firstLink = menu.getByRole("link", { name: copy.logo, exact: true });
-      const lastLink = menu.getByRole("link", { name: copy.lastLanguage, exact: true });
+      const lastLink = otherLanguage;
       await lastLink.focus();
       await page.keyboard.press("Tab");
       await expect(firstLink).toBeFocused();
@@ -192,6 +196,9 @@ for (const copy of languages) {
       await page.setViewportSize({ width: 375, height: 812 });
       const suffix = "?travelers=2#recommendations";
       await page.goto(`${copy.detail}${suffix}`);
+      await page.evaluate(() => {
+        (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker = "mobile-language-round-trip";
+      });
       await page.getByRole("button", { name: copy.openMenu, exact: true }).click();
       const menu = page.getByRole("dialog", { name: copy.menu, exact: true });
       const otherLanguage = menu.getByRole("link", { name: copy.otherLanguage, exact: true });
@@ -200,6 +207,34 @@ for (const copy of languages) {
       await expect(page).toHaveURL((url) => url.pathname + url.search + url.hash === `${copy.otherDetail}${suffix}`);
       await expect(page.locator("html")).toHaveAttribute("lang", copy.otherLocale);
       await expect(page.locator("#recommendations")).toBeInViewport();
+      expect(await page.evaluate(() => (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker))
+        .toBe("mobile-language-round-trip");
+      await expect(page.locator("main")).not.toHaveAttribute("inert");
+      await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
+
+      // The replaced header must initialize again, including its focus trap and close controls.
+      const otherCopy = languages.find((language) => language.locale === copy.otherLocale)!;
+      const otherLauncher = page.locator("#mobile-menu-btn");
+      await expect(otherLauncher).toHaveAccessibleName(otherCopy.openMenu);
+      await otherLauncher.click();
+      const replacedMenu = page.getByRole("dialog", { name: otherCopy.menu, exact: true });
+      await expect(replacedMenu).toBeVisible();
+      await expect(replacedMenu.getByRole("button", { name: otherCopy.closeMenu, exact: true })).toBeFocused();
+      await expect(replacedMenu.getByRole("link", { name: otherCopy.currentLanguage, exact: true })).toHaveCount(0);
+      const returnLanguage = replacedMenu.getByRole("link", { name: otherCopy.otherLanguage, exact: true });
+      await expect(returnLanguage).toHaveAttribute("href", `${copy.detail}${suffix}`);
+      await returnLanguage.click();
+      await expect(page).toHaveURL((url) => url.pathname + url.search + url.hash === `${copy.detail}${suffix}`);
+      await expect(page.locator("html")).toHaveAttribute("lang", copy.locale);
+      expect(await page.evaluate(() => (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker))
+        .toBe("mobile-language-round-trip");
+
+      await page.locator("#mobile-menu-btn").click();
+      const restoredMenu = page.getByRole("dialog", { name: copy.menu, exact: true });
+      await expect(restoredMenu).toBeVisible();
+      await page.keyboard.press("Escape");
+      await expect(restoredMenu).toBeHidden();
+      await expect(page.locator("#mobile-menu-btn")).toBeFocused();
     });
 
     test("compact desktop hero presents Cusco tours and links to localized packages", async ({ page }) => {

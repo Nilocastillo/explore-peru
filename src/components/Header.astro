@@ -17,7 +17,7 @@ const navItems = [
   { text: "Full Day", href: "/full-day" },
   { text: isEnglish ? "Child Protection" : "Código ESNNA", href: "/codigo-esnna" },
 ].map((item) => ({ ...item, href: localizePath(item.href, locale) }));
-const languageLinks = (["es", "en"] as const).map((language) => ({
+const languageLinks = (["es", "en"] as const).filter((language) => language !== locale).map((language) => ({
   language,
   flag: language === "es" ? "🇪🇸" : "🇺🇸",
   name: language === "es" ? "Español" : "English",
@@ -71,7 +71,6 @@ const tripLabel = isEnglish ? "Contact us" : "Contáctanos";
               lang={item.language}
               hreflang={item.language}
               aria-label={item.label}
-              aria-current={locale === item.language ? "page" : undefined}
             >
               <span class="language-option-name"><span class="language-flag" aria-hidden="true">{item.flag}</span>{item.name}</span>
               <span class="language-code" aria-hidden="true">{item.language.toUpperCase()}</span>
@@ -164,7 +163,6 @@ const tripLabel = isEnglish ? "Contact us" : "Contáctanos";
               lang={item.language}
               hreflang={item.language}
               aria-label={item.label}
-              aria-current={locale === item.language ? "page" : undefined}
             >
               <span class="language-flag" aria-hidden="true">{item.flag}</span>{item.language.toUpperCase()}
             </a>
@@ -618,128 +616,149 @@ const tripLabel = isEnglish ? "Contact us" : "Contáctanos";
 </style>
 
 <script>
-  const siteHeader = document.querySelector<HTMLElement>(".site-header");
-  const disclosures = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-header-disclosure]"));
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-  const closeMenuBtn = document.getElementById("close-menu");
-  const mobileMenu = document.getElementById("mobile-menu");
-  let menuOpen = false;
-  let previouslyFocused: HTMLElement | null = null;
-  let previousBodyOverflow = "";
-  let previousBodyPadding = "";
-  const backgroundStates = new Map<HTMLElement, boolean>();
+  let cleanupHeader = () => {};
 
-  document.querySelectorAll<HTMLAnchorElement>("[data-language-link]").forEach((link) => {
-    const target = new URL(link.href);
-    target.search = window.location.search;
-    target.hash = window.location.hash;
-    link.href = target.pathname + target.search + target.hash;
-  });
+  function initializeHeader() {
+    cleanupHeader();
+    const controller = new AbortController();
+    const { signal } = controller;
+    const siteHeader = document.querySelector<HTMLElement>(".site-header");
+    const disclosures = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-header-disclosure]"));
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const closeMenuBtn = document.getElementById("close-menu");
+    const mobileMenu = document.getElementById("mobile-menu");
+    let menuOpen = false;
+    let previouslyFocused: HTMLElement | null = null;
+    let previousBodyOverflow = "";
+    let previousBodyPadding = "";
+    const backgroundStates = new Map<HTMLElement, boolean>();
 
-  const updateHeader = () => {
-    siteHeader?.classList.toggle("is-scrolled", window.scrollY > 32);
-  };
-  updateHeader();
-  window.addEventListener("scroll", updateHeader, { passive: true });
+    function updateLanguageLink(link: HTMLAnchorElement) {
+      const target = new URL(link.href);
+      target.search = window.location.search;
+      target.hash = window.location.hash;
+      link.href = target.pathname + target.search + target.hash;
+    }
 
-  function closeDisclosures() {
-    disclosures.forEach((disclosure) => { disclosure.open = false; });
-  }
-
-  disclosures.forEach((disclosure) => {
-    disclosure.addEventListener("toggle", () => {
-      if (disclosure.open) {
-        disclosures.forEach((other) => {
-          if (other !== disclosure) other.open = false;
-        });
-      }
+    document.querySelectorAll<HTMLAnchorElement>("[data-language-link]").forEach((link) => {
+      updateLanguageLink(link);
+      link.addEventListener("click", () => updateLanguageLink(link), { signal });
     });
-  });
 
-  document.addEventListener("click", (event) => {
-    if (!(event.target instanceof Node)) return;
+    const updateHeader = () => {
+      siteHeader?.classList.toggle("is-scrolled", window.scrollY > 32);
+    };
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true, signal });
+
+    function closeDisclosures() {
+      disclosures.forEach((disclosure) => { disclosure.open = false; });
+    }
+
     disclosures.forEach((disclosure) => {
-      if (!disclosure.contains(event.target as Node)) disclosure.open = false;
+      disclosure.addEventListener("toggle", () => {
+        if (disclosure.open) {
+          disclosures.forEach((other) => {
+            if (other !== disclosure) other.open = false;
+          });
+        }
+      }, { signal });
     });
-  });
 
-  siteHeader?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeDisclosures);
-  });
-
-  function setMenuOpen(isOpen: boolean, restoreFocus = true) {
-    if (!mobileMenu || menuOpen === isOpen) return;
-    menuOpen = isOpen;
-    mobileMenu.dataset.open = String(isOpen);
-    mobileMenu.inert = !isOpen;
-    mobileMenu.setAttribute("aria-hidden", String(!isOpen));
-    mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));
-
-    if (isOpen) {
-      closeDisclosures();
-      previouslyFocused = mobileMenuBtn;
-      previousBodyOverflow = document.body.style.overflow;
-      previousBodyPadding = document.body.style.paddingRight;
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      if (scrollbarWidth > 0) document.body.style.paddingRight = scrollbarWidth + "px";
-      Array.from(document.body.children).forEach((child) => {
-        if (!(child instanceof HTMLElement) || child.contains(mobileMenu) || ["SCRIPT", "STYLE", "LINK"].includes(child.tagName)) return;
-        backgroundStates.set(child, child.inert);
-        child.inert = true;
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Node)) return;
+      disclosures.forEach((disclosure) => {
+        if (!disclosure.contains(event.target as Node)) disclosure.open = false;
       });
-      closeMenuBtn?.focus({ preventScroll: true });
-    } else {
-      backgroundStates.forEach((wasInert, element) => { element.inert = wasInert; });
-      backgroundStates.clear();
-      document.body.style.overflow = previousBodyOverflow;
-      document.body.style.paddingRight = previousBodyPadding;
-      if (restoreFocus) (previouslyFocused ?? mobileMenuBtn)?.focus({ preventScroll: true });
+    }, { signal });
+
+    siteHeader?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeDisclosures, { signal });
+    });
+
+    function setMenuOpen(isOpen: boolean, restoreFocus = true) {
+      if (!mobileMenu || menuOpen === isOpen) return;
+      menuOpen = isOpen;
+      mobileMenu.dataset.open = String(isOpen);
+      mobileMenu.inert = !isOpen;
+      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+      mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));
+
+      if (isOpen) {
+        closeDisclosures();
+        previouslyFocused = mobileMenuBtn;
+        previousBodyOverflow = document.body.style.overflow;
+        previousBodyPadding = document.body.style.paddingRight;
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = "hidden";
+        if (scrollbarWidth > 0) document.body.style.paddingRight = scrollbarWidth + "px";
+        Array.from(document.body.children).forEach((child) => {
+          if (!(child instanceof HTMLElement) || child.contains(mobileMenu) || ["SCRIPT", "STYLE", "LINK"].includes(child.tagName)) return;
+          backgroundStates.set(child, child.inert);
+          child.inert = true;
+        });
+        closeMenuBtn?.focus({ preventScroll: true });
+      } else {
+        backgroundStates.forEach((wasInert, element) => { element.inert = wasInert; });
+        backgroundStates.clear();
+        document.body.style.overflow = previousBodyOverflow;
+        document.body.style.paddingRight = previousBodyPadding;
+        if (restoreFocus) (previouslyFocused ?? mobileMenuBtn)?.focus({ preventScroll: true });
+      }
     }
+
+    mobileMenuBtn?.addEventListener("click", () => setMenuOpen(!menuOpen), { signal });
+    closeMenuBtn?.addEventListener("click", () => setMenuOpen(false), { signal });
+    mobileMenu?.querySelector("[data-close-drawer]")?.addEventListener("click", () => setMenuOpen(false), { signal });
+    mobileMenu?.querySelectorAll(".mobile-link").forEach((link) => {
+      link.addEventListener("click", () => setMenuOpen(false), { signal });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (menuOpen) {
+          event.preventDefault();
+          setMenuOpen(false);
+          return;
+        }
+        const focusedDisclosure = disclosures.find((disclosure) => disclosure.open && disclosure.contains(document.activeElement));
+        closeDisclosures();
+        focusedDisclosure?.querySelector("summary")?.focus();
+      }
+
+      if (event.key !== "Tab" || !menuOpen || !mobileMenu) return;
+      const focusable = Array.from(mobileMenu.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), summary, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter((element) => element.offsetParent !== null);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) {
+        event.preventDefault();
+        mobileMenu.focus();
+      } else if (event.shiftKey && (document.activeElement === first || !mobileMenu.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !mobileMenu.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+      }
+    }, { signal });
+
+    window.matchMedia("(min-width: 1280px)").addEventListener("change", (event) => {
+      closeDisclosures();
+      if (event.matches && menuOpen) {
+        setMenuOpen(false, false);
+        siteHeader?.querySelector<HTMLAnchorElement>(".header-logo")?.focus({ preventScroll: true });
+      }
+    }, { signal });
+
+    cleanupHeader = () => {
+      setMenuOpen(false, false);
+      closeDisclosures();
+      controller.abort();
+    };
   }
 
-  mobileMenuBtn?.addEventListener("click", () => setMenuOpen(!menuOpen));
-  closeMenuBtn?.addEventListener("click", () => setMenuOpen(false));
-  mobileMenu?.querySelector("[data-close-drawer]")?.addEventListener("click", () => setMenuOpen(false));
-  mobileMenu?.querySelectorAll(".mobile-link").forEach((link) => {
-    link.addEventListener("click", () => setMenuOpen(false));
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      if (menuOpen) {
-        event.preventDefault();
-        setMenuOpen(false);
-        return;
-      }
-      const focusedDisclosure = disclosures.find((disclosure) => disclosure.open && disclosure.contains(document.activeElement));
-      closeDisclosures();
-      focusedDisclosure?.querySelector("summary")?.focus();
-    }
-
-    if (event.key !== "Tab" || !menuOpen || !mobileMenu) return;
-    const focusable = Array.from(mobileMenu.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), summary, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )).filter((element) => element.offsetParent !== null);
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (!first || !last) {
-      event.preventDefault();
-      mobileMenu.focus();
-    } else if (event.shiftKey && (document.activeElement === first || !mobileMenu.contains(document.activeElement))) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && (document.activeElement === last || !mobileMenu.contains(document.activeElement))) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
-
-  window.matchMedia("(min-width: 1280px)").addEventListener("change", (event) => {
-    closeDisclosures();
-    if (event.matches && menuOpen) {
-      setMenuOpen(false, false);
-      siteHeader?.querySelector<HTMLAnchorElement>(".header-logo")?.focus({ preventScroll: true });
-    }
-  });
+  document.addEventListener("astro:page-load", initializeHeader);
+  document.addEventListener("astro:before-swap", () => cleanupHeader());
 </script>

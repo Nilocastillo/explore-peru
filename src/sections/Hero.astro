@@ -118,9 +118,9 @@ const copy = english ? {
   .hero-heading > em { margin-top: 5px; color: var(--hero-gold); font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -.055em; }
   .hero-description { max-width: 540px; margin-top: 24px; font-size: 16px; line-height: 1.8; color: color-mix(in oklch, var(--hero-cream) 85%, transparent); }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-  .hero-button { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 24px; padding: 16px 24px; border: 1px solid transparent; border-radius: 6px; font-size: 13px; font-weight: 700; transition: background .2s, border-color .2s, transform .2s; }
-  .hero-button svg { width: 19px; height: 19px; flex: 0 0 19px; transition: transform .2s; }
-  .hero-button:hover svg { transform: translateX(3px); }
+  .hero-button { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 24px; padding: 16px 24px; border: 1px solid transparent; border-radius: 6px; font-size: 13px; font-weight: 700; translate: none; transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  .hero-button svg { width: 19px; height: 19px; flex: 0 0 19px; translate: 0 0; transition: translate .2s ease; }
+  .hero-button:hover svg { translate: 3px 0; }
   .hero-button:focus-visible, .hero-postcard:focus-visible { outline: 2px solid var(--hero-gold); outline-offset: 6px; }
   .hero-postcard { display: block; align-self: center; margin-bottom: 7px; background: var(--hero-cream); color: var(--color-brand-dark); border-radius: 8px; box-shadow: 0 18px 70px rgb(0 0 0 / .22); transform: rotate(3deg); transition: transform .35s; }
   .hero-postcard:hover { transform: rotate(0deg) translateY(-6px); }

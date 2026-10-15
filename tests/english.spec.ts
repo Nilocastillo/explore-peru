@@ -79,26 +79,48 @@ test.describe("English content and navigation", () => {
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
   });
 
-  test("the language selector preserves the equivalent tour and query parameters", async ({ page }) => {
-    await page.goto("/en/tours/humantay-lake?travelers=2");
-    await expect(page.getByRole("heading", { name: "Humantay Lake", level: 1 })).toBeVisible();
+  test("only language switches use the client router and preserve the equivalent tour, query and anchor", async ({ page }) => {
+    const suffix = "?travelers=2#recommendations";
+    await page.goto(`/en/tours/humantay-lake/${suffix}`);
+    await expect(page.getByRole("heading", { name: "Humantay Lake", level: 1 })).toHaveText("Humantay Lake");
+    await page.evaluate(() => {
+      (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker = "desktop-language-round-trip";
+    });
 
     const englishSelector = page.locator('header.site-header summary[aria-label="Choose language"]');
     await expect(englishSelector.locator(".language-flag")).toBeVisible();
     await expect(englishSelector.locator(".language-flag")).toHaveText("🇺🇸");
     await englishSelector.click();
+    await expect(page.locator("header.site-header [data-language-link]")).toHaveCount(1);
+    await expect(page.locator("header.site-header").getByRole("link", { name: "Read this page in English", exact: true }))
+      .toHaveCount(0);
     await page.locator("header.site-header").getByRole("link", { name: "Read this page in Spanish", exact: true }).click();
-    await expect(page).toHaveURL(/\/tours\/laguna-humantay\/\?travelers=2$/);
+    await expect(page).toHaveURL((url) => url.pathname + url.search + url.hash === `/tours/laguna-humantay/${suffix}`);
     await expect(page.locator("html")).toHaveAttribute("lang", "es");
-    await expect(page.getByRole("heading", { name: "Laguna Humantay", level: 1 })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Laguna Humantay", level: 1 })).toHaveText("Laguna Humantay");
+    expect(await page.evaluate(() => (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker))
+      .toBe("desktop-language-round-trip");
 
     const spanishSelector = page.locator('header.site-header summary[aria-label="Elegir idioma"]');
     await expect(spanishSelector.locator(".language-flag")).toBeVisible();
     await expect(spanishSelector.locator(".language-flag")).toHaveText("🇪🇸");
     await spanishSelector.click();
+    await expect(page.locator("header.site-header [data-language-link]")).toHaveCount(1);
+    await expect(page.locator("header.site-header").getByRole("link", { name: "Leer esta página en español", exact: true }))
+      .toHaveCount(0);
     await page.locator("header.site-header").getByRole("link", { name: "Leer esta página en inglés", exact: true }).click();
-    await expect(page).toHaveURL(/\/en\/tours\/humantay-lake\/\?travelers=2$/);
+    await expect(page).toHaveURL((url) => url.pathname + url.search + url.hash === `/en/tours/humantay-lake/${suffix}`);
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await expect(page.getByRole("heading", { name: "Humantay Lake", level: 1 })).toHaveText("Humantay Lake");
+    expect(await page.evaluate(() => (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker))
+      .toBe("desktop-language-round-trip");
+
+    await page.locator("header.site-header").getByRole("link", { name: "Traditional Tours", exact: true }).click();
+    await expect(page).toHaveURL((url) => url.pathname === "/en/traditional/");
+    await expect(page.locator("html")).toHaveAttribute("lang", "en");
+    await expect(page.locator("main article")).not.toHaveCount(0);
+    expect(await page.evaluate(() => (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker))
+      .toBeUndefined();
   });
 
   test("catalog, details, categories and contact navigation retain /en", async ({ page }) => {
@@ -156,6 +178,51 @@ test.describe("English content and navigation", () => {
 });
 
 test.describe("English inquiry form", () => {
+  test("forms initialize after repeated language switches and submit once per inquiry", async ({ page }) => {
+    const receivedPayloads: Record<string, unknown>[] = [];
+    await page.route("**/api/consultar/", async (route) => {
+      receivedPayloads.push(route.request().postDataJSON());
+      await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ ok: true }) });
+    });
+
+    await page.goto("/consultar/");
+    await page.evaluate(() => {
+      (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker = "contact-language-round-trip";
+    });
+
+    for (const [index, locale] of ["en", "es", "en"].entries()) {
+      const header = page.locator("header.site-header");
+      await header.locator(".language-trigger").click();
+      await header.locator(`[data-language-link][hreflang="${locale}"]`).click();
+      await expect(page.locator("html")).toHaveAttribute("lang", locale);
+      const form = page.locator("[data-consultation-form]");
+      await expect(form).toHaveAttribute("data-bound", "true");
+      await expect(form.locator('input[name="locale"]')).toHaveValue(locale);
+      await expect(form.locator('input[name="name"]')).toHaveValue("");
+      await expect(page.locator("[data-form-status]")).toBeEmpty();
+      expect(await page.evaluate(() => (window as Window & { languageNavigationMarker?: string }).languageNavigationMarker))
+        .toBe("contact-language-round-trip");
+
+      if (locale === "en") {
+        await fillEnglishInquiry(page);
+      } else {
+        await page.getByRole("textbox", { name: "Nombre completo", exact: true }).fill("Ana Viajera");
+        await page.getByRole("textbox", { name: "Número de WhatsApp", exact: true }).fill("999888777");
+      }
+      await form.getByRole("button", { name: locale === "en" ? "Request information" : "Solicitar información", exact: true }).click();
+      await expect(page.locator("[data-form-status]")).toHaveText(locale === "en"
+        ? "Your inquiry has been sent. We will get back to you soon."
+        : "Consulta enviada. Te responderemos pronto.");
+      await expect.poll(() => receivedPayloads.length).toBe(index + 1);
+      expect(receivedPayloads.at(-1)).toMatchObject({
+        locale,
+        name: locale === "en" ? "Alex Traveler" : "Ana Viajera",
+        phone: "+51 999888777",
+      });
+    }
+    expect(receivedPayloads.map((payload) => payload.locale)).toEqual(["en", "es", "en"]);
+  });
+
   test("sends locale=en and shows English success without contacting the real API", async ({ page }) => {
     let receivedPayload: Record<string, unknown> | undefined;
     await page.route("**/api/consultar/", async (route) => {
