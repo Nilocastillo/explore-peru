@@ -1,4 +1,6 @@
 ---
+import { getWhatsAppUrl } from "@/data/contact";
+
 const exploreItems = [
   { text: "Home", href: "/" },
   { text: "Machu Picchu", href: "/machu-picchu" },
@@ -27,7 +29,7 @@ const currentYear = new Date().getFullYear();
         ¿Tienes un viaje en mente?
       </h2>
       <a
-        href="https://wa.me/51974346252"
+        href={getWhatsAppUrl()}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 group shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.23)] hover:-translate-y-1 shrink-0 self-start lg:self-auto"
