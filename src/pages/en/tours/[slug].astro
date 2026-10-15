@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import TourDetail from "@/components/tours/TourDetail.astro";
+
+export const prerender = true;
+export async function getStaticPaths() {
+  const tours = await getCollection("toursEn");
+  return tours.map((tour) => ({ params: { slug: tour.id }, props: { tour } }));
+}
+const { tour } = Astro.props;
+---
+
+<TourDetail tour={tour} />

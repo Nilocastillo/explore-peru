@@ -5,36 +5,45 @@ import { Font } from "astro:assets";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
+import { getLocale, localizePath } from "@/i18n/routes";
+
+const locale = getLocale(Astro.url.pathname);
+const english = locale === "en";
+const baseUrl = Astro.site ?? new URL(Astro.url.origin);
+const canonicalUrl = new URL(localizePath(Astro.url.pathname, locale), baseUrl);
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
   type?: string;
+  showFloatingWhatsApp?: boolean;
 }
 
 const {
-  title = "XPLORE PERÚ - Viajes Extraordinarios",
-  description = "XPLORE PERÚ - Agencia de viajes especializada en experiencias auténticas por Perú. Tours a Machu Picchu, Cusco, Amazonas y más.",
+  title = english ? "XPLORE PERÚ - Extraordinary Journeys" : "XPLORE PERÚ - Viajes Extraordinarios",
+  description = english ? "Discover authentic experiences in Peru with XPLORE PERÚ. Explore Machu Picchu, Cusco, the Amazon and more with our local travel team." : "XPLORE PERÚ - Agencia de viajes especializada en experiencias auténticas por Perú. Tours a Machu Picchu, Cusco, Amazonas y más.",
   image,
   type = "website",
+  showFloatingWhatsApp = true,
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <Font cssVariable="--font-manrope" preload />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content={description} />
-    <link rel="canonical" href={Astro.url} />
+    {Astro.response.status === 404 && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="theme-color" content="#0f172a" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:url" content={canonicalUrl} />
     {image && <meta property="og:image" content={image} />}
     <meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
     <meta name="twitter:title" content={title} />
@@ -42,27 +51,24 @@ const {
     {image && <meta name="twitter:image" content={image} />}
     <title>{title}</title>
 
-    <!-- International SEO (LATAM target) -->
-    <link rel="alternate" hreflang="es-PE" href={Astro.url} />
-    <link rel="alternate" hreflang="es-CO" href={Astro.url} />
-    <link rel="alternate" hreflang="es-AR" href={Astro.url} />
-    <link rel="alternate" hreflang="es-MX" href={Astro.url} />
-    <link rel="alternate" hreflang="es-CL" href={Astro.url} />
-    <link rel="alternate" hreflang="es" href={Astro.url} />
-    <link rel="alternate" hreflang="x-default" href={Astro.url} />
+    <link rel="alternate" hreflang="es" href={new URL(localizePath(Astro.url.pathname, "es"), baseUrl)} />
+    <link rel="alternate" hreflang="en" href={new URL(localizePath(Astro.url.pathname, "en"), baseUrl)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(localizePath(Astro.url.pathname, "es"), baseUrl)} />
 
     <!-- OpenGraph Additions -->
     <meta property="og:site_name" content="XPLORE PERÚ" />
-    <meta property="og:locale" content="es_PE" />
+    <meta property="og:locale" content={english ? "en_US" : "es_PE"} />
+    <meta property="og:locale:alternate" content={english ? "es_PE" : "en_US"} />
 
     <!-- Structured Data (Organization) -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "TravelAgency",
       "name": "XPLORE PERÚ",
-      "description": "Agencia de viajes especializada en experiencias auténticas por Perú.",
-      "url": Astro.site?.toString() ?? Astro.url.origin,
-      "logo": `${Astro.site?.toString() ?? Astro.url.origin}/xplore-logo-horizontal.svg`,
+      "description": english ? "Travel agency specializing in authentic experiences in Peru." : "Agencia de viajes especializada en experiencias auténticas por Perú.",
+      "url": new URL(localizePath("/", locale), baseUrl).href,
+      "logo": new URL("/xplore-logo-horizontal.svg", baseUrl).href,
+      "availableLanguage": ["Spanish", "English"],
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "PE",
@@ -71,10 +77,10 @@ const {
     })} />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    <a href="#main-content" class="skip-link">{english ? "Skip to main content" : "Saltar al contenido principal"}</a>
     <Header />
     <slot />
-    <WhatsAppButton />
+    {showFloatingWhatsApp && <WhatsAppButton />}
     <Footer />
   </body>
 </html>

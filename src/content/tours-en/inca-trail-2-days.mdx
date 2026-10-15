@@ -1,0 +1,99 @@
+---
+title: "Inca Trail 2 Days"
+duration: "2 days / 1 night"
+location: "Cusco, Wiñaywayna and Machu Picchu"
+departure: "Hotel pickup at 5:45 a.m."
+category:
+  - "Machu Picchu"
+description: "Experience the short Inca Trail in 2 days, starting your hike at Km 104 and visiting Chachabamba, Wiñaywayna and Inti Punku before reaching Machu Picchu. An ideal route combining trekking, archaeology and the experience of entering the citadel through the Sun Gate."
+image: "../../assets/tours/camino-inca-2-dias.avif"
+alt: "2-day Inca Trail to Machu Picchu via Wiñaywayna and Inti Punku"
+meta_title: "Inca Trail 2 Days | Wiñaywayna, Inti Punku and Machu Picchu"
+meta_description: "Book the 2-day Inca Trail to Machu Picchu. Includes the route from Km 104 through Chachabamba, Wiñaywayna and Inti Punku, a night in Aguas Calientes and a guided citadel visit."
+difficulty: "Grade II"
+walkingTime: "Approx. 2.5-hour hike to Wiñaywayna"
+badge: "Short Inca Trail"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Day 1",
+    title: "Wiñaywayna and arrival at Machu Picchu",
+    description:
+      "We will pick you up from your hotel at 5:45 a.m. and take you to the train station, where you will board the train to Km 104. Along the way, you can admire picturesque scenery before reaching the starting point of the hike.\n\nFrom the Chachabamba archaeological site, at 2,250 m above sea level, we will begin the approximately 2.5-hour ascent to the fascinating archaeological site of Wiñaywayna, at 2,650 m above sea level, where we will enjoy a picnic.\n\nIn the afternoon, we will continue through the subtropical forest to Inti Punku, the Sun Gate, for our first panoramic view of majestic Machu Picchu. We will then walk down to the town of Aguas Calientes, where you may optionally visit the hot springs. Overnight at a hostel, subject to availability.",
+  },
+  {
+    day: "Day 2",
+    title: "Machu Picchu and return to Cusco",
+    description:
+      "After breakfast, we will take the first bus to Machu Picchu to enjoy sunrise at this magical place before other visitors arrive from Cusco.\n\nWe will experience the tranquility of the lost city of the Incas on a guided tour of the citadel, followed by free time to explore. In the afternoon, we will take the bus down to Aguas Calientes and board the train back to Ollantaytambo. Finally, we will transfer you to your hotel.",
+  },
+];
+
+<section id="description">
+  <H2Tours>About the experience</H2Tours>
+
+    The 2-day Inca Trail is a short yet rewarding alternative for travelers
+    who want to experience arriving at Machu Picchu on foot along a historic
+    route. The journey begins at Km 104 and combines archaeological sites,
+    subtropical forest and arrival through Inti Punku, the Sun Gate.
+
+    Along the route, we will visit Chachabamba and Wiñaywayna before enjoying
+    our first panoramic view of Machu Picchu. The second day is dedicated to
+    a guided visit to the citadel and the return train journey to Ollantaytambo.
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerary</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Included</H2Tours>
+  <IconListItem icon={IncludesIcon}>Classic 4-day, 3-night excursion.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus transportation to the start of the trek.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Accommodation in two-person tents.</IconListItem>
+  <IconListItem icon={IncludesIcon}>All meals and tableware during the trek.</IconListItem>
+  <IconListItem icon={IncludesIcon}>3 breakfasts, 3 lunches, 3 dinners and snacks.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Kitchen, dining and toilet tents.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Porters for group equipment.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Official tour guide.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Citadel admission ticket.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Downhill bus ticket to Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Return train ticket to Ollantaytambo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transfer from the train station to Plaza San Francisco.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>Not included</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Additional drinks at breakfast.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Phone calls.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Sleeping bags.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Admission for additional days.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Personal porter to carry personal belongings.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Other costs and expenses not described in the itinerary.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recommendations</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Carry a valid passport or identity document throughout the tour.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Wear trekking shoes or boots, comfortable clothing, a light jacket and a rain poncho.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Bring sunscreen, insect repellent, water, snacks and a camera.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Check short Inca Trail permit availability before booking.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Important information</H2Tours>
+    From January to April, Inka Rail and Peru Rail services depart from and
+    arrive at Ollantaytambo or Pachar stations, approximately 2 hours from Cusco.
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+      <strong>Difficulty:</strong> Grade II. The main hike starts at Km 104
+      and climbs to Wiñaywayna before continuing to Inti Punku.
+  </div>
+</section>

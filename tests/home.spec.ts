@@ -12,7 +12,7 @@ test.describe("Página de inicio (Home)", () => {
 
     // Validamos la etiqueta meta description
     const description = await page.locator('meta[name="description"]').getAttribute("content");
-    expect(description).toContain("experiencias auténticas por Perú");
+    expect(description).toContain("tours en Cusco y paquetes de viaje a Machu Picchu");
 
     // Validamos idioma del documento
     const htmlLang = await page.locator("html").getAttribute("lang");

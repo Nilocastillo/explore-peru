@@ -1,74 +1,101 @@
 ---
 import { countries } from "@/data/countries";
+import { getLocale } from "@/i18n/routes";
+import { consultationCopy } from "@/i18n/consultation";
+
+const locale = getLocale(Astro.url.pathname);
+const copy = consultationCopy[locale];
+const countryName = locale === "en" ? "nameEN" : "nameES";
+const sortedCountries = [...countries].sort((a, b) => a[countryName].localeCompare(b[countryName], locale));
 
 interface Props {
   tour?: string;
   duration?: string;
   departure?: string;
+  layout?: "default" | "contact";
 }
 
 const {
   tour = "",
   duration = "",
   departure = "",
+  layout = "default",
 } = Astro.props;
+const isContactLayout = layout === "contact";
 ---
 
-<consultation-form>
-  <form class="overflow-hidden rounded-2xl border border-brand-dark/10 bg-white shadow-card" data-consultation-form>
-    <div class="p-6 sm:p-8">
-      <h2 class="text-2xl font-black leading-tight text-brand-dark">
-        {tour || "Consulta de viaje"}
-      </h2>
+<consultation-form data-locale={locale}>
+  <form class:list={[
+    { "consultation-contact": isContactLayout },
+    !isContactLayout && "overflow-hidden rounded-2xl border border-brand-dark/10 bg-white shadow-card",
+  ]} data-consultation-form>
+    <div class:list={[!isContactLayout && "p-6 sm:p-8"]}>
+      {(!isContactLayout || tour) && (
+        <h2 class:list={["text-2xl font-black leading-tight text-brand-dark", isContactLayout && "mb-6"]}>
+          {tour || copy.heading}
+        </h2>
+      )}
 
       <input name="tour" type="hidden" value={tour} />
+      <input name="locale" type="hidden" value={locale} />
       <input name="duration" type="hidden" value={duration} />
       <input name="departure" type="hidden" value={departure} />
       <input class="hidden" name="company" type="text" tabindex="-1" autocomplete="off" />
 
-      <label class="mt-6 block text-sm font-bold text-brand-dark">
-        Nombre completo
-        <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="name" type="text" autocomplete="name" required />
-      </label>
-
-      <label class="mt-4 block text-sm font-bold text-brand-dark">
-        WhatsApp
-        <div class="mt-2 flex gap-2">
-          <select class="w-[35%] sm:w-[140px] rounded-xl border border-brand-dark/10 bg-brand-bg px-2 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white overflow-hidden text-ellipsis whitespace-nowrap shrink-0" name="phoneCode" required>
-            {countries.map((country) => (
-              <option value={country.phoneCode} selected={country.iso2 === "PE"}>
-                {country.nameES} (+{country.phoneCode})
-              </option>
-            ))}
-          </select>
-          <input class="w-full flex-1 rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="phone" type="tel" autocomplete="tel" placeholder="Número" required />
-        </div>
-      </label>
-
-      <label class="mt-4 block text-sm font-bold text-brand-dark">
-        Correo electrónico
-        <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="email" type="email" autocomplete="email" />
-      </label>
-
-      <div class="mt-4 grid gap-4 sm:grid-cols-2">
-        <label class="block text-sm font-bold text-brand-dark">
-          Fecha tentativa
-          <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="date" type="date" />
+      <div class:list={[isContactLayout && "contact-fields"]}>
+        <label class="form-field mt-6 block text-sm font-bold text-brand-dark">
+          {copy.fullName}
+          <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="name" type="text" autocomplete="name" required />
         </label>
 
-        <label class="block text-sm font-bold text-brand-dark">
-          Pasajeros
-          <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="travelers" type="number" min="1" inputmode="numeric" placeholder="2" />
+        {isContactLayout && (
+          <label class="form-field block text-sm font-bold text-brand-dark">
+            {copy.email}
+            <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="email" type="email" autocomplete="email" />
+          </label>
+        )}
+
+        <label class="form-field contact-full-width mt-4 block text-sm font-bold text-brand-dark">
+          WhatsApp
+          <div class="phone-fields mt-2 flex gap-2">
+            <select aria-label={copy.phoneCode} class="phone-code w-[35%] sm:w-[140px] rounded-xl border border-brand-dark/10 bg-brand-bg px-2 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white overflow-hidden text-ellipsis whitespace-nowrap shrink-0" name="phoneCode" required>
+              {sortedCountries.map((country) => (
+                <option value={country.phoneCode} selected={country.iso2 === "PE"}>
+                  {country[countryName]} (+{country.phoneCode})
+                </option>
+              ))}
+            </select>
+            <input aria-label={copy.phone} class="min-w-0 w-full flex-1 rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="phone" type="tel" autocomplete="tel-national" placeholder={copy.phonePlaceholder} required />
+          </div>
+        </label>
+
+        {!isContactLayout && (
+          <label class="mt-4 block text-sm font-bold text-brand-dark">
+            {copy.email}
+            <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="email" type="email" autocomplete="email" />
+          </label>
+        )}
+
+        <div class="form-field contact-full-width mt-4 grid gap-4 sm:grid-cols-2">
+          <label class="block text-sm font-bold text-brand-dark">
+            {copy.date}
+            <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="date" type="date" />
+          </label>
+
+          <label class="block text-sm font-bold text-brand-dark">
+            {copy.travelers}
+            <input class="mt-2 w-full rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="travelers" type="number" min="1" inputmode="numeric" placeholder="2" />
+          </label>
+        </div>
+
+        <label class="form-field contact-full-width mt-4 block text-sm font-bold text-brand-dark">
+          {copy.message}
+          <textarea class="mt-2 min-h-28 w-full resize-y rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="message" placeholder={copy.messagePlaceholder}></textarea>
         </label>
       </div>
 
-      <label class="mt-4 block text-sm font-bold text-brand-dark">
-        Mensaje
-        <textarea class="mt-2 min-h-28 w-full resize-y rounded-xl border border-brand-dark/10 bg-brand-bg px-4 py-3 text-sm text-brand-dark outline-none transition focus:border-brand-primary focus:bg-white" name="message" placeholder="Cuéntanos qué tour te interesa o qué necesitas saber."></textarea>
-      </label>
-
       <button class="btn-travel mt-5 flex w-full items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold disabled:cursor-not-allowed disabled:opacity-70" type="submit" data-submit-button>
-        Solicitar información
+        {copy.submit}
       </button>
 
       <p class="mt-4 hidden rounded-xl px-4 py-3 text-sm font-semibold" data-form-status aria-live="polite"></p>
@@ -76,7 +103,65 @@ const {
   </form>
 </consultation-form>
 
+<style>
+  consultation-form {
+    display: block;
+    min-width: 0;
+  }
+
+  .consultation-contact .contact-fields {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .consultation-contact .form-field {
+    min-width: 0;
+    margin-top: 0;
+  }
+
+  .consultation-contact input:not([type="hidden"]),
+  .consultation-contact select,
+  .consultation-contact textarea {
+    min-width: 0;
+    min-height: 3rem;
+    border-color: color-mix(in srgb, var(--color-brand-dark) 15%, transparent);
+    background-color: var(--color-brand-light);
+    font-weight: 400;
+  }
+
+  .consultation-contact textarea {
+    min-height: 7.5rem;
+  }
+
+  .consultation-contact .phone-code {
+    width: min(42%, 11rem);
+  }
+
+  .consultation-contact :is(input, select, textarea):focus-visible {
+    border-color: var(--color-brand-primary);
+    outline: 3px solid color-mix(in srgb, var(--color-brand-primary) 20%, transparent);
+    outline-offset: 2px;
+    background-color: white;
+  }
+
+  .consultation-contact button {
+    min-height: 3rem;
+  }
+
+  @media (min-width: 640px) {
+    .consultation-contact .contact-fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .consultation-contact .contact-full-width {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
 <script>
+  import { consultationCopy } from "@/i18n/consultation";
+
   class ConsultationFormElement extends HTMLElement {
     connectedCallback() {
       const form = this.querySelector("[data-consultation-form]");
@@ -92,6 +177,8 @@ const {
       }
 
       form.dataset.bound = "true";
+      const locale = this.dataset.locale === "en" ? "en" : "es";
+      const copy = consultationCopy[locale];
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -103,32 +190,32 @@ const {
         delete payload.phoneCode;
 
         button.disabled = true;
-        button.textContent = "Enviando...";
+        button.textContent = copy.sending;
         status.className = "mt-4 rounded-xl bg-brand-primary/10 px-4 py-3 text-sm font-semibold text-brand-primary";
-        status.textContent = "Estamos enviando tu consulta.";
+        status.textContent = copy.sendingStatus;
 
         try {
-          const response = await fetch("/api/consultar", {
+          const response = await fetch("/api/consultar/", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Accept-Language": locale },
             body: JSON.stringify(payload),
           });
 
           const result = await response.json().catch(() => ({}));
 
           if (!response.ok) {
-            throw new Error(result?.message ?? "No pudimos enviar la consulta.");
+            throw new Error(result?.message ?? copy.error);
           }
 
           form.reset();
           status.className = "mt-4 rounded-xl bg-brand-success/15 px-4 py-3 text-sm font-semibold text-brand-dark";
-          status.textContent = "Consulta enviada. Te responderemos pronto.";
+          status.textContent = copy.success;
         } catch (error) {
           status.className = "mt-4 rounded-xl bg-brand-error/10 px-4 py-3 text-sm font-semibold text-brand-error";
-          status.textContent = error instanceof Error ? error.message : "No pudimos enviar la consulta. Intenta nuevamente.";
+          status.textContent = error instanceof Error ? error.message : copy.error;
         } finally {
           button.disabled = false;
-          button.textContent = "Solicitar información";
+          button.textContent = copy.submit;
         }
       });
     }

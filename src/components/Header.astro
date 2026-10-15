@@ -1,31 +1,40 @@
 ---
+import { getLocale, localizePath } from "@/i18n/routes";
+
+const locale = getLocale(Astro.url.pathname);
+const isEnglish = locale === "en";
+const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+const currentPath = normalizePath(Astro.url.pathname);
+const isHome = currentPath === "/" || currentPath === "/en";
+const homeHref = localizePath("/", locale);
+const contactHref = localizePath("/consultar", locale);
+
 const navItems = [
   { text: "Machu Picchu", href: "/machu-picchu" },
-  { text: "Tradicionales", href: "/tradicional" },
-  { text: "Aventura", href: "/aventura" },
-  { text: "Paquetes", href: "/paquetes" },
+  { text: isEnglish ? "Traditional Tours" : "Tradicionales", href: "/tradicional" },
+  { text: isEnglish ? "Adventure" : "Aventura", href: "/aventura" },
+  { text: isEnglish ? "Packages" : "Paquetes", href: "/paquetes" },
   { text: "Full Day", href: "/full-day" },
-  { text: "Código ESNNA", href: "/codigo-esnna" },
-];
-
-const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+  { text: isEnglish ? "Child Protection" : "Código ESNNA", href: "/codigo-esnna" },
+].map((item) => ({ ...item, href: localizePath(item.href, locale) }));
+const languageLinks = (["es", "en"] as const).map((language) => ({
+  language,
+  flag: language === "es" ? "🇪🇸" : "🇺🇸",
+  name: language === "es" ? "Español" : "English",
+  href: localizePath(Astro.url.pathname, language) + Astro.url.search,
+  label: isEnglish
+    ? "Read this page in " + (language === "es" ? "Spanish" : "English")
+    : "Leer esta página en " + (language === "es" ? "español" : "inglés"),
+}));
+const tripLabel = isEnglish ? "Contact us" : "Contáctanos";
 ---
 
-<header
-  class="fixed top-4 md:top-6 left-0 right-0 z-[100] flex justify-center px-4 w-full"
->
-  <nav
-    class="glass-pill-nav flex items-center font-semibold justify-between gap-4 md:gap-8 max-w-7xl w-full px-6 py-3 text-brand-black"
-  >
-    <a
-      href="/"
-      class="flex items-center gap-2 group cursor-pointer text-base"
-      onclick="window.scrollTo(0,0)"
-    >
+<header class:list={["site-header", "fixed", { "is-home": isHome }]} data-home={isHome ? "true" : "false"}>
+  <nav class="nav-shell" aria-label={isEnglish ? "Main navigation" : "Navegación principal"}>
+    <a href={homeHref} class="header-logo">
       <img
         src="/xplore-logo-horizontal.svg"
-        alt="Logotipo Agencia de Viajes XPLORE PERÚ"
-        class="h-12 lg:h-16 w-auto object-contain"
+        alt={isEnglish ? "XPLORE PERÚ travel agency logo" : "Logotipo Agencia de Viajes XPLORE PERÚ"}
         width={350}
         height={146}
         loading="eager"
@@ -33,116 +42,704 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       />
     </a>
 
-    <div class="hidden xl:flex items-center gap-4">
-      {
-        navItems.map((item) => (
-          <a
-            href={item.href}
-            aria-current={currentPath === item.href ? "page" : undefined}
-            class="px-3 py-2 text-base text-brand-black hover:text-brand-primary transition-colors"
-          >
-            {item.text}
-          </a>
-        ))
-      }
+    <div class="desktop-nav">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="nav-link"
+          aria-current={currentPath === normalizePath(item.href) ? "page" : undefined}
+        >
+          {item.text}
+        </a>
+      ))}
     </div>
 
-    <div class="flex items-center gap-1">
-      <a
-        href="/consultar"
-        class="hidden xl:inline-flex btn-brand px-6 py-3 rounded-full text-base font-bold uppercase tracking-wider shadow-lg"
-      >
-        Contáctanos
+    <div class="header-actions">
+      <details class="nav-disclosure language-disclosure" data-header-disclosure>
+        <summary class="language-trigger" aria-label={isEnglish ? "Choose language" : "Elegir idioma"}>
+          <span class="language-flag" aria-hidden="true">{locale === "es" ? "🇪🇸" : "🇺🇸"}</span>
+          <span>{locale.toUpperCase()}</span>
+          <svg class="chevron" aria-hidden="true" width="11" height="11" viewBox="0 0 16 16" fill="none">
+            <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </summary>
+        <div class="disclosure-panel language-panel" role="group" aria-label={isEnglish ? "Language" : "Idioma"}>
+          {languageLinks.map((item) => (
+            <a
+              href={item.href}
+              data-language-link
+              lang={item.language}
+              hreflang={item.language}
+              aria-label={item.label}
+              aria-current={locale === item.language ? "page" : undefined}
+            >
+              <span class="language-option-name"><span class="language-flag" aria-hidden="true">{item.flag}</span>{item.name}</span>
+              <span class="language-code" aria-hidden="true">{item.language.toUpperCase()}</span>
+            </a>
+          ))}
+        </div>
+      </details>
+      <a href={contactHref} class="trip-cta btn-brand desktop-cta">
+        {tripLabel}
+        <svg aria-hidden="true" width="17" height="17" viewBox="0 0 20 20" fill="none">
+          <path d="M3 10h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </a>
       <button
         id="mobile-menu-btn"
         type="button"
-        aria-label="Abrir menú"
+        aria-label={isEnglish ? "Open menu" : "Abrir menú"}
         aria-controls="mobile-menu"
         aria-expanded="false"
-        class="xl:hidden w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full transition"
+        class="menu-toggle"
       >
-        <span class="flex flex-col gap-1.5" aria-hidden="true">
-          <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
-          <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
-          <span class="w-6 h-0.5 bg-brand-primary rounded"></span>
-        </span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </button>
     </div>
   </nav>
 </header>
 
-<!-- Mobile Menu -->
 <div
   id="mobile-menu"
+  class="mobile-menu"
+  data-open="false"
   inert
   role="dialog"
   aria-modal="true"
-  aria-label="Menú principal"
-  class="fixed inset-0 z-[110] bg-brand-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex items-center justify-center"
+  aria-hidden="true"
+  aria-label={isEnglish ? "Main menu" : "Menú principal"}
+  tabindex="-1"
 >
-  <button
-    id="close-menu"
-    type="button"
-    aria-label="Cerrar menú"
-    class="absolute top-8 right-8 text-white text-2xl w-10 h-10 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded-full"
-  >
-    <span class="flex flex-col gap-1.5" aria-hidden="true">
-      <span class="w-6 h-0.5 bg-white rounded rotate-45 translate-y-1.5"></span>
-      <span class="w-6 h-0.5 bg-white rounded -rotate-45 -translate-y-1.5"
-      ></span>
-    </span>
-  </button>
-  <div class="flex flex-col items-center gap-6 w-full px-8 text-center">
-    {
-      navItems.map((item) => (
-        <a
-          href={item.href}
-          aria-current={currentPath === item.href ? "page" : undefined}
-          class="mobile-link text-xl font-medium text-white"
-        >
-          {item.text}
-        </a>
-      ))
-    }
-    <a
-      href="/consultar"
-      class="mobile-link btn-brand px-8 py-3 rounded-full text-lg font-bold w-full max-w-xs mt-4"
-      >Contáctanos</a
-    >
+  <div class="mobile-backdrop" data-close-drawer aria-hidden="true"></div>
+  <div class="mobile-panel">
+    <div class="mobile-panel-heading">
+      <a href={homeHref} class="drawer-logo mobile-link">
+        <img
+          src="/xplore-logo-horizontal.svg"
+          alt={isEnglish ? "XPLORE PERÚ travel agency logo" : "Logotipo Agencia de Viajes XPLORE PERÚ"}
+          width={350}
+          height={146}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+      <button id="close-menu" type="button" class="close-toggle" aria-label={isEnglish ? "Close menu" : "Cerrar menú"}>
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="m5 5 14 14M19 5 5 19" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <nav aria-label={isEnglish ? "Mobile navigation" : "Navegación móvil"}>
+      <ul class="mobile-tour-links">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class="mobile-link" aria-current={currentPath === normalizePath(item.href) ? "page" : undefined}>
+              <span>{item.text}</span>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mobile-panel-footer">
+      <a href={contactHref} class="trip-cta btn-brand mobile-link">
+        {tripLabel}
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20" fill="none">
+          <path d="M3 10h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+      <div class="mobile-language-row" role="group" aria-label={isEnglish ? "Language" : "Idioma"}>
+        <span class="drawer-eyebrow">{isEnglish ? "Language" : "Idioma"}</span>
+        <div>
+          {languageLinks.map((item) => (
+            <a
+              href={item.href}
+              class="mobile-link"
+              data-language-link
+              lang={item.language}
+              hreflang={item.language}
+              aria-label={item.label}
+              aria-current={locale === item.language ? "page" : undefined}
+            >
+              <span class="language-flag" aria-hidden="true">{item.flag}</span>{item.language.toUpperCase()}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<script>
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-  const closeMenuBtn = document.getElementById("close-menu");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const mobileLinks = document.querySelectorAll(".mobile-link");
+<style>
+  .site-header {
+    --header-ink: var(--color-brand-dark);
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    width: 100%;
+    color: var(--header-ink);
+    background: color-mix(in oklch, var(--color-brand-light) 97%, transparent);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-brand-dark) 10%, transparent);
+    box-shadow: var(--shadow-nav);
+    backdrop-filter: blur(16px);
+    transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
 
-  function setMenuOpen(isOpen: boolean) {
-    mobileMenu?.classList.toggle("translate-x-full", !isOpen);
-    mobileMenu?.toggleAttribute("inert", !isOpen);
-    mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));
+  .site-header.is-home:not(.is-scrolled) {
+    --header-ink: var(--color-brand-light);
+    background: transparent;
+    border-bottom-color: color-mix(in oklch, var(--color-brand-light) 17%, transparent);
+    box-shadow: none;
+    backdrop-filter: none;
+  }
 
-    if (isOpen) {
-      closeMenuBtn?.focus();
-    } else {
-      mobileMenuBtn?.focus();
+  .nav-shell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1440px;
+    height: 80px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .header-logo, .drawer-logo {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+  }
+
+  .header-logo img {
+    display: block;
+    width: 138px;
+    height: auto;
+    transition: filter 220ms ease;
+  }
+
+  .site-header.is-home:not(.is-scrolled) .header-logo img,
+  .drawer-logo img {
+    filter: brightness(0) invert(1);
+  }
+
+  .desktop-nav, .language-disclosure, .desktop-cta {
+    display: none;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-disclosure {
+    position: relative;
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-link, .language-trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    left: 0;
+    height: 1px;
+    content: "";
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 180ms ease;
+  }
+
+  .nav-link:hover::after, .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  .chevron {
+    flex-shrink: 0;
+    transition: transform 180ms ease;
+  }
+
+  details[open] > summary .chevron {
+    transform: rotate(180deg);
+  }
+
+  .language-trigger {
+    gap: 7px;
+    font-size: 12px;
+    letter-spacing: .06em;
+  }
+
+  .language-flag {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .language-option-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .disclosure-panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    color: var(--color-brand-dark);
+    background: var(--color-brand-light);
+    border: 1px solid color-mix(in oklch, var(--color-brand-dark) 12%, transparent);
+    border-radius: 4px;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .disclosure-panel ul, .mobile-panel ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .language-panel a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 44px;
+    padding: 11px 12px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 160ms ease;
+  }
+
+  .language-panel a:hover, .language-panel a[aria-current="page"] {
+    background: color-mix(in oklch, var(--color-brand-primary) 10%, transparent);
+  }
+
+  .language-panel {
+    right: -12px;
+    width: 190px;
+    padding: 8px;
+  }
+
+  .language-code {
+    color: var(--color-brand-dark-muted);
+    font-size: 10px;
+    letter-spacing: .08em;
+  }
+
+  .trip-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 46px;
+    padding: 13px 20px;
+    color: var(--color-brand-light);
+    border: 0;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .trip-cta svg {
+    flex-shrink: 0;
+    transition: transform 180ms ease;
+  }
+
+  .trip-cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  .desktop-cta {
+    display: none;
+  }
+
+  .menu-toggle, .close-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 1.5px;
+    background: currentColor;
+  }
+
+  .menu-toggle span:last-child {
+    width: 18px;
+    align-self: flex-end;
+    margin-right: 9.5px;
+  }
+
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 5px;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 140;
+    visibility: hidden;
+    pointer-events: none;
+    transition: visibility 0s linear 260ms;
+  }
+
+  .mobile-backdrop {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: color-mix(in oklch, var(--color-brand-dark) 48%, transparent);
+    transition: opacity 260ms ease;
+  }
+
+  .mobile-panel {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(100%, 480px);
+    height: 100%;
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 28px 32px;
+    color: var(--color-brand-light);
+    background: var(--color-brand-dark);
+    transform: translateX(100%);
+    transition: transform 260ms cubic-bezier(.2, .65, .25, 1);
+  }
+
+  .mobile-menu[data-open="true"] {
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  .mobile-menu[data-open="true"] .mobile-backdrop {
+    opacity: 1;
+  }
+
+  .mobile-menu[data-open="true"] .mobile-panel {
+    transform: translateX(0);
+  }
+
+  .mobile-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 90px;
+    margin-bottom: 22px;
+  }
+
+  .drawer-logo img {
+    width: 132px;
+    height: auto;
+  }
+
+  .drawer-eyebrow {
+    margin: 0 0 14px;
+    color: color-mix(in oklch, var(--color-brand-light) 74%, transparent);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .mobile-tour-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding-block: 7px;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: 1.35;
+  }
+
+  .mobile-tour-links a svg {
+    color: var(--color-brand-primary-light);
+  }
+
+  .mobile-tour-links a[aria-current="page"] {
+    color: var(--color-brand-primary-light);
+  }
+
+  .mobile-panel-footer {
+    margin-top: 28px;
+  }
+
+  .mobile-panel-footer > .trip-cta {
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    padding-inline: 18px;
+  }
+
+  .mobile-language-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 25px;
+  }
+
+  .mobile-language-row .drawer-eyebrow {
+    margin: 0;
+  }
+
+  .mobile-language-row > div {
+    display: flex;
+    gap: 7px;
+  }
+
+  .mobile-language-row a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 72px;
+    min-height: 40px;
+    border: 1px solid color-mix(in oklch, var(--color-brand-light) 23%, transparent);
+    border-radius: 2px;
+    color: var(--color-brand-light);
+    font-size: 11px;
+    letter-spacing: .08em;
+  }
+
+  .mobile-language-row a[aria-current="page"] {
+    color: var(--color-brand-dark);
+    background: var(--color-brand-light);
+    border-color: var(--color-brand-light);
+  }
+
+  @media (min-width: 1280px) {
+    .nav-shell {
+      height: 96px;
+      padding-inline: 48px;
+      gap: 24px;
+    }
+
+    .header-logo img {
+      width: 150px;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: auto;
+      margin-right: 8px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+    }
+
+    .header-actions {
+      gap: 18px;
+    }
+
+    .language-disclosure {
+      display: block;
+    }
+
+    .desktop-cta {
+      display: inline-flex;
+    }
+
+    .menu-toggle {
+      display: none;
     }
   }
 
-  mobileMenuBtn?.addEventListener("click", () => {
-    const isOpen = mobileMenuBtn.getAttribute("aria-expanded") === "true";
-    setMenuOpen(!isOpen);
+  @media (min-width: 1440px) {
+    .header-logo img {
+      width: 166px;
+    }
+
+    .desktop-nav {
+      gap: 28px;
+      margin-right: 20px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const siteHeader = document.querySelector<HTMLElement>(".site-header");
+  const disclosures = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-header-disclosure]"));
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const closeMenuBtn = document.getElementById("close-menu");
+  const mobileMenu = document.getElementById("mobile-menu");
+  let menuOpen = false;
+  let previouslyFocused: HTMLElement | null = null;
+  let previousBodyOverflow = "";
+  let previousBodyPadding = "";
+  const backgroundStates = new Map<HTMLElement, boolean>();
+
+  document.querySelectorAll<HTMLAnchorElement>("[data-language-link]").forEach((link) => {
+    const target = new URL(link.href);
+    target.search = window.location.search;
+    target.hash = window.location.hash;
+    link.href = target.pathname + target.search + target.hash;
   });
+
+  const updateHeader = () => {
+    siteHeader?.classList.toggle("is-scrolled", window.scrollY > 32);
+  };
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+
+  function closeDisclosures() {
+    disclosures.forEach((disclosure) => { disclosure.open = false; });
+  }
+
+  disclosures.forEach((disclosure) => {
+    disclosure.addEventListener("toggle", () => {
+      if (disclosure.open) {
+        disclosures.forEach((other) => {
+          if (other !== disclosure) other.open = false;
+        });
+      }
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Node)) return;
+    disclosures.forEach((disclosure) => {
+      if (!disclosure.contains(event.target as Node)) disclosure.open = false;
+    });
+  });
+
+  siteHeader?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeDisclosures);
+  });
+
+  function setMenuOpen(isOpen: boolean, restoreFocus = true) {
+    if (!mobileMenu || menuOpen === isOpen) return;
+    menuOpen = isOpen;
+    mobileMenu.dataset.open = String(isOpen);
+    mobileMenu.inert = !isOpen;
+    mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+    mobileMenuBtn?.setAttribute("aria-expanded", String(isOpen));
+
+    if (isOpen) {
+      closeDisclosures();
+      previouslyFocused = mobileMenuBtn;
+      previousBodyOverflow = document.body.style.overflow;
+      previousBodyPadding = document.body.style.paddingRight;
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = "hidden";
+      if (scrollbarWidth > 0) document.body.style.paddingRight = scrollbarWidth + "px";
+      Array.from(document.body.children).forEach((child) => {
+        if (!(child instanceof HTMLElement) || child.contains(mobileMenu) || ["SCRIPT", "STYLE", "LINK"].includes(child.tagName)) return;
+        backgroundStates.set(child, child.inert);
+        child.inert = true;
+      });
+      closeMenuBtn?.focus({ preventScroll: true });
+    } else {
+      backgroundStates.forEach((wasInert, element) => { element.inert = wasInert; });
+      backgroundStates.clear();
+      document.body.style.overflow = previousBodyOverflow;
+      document.body.style.paddingRight = previousBodyPadding;
+      if (restoreFocus) (previouslyFocused ?? mobileMenuBtn)?.focus({ preventScroll: true });
+    }
+  }
+
+  mobileMenuBtn?.addEventListener("click", () => setMenuOpen(!menuOpen));
   closeMenuBtn?.addEventListener("click", () => setMenuOpen(false));
+  mobileMenu?.querySelector("[data-close-drawer]")?.addEventListener("click", () => setMenuOpen(false));
+  mobileMenu?.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && mobileMenuBtn?.getAttribute("aria-expanded") === "true") {
-      setMenuOpen(false);
+    if (event.key === "Escape") {
+      if (menuOpen) {
+        event.preventDefault();
+        setMenuOpen(false);
+        return;
+      }
+      const focusedDisclosure = disclosures.find((disclosure) => disclosure.open && disclosure.contains(document.activeElement));
+      closeDisclosures();
+      focusedDisclosure?.querySelector("summary")?.focus();
+    }
+
+    if (event.key !== "Tab" || !menuOpen || !mobileMenu) return;
+    const focusable = Array.from(mobileMenu.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), summary, input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter((element) => element.offsetParent !== null);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (!first || !last) {
+      event.preventDefault();
+      mobileMenu.focus();
+    } else if (event.shiftKey && (document.activeElement === first || !mobileMenu.contains(document.activeElement))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !mobileMenu.contains(document.activeElement))) {
+      event.preventDefault();
+      first.focus();
     }
   });
 
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => setMenuOpen(false));
+  window.matchMedia("(min-width: 1280px)").addEventListener("change", (event) => {
+    closeDisclosures();
+    if (event.matches && menuOpen) {
+      setMenuOpen(false, false);
+      siteHeader?.querySelector<HTMLAnchorElement>(".header-logo")?.focus({ preventScroll: true });
+    }
   });
 </script>

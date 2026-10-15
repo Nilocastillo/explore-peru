@@ -1,206 +1,171 @@
 ---
 import { Image } from "astro:assets";
 import heroImage from "@/assets/hero-mapi.avif";
+import humantayImage from "@/assets/tours/laguna-humantay.avif";
+import { getLocale, localizePath } from "@/i18n/routes";
+
+const locale = getLocale(Astro.url.pathname);
+const english = locale === "en";
+const copy = english ? {
+  title: "Cusco tours",
+  accent: "& Machu Picchu",
+  description: "Browse Cusco travel packages and day trips to the Sacred Valley, Humantay Lake and Rainbow Mountain, plus multi-day trekking routes.",
+  explore: "Explore tours",
+  packages: "View packages",
+  lake: "Humantay Lake",
+  lakeDescription: "Full-day tour from Cusco",
+  featuredLabel: "Explore the Humantay Lake tour",
+  place: "Machu Picchu · Cusco, Peru",
+} : {
+  title: "Tours en Cusco",
+  accent: "y Machu Picchu",
+  description: "Paquetes de viaje a Cusco, tours al Valle Sagrado, Laguna Humantay y Montaña de Colores. Elige excursiones de un día o rutas de trekking.",
+  explore: "Explorar tours",
+  packages: "Ver paquetes",
+  lake: "Laguna Humantay",
+  lakeDescription: "Tour de un día desde Cusco",
+  featuredLabel: "Explorar el tour a la Laguna Humantay",
+  place: "Machu Picchu · Cusco, Perú",
+};
 ---
 
-<section class="relative h-svh w-full overflow-hidden">
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-0.5 bg-linear-to-r from-transparent via-[#c7a86b] to-transparent"
-  >
-  </div>
-
-  <!-- Background Image -->
-  <div class="hero-bg-mask absolute inset-0 z-0">
+<section class="home-hero" aria-labelledby="home-hero-title" data-home-hero>
+  <div class="hero-landscape">
     <Image
       id="hero-bg"
       src={heroImage}
-      alt="Amanecer en la Ciudadela de Machu Picchu"
-      class="w-full h-full object-cover"
-      widths={[375, 768, 1280, 1800]}
+      alt={english ? "The ancient citadel of Machu Picchu surrounded by the green peaks of the Andes" : "La ciudadela de Machu Picchu rodeada por las cumbres verdes de los Andes"}
+      widths={[640, 960, 1440, 1800]}
       sizes="100vw"
       loading="eager"
       decoding="async"
       fetchpriority="high"
-      quality={70}
+      quality={85}
+      class="hero-landscape-image"
     />
-    <div
-      class="absolute inset-0 bg-linear-to-t from-brand-dark/70 via-brand-dark/30 to-brand-dark/10"
-    >
-    </div>
   </div>
+  <div class="hero-shade" aria-hidden="true"></div>
 
-  <div
-    class="hero-bottom-darken pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[48%]"
-    aria-hidden="true"
-  >
-  </div>
-
-  <!-- Content Container -->
-  <div
-    class="relative z-10 h-full w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-end pb-36 md:pb-44"
-  >
-    <!-- Layout: texto izquierda, botones derecha abajo -->
-    <div
-      class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 md:gap-12"
-    >
-      <!-- Bloque de texto -->
-      <div class="max-w-2xl">
-        <div
-          class="hero-fade mb-4 flex items-center gap-4 md:mb-5"
-        >
-          <span
-            class="h-px w-20 bg-linear-to-l from-brand-accent via-brand-accent/85 to-transparent"
-            aria-hidden="true"></span>
-          <span
-            class="text-primary-glow inline-block font-semibold tracking-[0.25em] uppercase text-xs md:text-sm"
-          >
-            Viajes extraordinarios
-          </span>
-        </div>
-
-        <h1
-          class="hero-fade hero-title text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-black leading-[0.92] tracking-tight mb-6 md:mb-8"
-          style="animation-delay: 0.1s"
-        >
-          <span class="hero-title-line">Descubre</span>
-          <span class="hero-title-line">Perú</span>
-        </h1>
-
-        <p
-          class="hero-fade text-base md:text-lg text-white/75 font-light max-w-lg leading-relaxed"
-          style="animation-delay: 0.2s"
-        >
-          Paquetes de viaje diseñados para quienes buscan experiencias
-          auténticas. Desde las alturas de Cusco hasta la inmensidad del
-          Amazonas.
-        </p>
-      </div>
-
-      <!-- Botones — esquina inferior derecha en desktop -->
-      <div
-        class="hero-fade flex flex-col sm:flex-row md:flex-col gap-3 md:gap-4 shrink-0"
-        style="animation-delay: 0.3s"
-      >
-        <a
-          href="#tours"
-          class="group btn-brand px-8 py-4 rounded-full font-bold text-center flex items-center justify-center gap-2 text-sm md:text-base"
-        >
-          Explorar Tours
-          <svg
-            aria-hidden="true"
-            class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1 id="home-hero-title" class="hero-heading hero-reveal">
+        <span>{copy.title}</span>
+        <em>{copy.accent}</em>
+      </h1>
+      <p class="hero-description hero-reveal" style="--reveal-delay: 80ms">{copy.description}</p>
+      <div class="hero-actions hero-reveal" style="--reveal-delay: 160ms">
+        <a class="hero-button btn-brand" href="#tours">
+          {copy.explore}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" /></svg>
+        </a>
+        <a class="hero-button btn-travel" href={localizePath("/paquetes", locale)}>
+          {copy.packages}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M8 6v15m8-15v15M5 6h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" /></svg>
         </a>
       </div>
     </div>
+
+    <a href={localizePath("/tours/laguna-humantay", locale)} class="hero-postcard hero-reveal" style="--reveal-delay: 320ms" aria-label={copy.featuredLabel}>
+      <div class="postcard-image">
+        <Image src={humantayImage} alt={english ? "The turquoise waters of Humantay Lake beneath a snow-covered mountain" : "Las aguas turquesas de la Laguna Humantay bajo una montaña nevada"} widths={[320, 480, 640]} sizes="(max-width: 1023px) 0px, 310px" loading="lazy" quality={80} />
+      </div>
+      <div class="postcard-caption">
+        <div>
+          <h2>{copy.lake}</h2>
+          <p>{copy.lakeDescription}</p>
+        </div>
+        <span class="postcard-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6h12v12" /></svg></span>
+      </div>
+    </a>
+
+    <span class="hero-location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+      {copy.place}
+    </span>
   </div>
 
-  <div
-    class="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-32 bg-linear-to-b from-transparent via-brand-bg/70 to-brand-bg"
-  >
-  </div>
 </section>
 
 <style>
-  #hero-bg {
-    will-change: transform;
-    transform-origin: center;
+  .home-hero {
+    --hero-cream: var(--color-brand-light);
+    --hero-gold: var(--color-brand-accent-light);
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    background: var(--color-brand-dark);
+    color: var(--hero-cream);
   }
-
-  .hero-fade {
-    opacity: 0;
-    transform: translateY(15px);
-    animation: heroFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  .hero-landscape, .hero-shade { position: absolute; inset: 0; z-index: -1; }
+  .hero-landscape-image { width: 100%; height: 100%; object-fit: cover; object-position: 58% 47%; }
+  .hero-shade {
+    background: linear-gradient(90deg, rgb(3 24 30 / .73) 0%, rgb(3 24 30 / .48) 45%, rgb(3 24 30 / .14) 100%), linear-gradient(180deg, rgb(3 24 30 / .44) 0%, transparent 35%, rgb(3 24 30 / .22) 65%, rgb(3 24 30 / .72) 100%);
   }
-
-  .hero-title {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 290px;
+    align-items: center;
+    gap: 5rem;
+    width: min(100%, 1440px);
+    min-height: clamp(540px, 74svh, 740px);
+    margin-inline: auto;
+    padding: 148px 56px 96px;
   }
-
-  .hero-title-line {
-    display: block;
-    padding-block: 0.025em;
-    color: var(--color-brand-light);
-    text-shadow:
-      0 0 1px color-mix(in srgb, var(--color-brand-light) 55%, transparent),
-      0 1px 7px color-mix(in srgb, var(--color-brand-accent) 34%, transparent),
-      0 3px 14px color-mix(in srgb, var(--color-brand-accent) 16%, transparent);
+  .hero-copy { max-width: 840px; }
+  .hero-heading { margin: 0; font-size: clamp(3.6rem, 5.5vw, 5.5rem); font-weight: 550; letter-spacing: -.055em; line-height: 1.06; }
+  .hero-heading > span, .hero-heading > em { display: block; }
+  .hero-heading > em { margin-top: 5px; color: var(--hero-gold); font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -.055em; }
+  .hero-description { max-width: 540px; margin-top: 24px; font-size: 16px; line-height: 1.8; color: color-mix(in oklch, var(--hero-cream) 85%, transparent); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero-button { display: inline-flex; min-height: 56px; align-items: center; justify-content: center; gap: 24px; padding: 16px 24px; border: 1px solid transparent; border-radius: 6px; font-size: 13px; font-weight: 700; transition: background .2s, border-color .2s, transform .2s; }
+  .hero-button svg { width: 19px; height: 19px; flex: 0 0 19px; transition: transform .2s; }
+  .hero-button:hover svg { transform: translateX(3px); }
+  .hero-button:focus-visible, .hero-postcard:focus-visible { outline: 2px solid var(--hero-gold); outline-offset: 6px; }
+  .hero-postcard { display: block; align-self: center; margin-bottom: 7px; background: var(--hero-cream); color: var(--color-brand-dark); border-radius: 8px; box-shadow: 0 18px 70px rgb(0 0 0 / .22); transform: rotate(3deg); transition: transform .35s; }
+  .hero-postcard:hover { transform: rotate(0deg) translateY(-6px); }
+  .postcard-image { position: relative; margin: 9px 9px 0; height: 214px; overflow: hidden; border-radius: 3px; }
+  .postcard-image img { height: 100%; width: 100%; object-fit: cover; transition: transform .5s; }
+  .hero-postcard:hover .postcard-image img { transform: scale(1.04); }
+  .postcard-caption { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 21px 20px 23px; }
+  .postcard-caption h2 { margin: 0 0 4px; font-size: 22px; font-weight: 600; letter-spacing: -.045em; }
+  .postcard-caption p { color: color-mix(in oklch, var(--color-brand-dark) 72%, transparent); font-size: 11px; line-height: 1.6; }
+  .postcard-arrow { display: grid; width: 34px; height: 34px; flex: 0 0 34px; place-items: center; border: 1px solid color-mix(in oklch, var(--color-brand-primary) 30%, transparent); border-radius: 50%; transition: background .2s; }
+  .postcard-arrow svg { width: 16px; height: 16px; }
+  .hero-postcard:hover .postcard-arrow { background: var(--color-brand-primary-subtle); }
+  .hero-location { position: absolute; right: 56px; bottom: 45px; display: flex; align-items: center; gap: 7px; color: rgb(248 243 232 / .65); font-size: 10px; letter-spacing: .04em; }
+  .hero-location svg { width: 14px; height: 14px; }
+  .hero-reveal { animation: hero-reveal .75s both; animation-delay: var(--reveal-delay, 0ms); }
+  .hero-postcard.hero-reveal { animation-name: postcard-reveal; }
+  @keyframes hero-reveal { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes postcard-reveal { from { opacity: 0; translate: 0 20px; } to { opacity: 1; translate: 0 0; } }
+  @media (max-width: 1199px) {
+    .hero-inner { gap: 36px; grid-template-columns: minmax(0, 1fr) 250px; padding-inline: 40px; }
+    .hero-heading { font-size: clamp(3rem, 5.4vw, 4rem); }
+    .postcard-image { height: 190px; }
+    .postcard-caption { padding: 18px 16px; }
+    .postcard-caption h2 { font-size: 20px; }
+    .hero-location { right: 40px; }
   }
-
-  .hero-bg-mask {
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      black 0%,
-      black 68%,
-      color-mix(in srgb, black 80%, transparent) 80%,
-      color-mix(in srgb, black 35%, transparent) 92%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to bottom,
-      black 0%,
-      black 68%,
-      color-mix(in srgb, black 80%, transparent) 80%,
-      color-mix(in srgb, black 35%, transparent) 92%,
-      transparent 100%
-    );
+  @media (max-width: 1023px) {
+    .hero-inner { grid-template-columns: 1fr; min-height: 620px; padding-top: 150px; }
+    .hero-postcard { display: none; }
+    .hero-copy { max-width: 700px; }
+    .hero-heading { font-size: clamp(3.4rem, 8vw, 5rem); }
+    .hero-shade { background: linear-gradient(90deg, rgb(3 24 30 / .7), rgb(3 24 30 / .25)), linear-gradient(180deg, rgb(3 24 30 / .35), transparent 40%, rgb(3 24 30 / .7)); }
   }
-
-  .hero-bottom-darken {
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      color-mix(in oklch, var(--color-brand-dark) 34%, transparent) 48%,
-      color-mix(in oklch, var(--color-brand-dark) 68%, transparent) 78%,
-      color-mix(in oklch, var(--color-brand-dark) 82%, transparent) 100%
-    );
+  @media (max-width: 639px) {
+    .hero-inner { min-height: 590px; padding: 144px 24px 80px; align-items: center; }
+    .hero-landscape-image { object-position: 67% center; }
+    .hero-heading { font-size: clamp(2.6rem, 10.5vw, 4rem); letter-spacing: -.055em; line-height: 1.08; }
+    .hero-description { margin-top: 24px; max-width: 360px; font-size: 14px; line-height: 1.8; }
+    .hero-actions { margin-top: 28px; gap: 10px; }
+    .hero-button { min-height: 51px; padding: 13px 17px; gap: 12px; font-size: 11px; }
+    .hero-button svg { width: 16px; height: 16px; flex-basis: 16px; }
+    .hero-location { display: none; }
   }
-
-  @keyframes heroFadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal { animation: none; }
+    .hero-button, .hero-button svg, .hero-postcard, .postcard-image img { transition: none; }
   }
 </style>
-
-<script>
-  const MAX_SCALE = 0.18;
-  let ticking = false;
-
-  const heroBg = document.getElementById("hero-bg");
-  const heroSection = heroBg?.closest("section");
-
-  if (heroBg && heroSection) {
-    const update = () => {
-      const heroHeight = heroSection.offsetHeight || window.innerHeight;
-      const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
-
-      heroBg.style.transform = `scale(${1 + progress * MAX_SCALE})`;
-      ticking = false;
-    };
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      },
-      { passive: true },
-    );
-  }
-</script>

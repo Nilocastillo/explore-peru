@@ -1,5 +1,39 @@
 ---
-const faqs = [
+import { getLocale } from "@/i18n/routes";
+
+const isEnglish = getLocale(Astro.url.pathname) === "en";
+const faqs = isEnglish ? [
+  {
+    question: "How can I book a tour?",
+    answer:
+      "You can book through our website by choosing your tour and preferred dates, or contact us directly on WhatsApp for personalized assistance.",
+  },
+  {
+    question: "What does the travel package include?",
+    answer:
+      "Our packages usually include accommodation, local transportation, expert guides, attraction tickets and some breakfasts. Specific inclusions vary by itinerary.",
+  },
+  {
+    question: "How long is the Machu Picchu tour?",
+    answer:
+      "The full experience usually takes a full day when traveling by train from Cusco. We also offer multi-day options via the Inca Trail or Salkantay.",
+  },
+  {
+    question: "Do I need to prepare physically?",
+    answer:
+      "Some high-altitude tours require a basic level of fitness. We recommend spending a couple of days acclimatizing in Cusco before taking on demanding hikes.",
+  },
+  {
+    question: "What happens after I book?",
+    answer:
+      "You will receive an immediate email confirmation, and our team will contact you to arrange the final details and provide all the information you need.",
+  },
+  {
+    question: "Do you offer travel insurance?",
+    answer:
+      "We strongly recommend purchasing personal travel insurance. Although we do not sell it directly, we can advise you on the coverage you may need for your adventure in Peru.",
+  },
+] : [
   {
     question: "¿Cómo puedo reservar un tour?",
     answer:
@@ -41,18 +75,19 @@ const faqs = [
         class="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-sm font-semibold mb-6 border border-brand-primary/20 backdrop-blur-sm"
       >
         <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mr-2" aria-hidden="true"></span>
-        Preguntas
+        {isEnglish ? "Questions" : "Preguntas"}
       </span>
       <h2
         class="text-4xl md:text-5xl font-medium tracking-tight text-brand-dark mb-6 leading-tight"
       >
-        Todo lo que necesitas <span class="text-primary-glow italic"
-          >saber</span
+        {isEnglish ? "Everything you need to" : "Todo lo que necesitas"} <span class="text-primary-glow italic"
+          >{isEnglish ? "know" : "saber"}</span
         >
       </h2>
       <p class="text-lg text-brand-dark-muted mb-8 max-w-sm">
-        ¿Tienes alguna pregunta? Encuentra respuestas rápidas aquí o contáctanos
-        para más detalles.
+        {isEnglish
+          ? "Have a question? Find quick answers here or contact us for more details."
+          : "¿Tienes alguna pregunta? Encuentra respuestas rápidas aquí o contáctanos para más detalles."}
       </p>
     </div>
 

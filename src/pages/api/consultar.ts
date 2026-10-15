@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { consultationCopy } from "@/i18n/consultation";
 
 export const prerender = false;
 
@@ -22,12 +23,16 @@ function getRuntimeEnv(locals: unknown) {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   let body: Record<string, unknown>;
+  const preferredLocale = request.headers.get("Accept-Language")?.startsWith("en") ? "en" : "es";
 
   try {
     body = await request.json();
   } catch {
-    return json({ message: "La solicitud no tiene un formato válido." }, 400);
+    return json({ message: consultationCopy[preferredLocale].invalidRequest }, 400);
   }
+
+  const locale = body.locale === "en" || (!body.locale && preferredLocale === "en") ? "en" : "es";
+  const copy = consultationCopy[locale];
 
   if (asText(body.company)) {
     return json({ ok: true });
@@ -36,7 +41,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const name = asText(body.name);
   const phone = asText(body.phone);
   const email = asText(body.email);
-  const tour = asText(body.tour) || "Consulta general";
+  const tour = asText(body.tour) || copy.generalInquiry;
   const duration = asText(body.duration);
   const departure = asText(body.departure);
   const date = asText(body.date);
@@ -44,11 +49,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const message = asText(body.message);
 
   if (!name || !phone) {
-    return json({ message: "Completa nombre y WhatsApp para enviar la consulta." }, 400);
+    return json({ message: copy.missingRequired }, 400);
   }
 
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return json({ message: "Ingresa un correo electrónico válido." }, 400);
+    return json({ message: copy.invalidEmail }, 400);
   }
 
   const env = { ...import.meta.env, ...getRuntimeEnv(locals) };
@@ -57,19 +62,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const from = env.RESEND_FROM_EMAIL ?? "XPLORE PERÚ <onboarding@resend.dev>";
 
   if (!resendApiKey) {
-    return json({ message: "El envío de correos aún no está configurado." }, 500);
+    return json({ message: copy.notConfigured }, 500);
   }
 
   const details = [
     ["Tour", tour],
-    ["Nombre", name],
+    [copy.name, name],
     ["WhatsApp", phone],
     ["Email", email],
-    ["Fecha tentativa", date],
-    ["Pasajeros", travelers],
-    ["Duración", duration],
-    ["Salidas", departure],
-    ["Mensaje", message],
+    [copy.date, date],
+    [copy.travelers, travelers],
+    [copy.duration, duration],
+    [copy.departures, departure],
+    [copy.message, message],
   ].filter(([, value]) => value);
 
   const htmlRows = details
@@ -91,11 +96,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       from,
       to,
       reply_to: email || undefined,
-      subject: `Nueva consulta: ${tour}`,
+      subject: `${copy.newInquiry}: ${tour}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;color:#0f172a;">
-          <h1 style="font-size:24px;margin-bottom:8px;">Nueva consulta web</h1>
-          <p style="color:#475569;margin-top:0;">Un visitante envió una solicitud desde exploreperu.com.</p>
+          <h1 style="font-size:24px;margin-bottom:8px;">${copy.webInquiry}</h1>
+          <p style="color:#475569;margin-top:0;">${copy.emailIntro}</p>
           <table style="width:100%;border-collapse:collapse;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
             ${htmlRows}
           </table>
@@ -106,7 +111,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   });
 
   if (!response.ok) {
-    return json({ message: "No pudimos enviar la consulta. Intenta nuevamente." }, 502);
+    return json({ message: copy.error }, 502);
   }
 
   return json({ ok: true });

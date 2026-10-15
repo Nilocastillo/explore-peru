@@ -1,0 +1,118 @@
+---
+title: "Inca Jungle to Machu Picchu 4 Days"
+duration: "4 days / 3 nights"
+location: "Cusco, Santa María, Santa Teresa and Machu Picchu"
+departure: "Hotel pickup at 7:00 a.m."
+category:
+  - "Adventure"
+  - "Machu Picchu"
+  - "Packages"
+description: "Experience the Inca Jungle to Machu Picchu in 4 days, an adventure combining cycling, hikes through the high jungle, hot springs, Sacred Valley scenery and a guided visit to the Inca citadel."
+image: "../../assets/tours/inca-junlge-machu-picchu.avif"
+alt: "4-day Inca Jungle to Machu Picchu with cycling, trekking and high jungle"
+meta_title: "Inca Jungle to Machu Picchu 4 Days | Cycling, Trekking and Inca Citadel"
+meta_description: "Book the 4-day Inca Jungle to Machu Picchu. Includes private transportation, bicycle with helmet and gloves, meals, hostels, professional guide, Machu Picchu admission and return train."
+difficulty: "Grade III"
+walkingTime: "Adventure trekking and cycling"
+badge: "Inca Jungle adventure"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Day 1",
+    title: "Cusco, Abra Málaga and Santa María",
+    description:
+      "We will leave your hotels in the morning, at approximately 7:00 a.m., traveling by private transportation from Cusco to the Sacred Valley of the Incas. Along the way, we will see beautiful scenery and towns such as Chinchero and Ollantaytambo.\n\nWe will then continue by road to Apu Abra Málaga, at 4,350 m above sea level, with views of snowcapped peaks such as Wakaywillka or Verónica, at 5,650 m above sea level. We will arrive at around noon.\n\nFrom this point, we will begin our bicycle descent from the high Andes toward the high jungle, observing the flora, fauna and changing climate along the route. We will pass through places such as Alfa Mayo, Huamanmarca, Amaybamba and Huyro, enjoying the scenery and river crossings until we reach Santa María, where we will have dinner and spend our first night.",
+  },
+  {
+    day: "Day 2",
+    title: "Santa María, Inca trail and Santa Teresa",
+    description:
+      "We will wake up early, at approximately 6:00 a.m. After breakfast, we will begin hiking along the banks of the Urubamba River for around 2 km. We will then climb a bridle path leading to an ancient Inca trail in the high jungle.\n\nAlong the route, we will enjoy local wildlife, fruit trees and views of the surroundings until we reach Wamanqasa, the highest point of the day. From here, we will follow approximately 5 km of impressive steps, with views of snowcapped Salkantay.\n\nWe will continue through the valley to the village of Qellomayo for lunch. Afterwards, we will head to the Cocalmayo hot springs, arriving around 4:00 or 5:00 p.m. Finally, we will walk for about 30 minutes to Santa Teresa, where we will have dinner and spend our second night.",
+  },
+  {
+    day: "Day 3",
+    title: "Santa Teresa, Hidroeléctrica and Aguas Calientes",
+    description:
+      "We will wake up at approximately 7:00 a.m. After breakfast, we will begin hiking along the Urubamba River, crossing bridges and enjoying waterfalls until we reach the Hidroeléctrica area.\n\nFrom here, we will be able to see Machu Picchu Mountain and make a brief visit to Intiwatana. We will then follow the railway route to our lunch stop at Km 116.\n\nAfter a good rest, we will continue walking to Aguas Calientes, arriving at approximately 3:00 to 4:00 p.m. Dinner and overnight accommodation.",
+  },
+  {
+    day: "Day 4",
+    title: "Machu Picchu and return to Cusco",
+    description:
+      "After breakfast, we will take one of the first buses to the Machu Picchu citadel, where, with a little luck, we may enjoy a beautiful sunrise.\n\nOur guide will help us discover its structures, archaeological engineering and the rich history and culture of the Incas. Afterwards, you will have free time to explore the citadel, take photographs and enjoy the site. Those with enough energy and an additional ticket may choose to climb Huayna Picchu Mountain, which offers one of the best views of Machu Picchu.\n\nWe will then descend to Aguas Calientes to take the train to Ollantaytambo and continue by bus to Cusco, arriving at approximately 10:00 p.m.",
+  },
+];
+
+<section id="description">
+  <H2Tours>About the experience</H2Tours>
+
+    The 4-day Inca Jungle to Machu Picchu is an adventure combining downhill
+    cycling, hikes through the high jungle, ancient Inca trails, hot springs
+    and a final visit to Machu Picchu.
+
+    Along the route, we will cross the landscapes of the Sacred Valley,
+    Abra Málaga, Santa María, Santa Teresa, Hidroeléctrica and Aguas Calientes.
+    It is an active choice for travelers seeking a different approach to the
+    Inca citadel.
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerary</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Included</H2Tours>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Transportation and return journey</h3>
+  <IconListItem icon={IncludesIcon}>Hotel pickup at approximately 7:00 a.m.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Private tourist transportation.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Uphill bus from Aguas Calientes to Machu Picchu.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Return train from Aguas Calientes to Ollantaytambo and bus to Cusco.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Adventure and safety</h3>
+  <IconListItem icon={IncludesIcon}>Cycling gloves and helmet.</IconListItem>
+  <IconListItem icon={IncludesIcon}>First aid kit.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Accommodation and meals</h3>
+  <IconListItem icon={IncludesIcon}>3 nights in hostels.</IconListItem>
+  <IconListItem icon={IncludesIcon}>3 breakfasts, 3 lunches and 3 dinners.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Guiding and admission</h3>
+  <IconListItem icon={IncludesIcon}>Professional guide in English or Spanish, on request.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Admission to the Machu Picchu sanctuary.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>Not included</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Lunch on the final day.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Downhill bus from Machu Picchu to Aguas Calientes. You may walk down in approximately 1 hour and 20 minutes or purchase a ticket at your own expense.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Admission to Huayna Picchu or other additional sites.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Personal expenses and tips.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recommendations</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Bring comfortable clothing for cycling and hiking, trekking shoes and light clothing for warm weather.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Bring sunscreen, insect repellent, sunglasses, swimwear for Cocalmayo and a rain poncho.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Carry a small backpack for water, snacks, documents and personal belongings.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Important information</H2Tours>
+    The Inca Jungle combines adventure activities, cycling and hiking along
+    high jungle routes. Climbing Huayna Picchu is optional, requires an
+    additional admission ticket and is subject to availability.
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+      <strong>Difficulty:</strong> Grade III. The first day includes downhill
+      cycling from Abra Málaga, followed by several hours of hiking on
+      subsequent days.
+  </div>
+</section>

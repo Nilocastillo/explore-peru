@@ -1,0 +1,87 @@
+---
+title: "Machu Picchu 2 Days"
+duration: "2 days / 1 night"
+location: "Cusco, Sacred Valley and Machu Picchu"
+departure: "Daily departures"
+category:
+  - "Machu Picchu"
+description: "Enjoy a complete Machu Picchu experience combining the Sacred Valley of the Incas, a train journey to Aguas Calientes and a guided visit to the Inca citadel. This 2-day itinerary is ideal for exploring Pisac, Urubamba, Ollantaytambo and the wonder of the world at a more relaxed pace."
+image: "../../assets/tours/machu-picchu-2-dias.avif"
+alt: "Machu Picchu 2-day tour with the Sacred Valley, train journey and guided citadel visit"
+meta_title: "Machu Picchu 2-Day Tour | Sacred Valley, Train and Inca Citadel"
+meta_description: "Book the Machu Picchu 2-Day Tour with the Sacred Valley, Ollantaytambo - Aguas Calientes train, hotel, professional guide, entrance tickets and transfers included."
+difficulty: "Grade I"
+walkingTime: "Approx. 2 hrs in Machu Picchu"
+badge: "Machu Picchu + Sacred Valley"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Day 1",
+    title: "Sacred Valley of the Incas Tour",
+    description:
+      "Today we will tour the Sacred Valley of the Incas. The trip starts at 08:00 with pickup from your hotel. Our first stop is Pisac, where we will explore its traditional handicraft market and archaeological site, known for its picturesque cultivated terraces on the mountainside.\n\nWe will then travel to Urubamba, where a buffet lunch is included. Continuing the tour, we will visit Ollantaytambo Fortress, also known as the living Inca town.\n\nFinally, we will head to Ollantaytambo train station to board the 16:36 train to Aguas Calientes, arriving at approximately 18:09. We will spend the night at the selected hotel in Aguas Calientes, the town of Machu Picchu.",
+  },
+  {
+    day: "Day 2",
+    title: "Machu Picchu Tour, the Lost City of the Incas",
+    description:
+      "After waking up very early and having breakfast, we will ascend to the Inca citadel of Machu Picchu to admire the spectacular sunrise at this wonder. We will then take an approximately 2-hour guided tour of the citadel, visiting its most important areas: the Main Square, the Circular Tower, the Sacred Sundial, the Royal Quarters, the Temple of the Three Windows and the cemeteries.\n\nAfter the Machu Picchu tour, you may optionally hike to the summit of Huayna Picchu or the Mountain sector. This visit is unguided and takes several hours.\n\nWe will then take the bus down to Aguas Calientes and, in the afternoon, board the train back to Ollantaytambo. Our staff will be waiting there to transfer you by bus to Cusco and take you to your hotel.",
+  },
+];
+
+<section id="description">
+  <H2Tours>About the experience</H2Tours>
+
+    This 2-day tour brings together two essential Cusco experiences: the Sacred Valley of the Incas and Machu Picchu. On the first day, we will visit Pisac, Urubamba and Ollantaytambo, combining traditional markets, agricultural terraces, Inca architecture and Andean scenery before traveling by train to Aguas Calientes.
+
+    The second day is dedicated to the citadel of Machu Picchu. We will head up early to enjoy the sunrise and explore its main areas with a professional guide. We will then return to Aguas Calientes to take the train to Ollantaytambo and continue by bus to Cusco.
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerary</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Included</H2Tours>
+  <IconListItem icon={IncludesIcon}>All transfers between your hotel, stations and the tourist attractions visited.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Tours of Machu Picchu and the Sacred Valley of the Incas.</IconListItem>
+  <IconListItem icon={IncludesIcon}>All transportation for the tours.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Round-trip train tickets: Ollantaytambo - Machu Picchu - Ollantaytambo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus from Ollantaytambo to Cusco.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Round-trip bus: Aguas Calientes - Machu Picchu - Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Professional English- or Spanish-speaking tour guide.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Entrance tickets to Machu Picchu and Sacred Valley attractions.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transfer assistance for all departures.</IconListItem>
+  <IconListItem icon={IncludesIcon}>1 hotel night in Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>1 buffet breakfast at the hotel and 1 buffet lunch during the Sacred Valley tour.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>Not included</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Entrance tickets and guiding for Huayna Picchu or the Mountain sector.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Meals not mentioned in the itinerary.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Personal expenses and tips.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recommendations</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Carry a valid identity document or passport throughout the trip.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Arrive at the train station early, following the instructions from our team.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Wear comfortable clothing and light walking shoes, and bring sunscreen, insect repellent and a rain poncho.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Important information</H2Tours>
+    The hike to Huayna Picchu or the Mountain sector is optional, unguided and subject to the availability of an additional entrance ticket. Train schedules may vary depending on availability at the time of booking.
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+      <strong>Difficulty:</strong> Grade I. The main visit includes an easy walk within Machu Picchu, with an approximately 2-hour guided tour.
+  </div>
+</section>

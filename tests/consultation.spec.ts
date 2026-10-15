@@ -7,6 +7,7 @@ test.describe("Formulario de Consulta", () => {
   });
 
   test("debe mostrar todos los campos requeridos en el formulario", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
     // Verificar que el formulario esté presente
     const form = page.locator("form[data-consultation-form]");
     await expect(form).toBeVisible();
@@ -20,11 +21,35 @@ test.describe("Formulario de Consulta", () => {
     await expect(page.locator('input[name="travelers"]')).toBeVisible();
     await expect(page.locator('textarea[name="message"]')).toBeVisible();
     await expect(page.locator("button[type='submit']")).toBeVisible();
+
+    const details = page.locator(".contact-details");
+    await expect(details.getByRole("link", { name: "info@exploreperu.com", exact: true })).toHaveAttribute("href", "mailto:info@exploreperu.com");
+    await expect(details.getByRole("link", { name: "+51 974 346 252", exact: true })).toHaveAttribute("href", "tel:+51974346252");
+    await expect(details.getByRole("link", { name: "+51 986 206 531", exact: true })).toHaveAttribute("href", "https://api.whatsapp.com/send?phone=51986206531");
+
+    await page.evaluate(() => document.fonts.ready);
+    const panel = page.locator(".contact-form-panel");
+    const desktopPanel = await panel.boundingBox();
+    const desktopDetails = await details.boundingBox();
+    expect(desktopPanel).not.toBeNull();
+    expect(desktopDetails).not.toBeNull();
+    expect(desktopDetails!.x).toBeGreaterThanOrEqual(desktopPanel!.x + desktopPanel!.width - 1);
+    expect(desktopDetails!.y).toBeLessThan(desktopPanel!.y + desktopPanel!.height);
+
+    await page.setViewportSize({ width: 375, height: 900 });
+    const mobilePanel = await panel.boundingBox();
+    const mobileDetails = await details.boundingBox();
+    expect(mobilePanel).not.toBeNull();
+    expect(mobileDetails).not.toBeNull();
+    expect(mobileDetails!.y).toBeGreaterThanOrEqual(mobilePanel!.y + mobilePanel!.height - 1);
+    expect(mobileDetails!.x).toBeLessThan(mobilePanel!.x + mobilePanel!.width);
+    const overflow = await page.evaluate(() => Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - window.innerWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
   });
 
   test("debe enviar el formulario correctamente cuando la API responde con éxito", async ({ page }) => {
     // Interceptamos la llamada a /api/consultar
-    await page.route("**/api/consultar", async (route) => {
+    await page.route("**/api/consultar/", async (route) => {
       expect(route.request().method()).toBe("POST");
       const postData = route.request().postDataJSON();
       
@@ -65,7 +90,7 @@ test.describe("Formulario de Consulta", () => {
 
   test("debe mostrar un mensaje de error si la API retorna un error de validación", async ({ page }) => {
     // Interceptamos y forzamos un error
-    await page.route("**/api/consultar", async (route) => {
+    await page.route("**/api/consultar/", async (route) => {
       await route.fulfill({
         status: 400,
         contentType: "application/json",

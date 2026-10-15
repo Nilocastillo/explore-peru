@@ -2,33 +2,39 @@
 import BookIcon from "@/assets/icons/book.svg";
 import GuiasIcon from "@/assets/icons/guias.svg";
 import HeadsetIcon from "@/assets/icons/headset.svg";
+import { getLocale } from "@/i18n/routes";
+
+const isEnglish = getLocale(Astro.url.pathname) === "en";
 
 const highlights = [
   {
-    title: "Itinerarios Personalizados",
-    description:
-      "Diseñamos cada viaje a tu medida, ajustándonos a tus gustos y presupuesto para crear experiencias únicas.",
+    title: isEnglish ? "Personalized Itineraries" : "Itinerarios Personalizados",
+    description: isEnglish
+      ? "We tailor every trip to your interests and budget to create unique experiences."
+      : "Diseñamos cada viaje a tu medida, ajustándonos a tus gustos y presupuesto para crear experiencias únicas.",
     Icon: BookIcon,
     number: "01",
   },
   {
-    title: "Guías Expertos Locales",
-    description:
-      "Contamos con los mejores expertos locales que te mostrarán el Perú auténtico más allá de las rutas turísticas.",
+    title: isEnglish ? "Expert Local Guides" : "Guías Expertos Locales",
+    description: isEnglish
+      ? "Our expert local guides will show you authentic Peru beyond the usual tourist routes."
+      : "Contamos con los mejores expertos locales que te mostrarán el Perú auténtico más allá de las rutas turísticas.",
     Icon: GuiasIcon,
     number: "02",
   },
   {
-    title: "Soporte 24/7",
-    description:
-      "Tu tranquilidad es nuestra prioridad. Estamos disponibles a cualquier hora para asistirte durante todo tu viaje.",
+    title: isEnglish ? "24/7 Support" : "Soporte 24/7",
+    description: isEnglish
+      ? "Your peace of mind is our priority. We are available around the clock to help you throughout your trip."
+      : "Tu tranquilidad es nuestra prioridad. Estamos disponibles a cualquier hora para asistirte durante todo tu viaje.",
     Icon: HeadsetIcon,
     number: "03",
   },
 ];
 ---
 
-<section class="py-28 px-6">
+<section id="about" class="py-28 px-6">
   <div class="max-w-7xl mx-auto">
     <!-- Header Area -->
     <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-20">
@@ -37,18 +43,18 @@ const highlights = [
           class="inline-flex items-center px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary-dark text-sm font-bold mb-6 border border-brand-primary/20 backdrop-blur-sm"
         >
           <span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark mr-2" aria-hidden="true"></span>
-          Lo que ofrecemos
+          {isEnglish ? "What we offer" : "Lo que ofrecemos"}
         </span>
         <h2
           class="text-4xl md:text-6xl font-medium tracking-tight text-brand-dark leading-[1.1] max-w-2xl"
         >
-          Qué Esperar De Tu Próxima <span class="text-primary-glow italic"
-            >Aventura</span
-          > Con Nosotros
+          {isEnglish ? "What to Expect from Your Next" : "Qué Esperar De Tu Próxima"} <span class="text-primary-glow italic"
+            >{isEnglish ? "Adventure" : "Aventura"}</span
+          > {isEnglish ? "with Us" : "Con Nosotros"}
         </h2>
       </div>
       <p class="text-lg text-brand-dark-muted leading-relaxed max-w-md lg:text-right">
-        Más de <strong class="text-brand-dark font-semibold">500 viajeros</strong> confían en nosotros cada año para descubrir lo mejor del Perú.
+        {isEnglish ? "More than" : "Más de"} <strong class="text-brand-dark font-semibold">{isEnglish ? "500 travelers" : "500 viajeros"}</strong> {isEnglish ? "trust us every year to discover the best of Peru." : "confían en nosotros cada año para descubrir lo mejor del Perú."}
       </p>
     </div>
 

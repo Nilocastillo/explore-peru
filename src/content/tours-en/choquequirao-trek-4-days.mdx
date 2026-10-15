@@ -1,0 +1,118 @@
+---
+title: "Choquequirao Trek 4 Days"
+duration: "4 days / 3 nights"
+location: "Cusco, Cachora and Choquequirao"
+departure: "Early hotel pickup"
+category:
+  - "Adventure"
+  - "Packages"
+description: "Explore Choquequirao on a 4-day trek through the Apurímac Canyon, mountain trails, Andean campsites and the landscapes of the Vilcabamba range. A challenging journey to one of Peru's most impressive archaeological complexes."
+image: "../../assets/tours/choquequirao-4-dias.avif"
+alt: "4-day Choquequirao trek to the archaeological complex in the Vilcabamba range"
+meta_title: "Choquequirao Trek 4 Days | Hike to the Archaeological Complex"
+meta_description: "Book the 4-day Choquequirao Trek. Includes private transportation, bilingual guide, Choquequirao admission, meals, camping equipment, muleteers, packhorses and first aid kit."
+difficulty: "Grade III"
+walkingTime: "4-day trek"
+badge: "Archaeological trek"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Day 1",
+    title: "Cusco, Cachora, Capuliyoc Pass and Chiquisca",
+    description:
+      "We will leave very early from your hotel in Cusco and travel to the picturesque village of Cachora, at 2,850 m above sea level. Here we will meet the muleteers, who will load the camping equipment.\n\nWe will begin hiking with a moderate ascent toward Capuliyoc Pass, at 2,800 m above sea level, accompanied by views of the Apurímac Canyon and the imposing snowcapped Padreyoc Mountain. We will then descend the mountainside to our campsite at Chiquisca, at 1,930 m above sea level.\n\nApproximately 7 hours of hiking are expected. The weather will be warm, and we will camp at Chiquisca.",
+  },
+  {
+    day: "Day 2",
+    title: "Chiquisca, Playa Rosalina, Marampata and Choquequirao",
+    description:
+      "After breakfast, we will descend toward Playa Rosalina for approximately 1 hour, reaching around 1,500 m above sea level on the banks of the Apurímac River. From here, we will begin climbing steep trails toward Marampata, at 2,850 m above sea level, with changing landscapes and intense heat during the ascent.\n\nWe will finally reach our campsite near the Choquequirao archaeological complex, at 3,033 m above sea level. This evening, the sunset at Choquequirao and the majestic condors descending from nearby mountains will be unforgettable sights.\n\nApproximately 7 hours of hiking are expected. The route combines cold and hot areas. We will camp near the Choquequirao Archaeological Center.",
+  },
+  {
+    day: "Day 3",
+    title: "Choquequirao, San Ignacio and Carmen Huerto",
+    description:
+      "You will wake up to sunrise over the ruins of Choquequirao. We will then take a guided tour of the archaeological complex, visiting temples, terraces, ceremonial plazas and the surrounding landscapes.\n\nAfterwards, we will follow a less-traveled alternative trail down to San Ignacio, at approximately 1,500 m above sea level. The route then climbs to Carmen Huerto, at 2,000 m above sea level, passing through views of the Apurímac Canyon, tropical mountain vegetation and refreshing montane forest.\n\nThis stage involves around 5 hours of hiking. The weather will be moderately hot, with mosquitoes present. We will camp at Carmen Huerto.",
+  },
+  {
+    day: "Day 4",
+    title: "Carmen Huerto, Tambo Bamba, Huanipaca and Cusco",
+    description:
+      "On this final stretch, we will hike from Carmen Huerto to Hacienda Tambo Bamba, at 2,500 m above sea level, visiting communities such as Pacobamba and Huanipaca, at 3,150 m above sea level.\n\nAlong the way, we can admire the imposing snowcapped peaks of the Vilcabamba range, including Sacsarayoc. After approximately 5 hours of hiking, transportation will take us back to Cusco, bringing the adventure to an end.\n\nOn the return journey, some routes allow an optional stop at the Cconoc hot springs to relax your legs and celebrate the achievement. The weather will range from moderate to hot.",
+  },
+];
+
+<section id="description">
+  <H2Tours>About the experience</H2Tours>
+
+    The 4-day Choquequirao Trek is a challenging and exceptionally scenic route
+    connecting the Apurímac Canyon with one of Peru's most impressive
+    archaeological complexes.
+
+    Along the way, we will cross mountain passes, steep descents, local
+    communities, Andean campsites and landscapes of the Vilcabamba range.
+    This experience combines nature, history and a multiday hike to Choquequirao.
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerary</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Included</H2Tours>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Transportation</h3>
+  <IconListItem icon={IncludesIcon}>Private transportation from Cusco to Cachora.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Private transportation from Huanipaca to Cusco.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Guiding and admission</h3>
+  <IconListItem icon={IncludesIcon}>Bilingual guide service in English or Spanish, on request.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Admission to the Choquequirao archaeological complex.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Meals and camping</h3>
+  <IconListItem icon={IncludesIcon}>Meals during the trek.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Cook and kitchen assistant.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Kitchen tent and cooking equipment.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Camping equipment: guest tents, sleeping mats and dining tent with tables and chairs.</IconListItem>
+
+  <h3 class="mt-8 text-lg font-black text-brand-dark">Trail support</h3>
+  <IconListItem icon={IncludesIcon}>Muleteers and porters.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Emergency horse.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Packhorses for camping equipment, food and guests' personal backpacks.</IconListItem>
+  <IconListItem icon={IncludesIcon}>First aid kit and oxygen cylinder.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>Not included</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Breakfast on the first day.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Sleeping bag.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Optional admission to the Cconoc hot springs, if the route allows a stop.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Personal expenses and tips.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recommendations</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Acclimatize in Cusco before starting the trek.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Bring trekking boots, layered clothing, a rain poncho and a warm jacket.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Bring sunscreen, insect repellent, a headlamp, a water bottle and personal snacks.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Be prepared for long ascents and descents in warm weather.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Important information</H2Tours>
+    This route requires good physical fitness because of its steep descents,
+    long ascents and changing weather. Bring insect repellent, as mosquitoes
+    are present in warmer areas.
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+      <strong>Difficulty:</strong> Grade III. The first two days each involve
+      approximately 7 hours of hiking.
+  </div>
+</section>

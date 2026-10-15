@@ -1,8 +1,11 @@
 ---
 import TourCard from "@/components/TourCard.astro";
 import { getCollection } from "astro:content";
+import { getLocale, localizePath, tourSlugs } from "@/i18n/routes";
 
-const contentTours = await getCollection("tours");
+const locale = getLocale(Astro.url.pathname);
+const isEnglish = locale === "en";
+const contentTours = await getCollection(isEnglish ? "toursEn" : "tours");
 
 const tourImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/**/*.{avif,webp,jpg,jpeg}",
@@ -32,7 +35,7 @@ const popularTourOrder = [
 ];
 
 const popularTours = popularTourOrder
-  .map((id) => contentTours.find((tour) => tour.id === id))
+  .map((id) => contentTours.find((tour) => tour.id === (isEnglish ? tourSlugs[id] : id)))
   .filter((tour) => tour !== undefined)
   .map((tour) => ({
     title: tour.data.title,
@@ -43,7 +46,7 @@ const popularTours = popularTourOrder
     imageAlt: tour.data.alt,
     imageSizes:
       "(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) calc((100vw - 5rem) / 2), calc((min(100vw, 80rem) - 4rem) / 3)",
-    href: `/tours/${tour.id}`,
+    href: localizePath(`/tours/${tour.id}`, locale),
   }));
 ---
 
@@ -54,7 +57,7 @@ const popularTours = popularTourOrder
         class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 text-brand-dark text-sm font-bold mb-6 border border-brand-dark/10 shadow-soft"
       >
         <span class="w-1.5 h-1.5 rounded-full bg-brand-primary-dark mr-2" aria-hidden="true"></span>
-        Experiencias Destacadas
+        {isEnglish ? "Featured Experiences" : "Experiencias Destacadas"}
       </span>
       <div
         class="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
@@ -62,13 +65,13 @@ const popularTours = popularTourOrder
         <h2
           class="text-4xl md:text-6xl font-medium tracking-tight text-brand-dark leading-[1.1] max-w-xl"
         >
-          Tours Más <span class="text-primary-glow italic">Populares</span>
+          {isEnglish ? "Our Most" : "Tours Más"} <span class="text-primary-glow italic">{isEnglish ? "Popular Tours" : "Populares"}</span>
         </h2>
         <a
-          href="/tours"
+          href={localizePath("/tours", locale)}
           class="btn-travel px-8 py-4 rounded-full font-bold inline-flex items-center gap-2 shadow-lg transition-all duration-300"
         >
-          Ver más paquetes
+          {isEnglish ? "View more packages" : "Ver más paquetes"}
           <svg
             aria-hidden="true"
             class="w-4 h-4"
@@ -92,10 +95,10 @@ const popularTours = popularTourOrder
 
     <div class="mt-12 text-center md:hidden">
       <a
-        href="/tours"
+        href={localizePath("/tours", locale)}
         class="btn-travel px-8 py-4 rounded-full font-bold inline-flex items-center gap-2 shadow-lg"
       >
-        Ver más paquetes
+        {isEnglish ? "View more packages" : "Ver más paquetes"}
         <svg
           aria-hidden="true"
           class="w-4 h-4"

@@ -1,19 +1,23 @@
 ---
 import { getWhatsAppUrl } from "@/data/contact";
+import { getLocale, localizePath } from "@/i18n/routes";
+
+const locale = getLocale(Astro.url.pathname);
+const isEnglish = locale === "en";
 
 const exploreItems = [
   { text: "Home", href: "/" },
   { text: "Machu Picchu", href: "/machu-picchu" },
-  { text: "Tradicionales", href: "/tradicional" },
-  { text: "Aventura", href: "/aventura" },
-  { text: "Paquetes", href: "/paquetes" },
+  { text: isEnglish ? "Traditional" : "Tradicionales", href: "/tradicional" },
+  { text: isEnglish ? "Adventure" : "Aventura", href: "/aventura" },
+  { text: isEnglish ? "Packages" : "Paquetes", href: "/paquetes" },
   { text: "Full Day", href: "/full-day" },
 ];
 
 const resourceItems = [
-  { text: "Código ESNNA", href: "/codigo-esnna" },
-  { text: "Política de Privacidad", href: "/politica-de-privacidad" },
-  { text: "Términos y Condiciones", href: "/terminos-y-condiciones" },
+  { text: isEnglish ? "Child Protection Code" : "Código ESNNA", href: "/codigo-esnna" },
+  { text: isEnglish ? "Privacy Policy" : "Política de Privacidad", href: "/politica-de-privacidad" },
+  { text: isEnglish ? "Terms and Conditions" : "Términos y Condiciones", href: "/terminos-y-condiciones" },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -26,7 +30,7 @@ const currentYear = new Date().getFullYear();
       <h2
         class="text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight max-w-2xl text-brand-light/90 leading-[1.1]"
       >
-        ¿Tienes un viaje en mente?
+        {isEnglish ? "Have a trip in mind?" : "¿Tienes un viaje en mente?"}
       </h2>
       <a
         href={getWhatsAppUrl()}
@@ -34,7 +38,7 @@ const currentYear = new Date().getFullYear();
         rel="noopener noreferrer"
         class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 group shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.23)] hover:-translate-y-1 shrink-0 self-start lg:self-auto"
       >
-        Contáctanos por WhatsApp
+        {isEnglish ? "Contact us on WhatsApp" : "Contáctanos por WhatsApp"}
         <svg
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
@@ -68,14 +72,14 @@ const currentYear = new Date().getFullYear();
         <h3
           class="text-brand-primary text-xs font-bold uppercase tracking-[0.2em] mb-6"
         >
-          Explorar
+          {isEnglish ? "Explore" : "Explorar"}
         </h3>
         <ul class="space-y-3">
           {
             exploreItems.map((item) => (
               <li>
                 <a
-                  href={item.href}
+                  href={localizePath(item.href, locale)}
                   class="text-sm text-brand-light/60 hover:text-white transition-colors duration-200"
                 >
                   {item.text}
@@ -98,7 +102,7 @@ const currentYear = new Date().getFullYear();
             resourceItems.map((item) => (
               <li>
                 <a
-                  href={item.href}
+                  href={localizePath(item.href, locale)}
                   class="text-sm text-brand-light/60 hover:text-white transition-colors duration-200"
                 >
                   {item.text}
@@ -114,12 +118,12 @@ const currentYear = new Date().getFullYear();
         <h3
           class="text-brand-primary text-xs font-bold uppercase tracking-[0.2em] mb-6"
         >
-          Contacto
+          {isEnglish ? "Contact" : "Contacto"}
         </h3>
         <ul class="space-y-3">
           <li class="flex items-start gap-2 text-sm text-brand-light/60">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-brand-primary/70"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            Cusco, Perú
+            {isEnglish ? "Cusco, Peru" : "Cusco, Perú"}
           </li>
           <li>
             <a href="tel:+51974346252" class="flex items-start gap-2 text-sm text-brand-light/60 hover:text-white transition-colors duration-200">
@@ -142,7 +146,7 @@ const currentYear = new Date().getFullYear();
   <div class="border-t border-white/5">
     <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-6">
       <p class="text-brand-light/40 text-xs tracking-wide">
-        © {currentYear} XPLORE PERÚ. Todos los derechos reservados.
+        © {currentYear} XPLORE PERÚ. {isEnglish ? "All rights reserved." : "Todos los derechos reservados."}
       </p>
 
       <div class="flex items-center gap-4">

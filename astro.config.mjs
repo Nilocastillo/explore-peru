@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import cloudflare from "@astrojs/cloudflare";
 
+const site = 'https://explore-peru.ncastilloumeres.workers.dev';
 // https://astro.build/config
 export default defineConfig({
   adapter: cloudflare(),
@@ -15,11 +16,19 @@ export default defineConfig({
   session: {
     driver: sessionDrivers.lruCache(),
   },
-  site: 'https://explore-peru.ncastilloumeres.workers.dev',
+  site,
+  trailingSlash: 'ignore',
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: { prefixDefaultLocale: false },
+  },
   vite: {
     plugins: [/** @type {any} */ (tailwindcss())]
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap({
+    filter: (page) => !/\/(?:en\/)?404\/?$/.test(new URL(page).pathname),
+  })],
   fonts: [
     {
       name: "Manrope",

@@ -1,9 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-const tours = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/tours" }),
-  schema: z.object({
+const tourSchema = z.object({
     title: z.string(),
     duration: z.string(),
     location: z.string(),
@@ -17,7 +15,16 @@ const tours = defineCollection({
     meta_title: z.string(),
     meta_description: z.string(),
     badge: z.string().optional(),
-  }),
+  });
+
+const tours = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/tours" }),
+  schema: tourSchema,
 });
 
-export const collections = { tours };
+const toursEn = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/tours-en" }),
+  schema: tourSchema,
+});
+
+export const collections = { tours, toursEn };

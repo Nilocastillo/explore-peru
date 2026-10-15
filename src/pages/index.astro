@@ -4,9 +4,13 @@ import Hero from "@/sections/Hero.astro";
 import About from "@/sections/About.astro";
 import PopularTours from "@/sections/PopularTours.astro";
 import FAQ from "@/sections/FAQ.astro";
+export const prerender = true;
 ---
 
-<Layout>
+<Layout
+  title="Tours en Cusco y Machu Picchu | XPLORE PERÚ"
+  description="Descubre tours en Cusco y paquetes de viaje a Machu Picchu. Recorre el Valle Sagrado, Laguna Humantay y Montaña de Colores con XPLORE PERÚ."
+>
   <main id="main-content">
     <Hero />
     <About />

@@ -84,6 +84,46 @@ describe("POST /api/consultar", () => {
     expect(data.message).toBe("Ingresa un correo electrónico válido.");
   });
 
+  it("returns English validation messages for an English inquiry", async () => {
+    const request = createRequest({ locale: "en", name: "Alex" });
+    const response = await POST({ request, locals: {} } as any);
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({
+      message: "Enter your name and WhatsApp number to send your inquiry.",
+    });
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it("returns an English error for malformed JSON when English is requested", async () => {
+    const request = new Request("http://localhost:4321/api/consultar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept-Language": "en" },
+      body: "not-json",
+    });
+    const response = await POST({ request, locals: {} } as any);
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ message: "The request format is invalid." });
+  });
+
+  it("sends English inquiry details without changing the tour or traveler information", async () => {
+    vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true } as Response);
+    const request = createRequest({
+      locale: "en", name: "Alex Smith", phone: "+44 7700900123", tour: "Humantay Lake",
+      duration: "1 day", travelers: "2", message: "Please check availability.",
+    });
+    const response = await POST({
+      request, locals: { runtime: { env: { RESEND_API_KEY: "test-key" } } },
+    } as any);
+    expect(response.status).toBe(200);
+    const [, options] = vi.mocked(global.fetch).mock.calls[0];
+    const payload = JSON.parse(options?.body as string);
+    expect(payload.subject).toBe("New inquiry: Humantay Lake");
+    expect(payload.text).toContain("Name: Alex Smith");
+    expect(payload.text).toContain("Duration: 1 day");
+    expect(payload.text).toContain("Travelers: 2");
+    expect(payload.html).toContain("New website inquiry");
+  });
+
   it("debe fallar con 500 si RESEND_API_KEY no está configurada", async () => {
     const request = createRequest({
       name: "Juan Perez",

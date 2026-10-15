@@ -1,0 +1,113 @@
+---
+title: "Inca Trail 4 Days"
+duration: "4 days / 3 nights"
+location: "Cusco, Inca Trail and Machu Picchu"
+departure: "Early hotel pickup"
+category:
+  - "Machu Picchu"
+description: "Follow the classic 4-day Inca Trail to Machu Picchu, crossing valleys, mountains, archaeological sites and Andean campsites. A complete trekking experience with a guide, meals, porters for group equipment and a final visit to the Inca citadel."
+image: "../../assets/tours/camino-inca-4-dias.avif"
+alt: "4-day Inca Trail to Machu Picchu along the classic trekking route in Cusco"
+meta_title: "Inca Trail 4 Days | Classic Trek to Machu Picchu"
+meta_description: "Book the 4-day Inca Trail to Machu Picchu. Includes transportation, campsites, meals during the trek, official guide, citadel admission, downhill bus and return train."
+difficulty: "Grade III"
+walkingTime: "4-day trek"
+badge: "Classic trek"
+---
+
+import IncludesIcon from "@/components/icons/IncludesIcon.astro";
+import ExcludesIcon from "@/components/icons/ExcludesIcon.astro";
+import IconListItem from "@/components/IconListItem.astro";
+import H2Tours from "@/components/H2Tours.astro";
+import TourTimeline from "@/components/tours/TourTimeline.astro";
+
+export const itineraryDays = [
+  {
+    day: "Day 1",
+    title: "Start of the Inca Trail",
+    description:
+      "On the first day, we will pick you up very early from your hotel in Cusco and travel by road to Chilca, 88 km away. Here we will meet the porters, cooks and the team supporting the excursion.\n\nWe will begin hiking along the Urubamba River to Patallaqta, where we will have lunch. We will then continue through the Huayllabamba Valley to Llullucayoc, where we will camp, enjoy a pleasant dinner and spend the night.",
+  },
+  {
+    day: "Day 2",
+    title: "Inca Trail and Warmiwañusca Pass",
+    description:
+      "After breakfast, we will continue hiking, admiring beautiful scenery and the gradual changes in vegetation as we progress. We will reach the highest point of the route: Warmiwañusca Pass, known as Dead Woman's Pass, at 4,200 m above sea level.\nFrom here, we will enjoy panoramic views of the surrounding snowcapped peaks, valleys and mountains. We will continue descending to the vast Pacaymayo Valley, where hot drinks will be served. We will then enjoy dinner and rest at the campsite. Lunch and dinner included.",
+  },
+  {
+    day: "Day 3",
+    title: "Runcuracay, Sayacmarka and Wiñaywayna",
+    description:
+      "After breakfast, we will leave early and climb toward Runcuracay, an archaeological site at 3,700 m above sea level. We will then continue to Sayacmarka, where we will rest and have lunch.\nOur hike continues to Puyupatamarca, an impressive Inca city known as the city above the clouds. We will then head to Wiñaywayna, at 2,690 m above sea level in the cloud forest, where we will have dinner and camp. Hot showers are available at this campsite at your own expense.",
+  },
+  {
+    day: "Day 4",
+    title: "Inti Punku and visit to Machu Picchu",
+    description:
+      "On this final day, we will rise very early for breakfast and begin the hike to Inti Punku, or the Sun Gate, which offers an impressive panoramic view of Machu Picchu.\nUpon reaching the citadel, we will take a guided tour of its main areas, including the Main Square, Circular Tower, Sacred Sundial, Royal Quarters, Temple of the Three Windows and cemeteries. Afterwards, you will have free time to explore the citadel.\nWe will then take the bus to Aguas Calientes for lunch at your own expense. In the afternoon, we will return to Cusco by train. End of services.",
+  },
+];
+
+<section id="description">
+  <H2Tours>About the experience</H2Tours>
+
+    The 4-day Inca Trail is the classic trekking route to Machu Picchu.
+    Along the way, you will cross Andean valleys, mountain passes,
+    archaeological sites and cloud forest landscapes before entering the
+    citadel through Inti Punku, the Sun Gate.
+
+    This experience combines hiking, camping, Inca history and nature.
+    The service includes an official guide, meals during the trek, porters
+    for group equipment, campsites and the main tickets, concluding with a
+    guided visit to Machu Picchu.
+</section>
+
+<section id="itinerary">
+  <H2Tours>Itinerary</H2Tours>
+  <TourTimeline days={itineraryDays} />
+</section>
+
+<section id="includes">
+  <H2Tours>Included</H2Tours>
+  <IconListItem icon={IncludesIcon}>Classic 4-day, 3-night excursion.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Bus transportation to the start of the trek.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Accommodation in two-person tents.</IconListItem>
+  <IconListItem icon={IncludesIcon}>All meals and tableware during the trek.</IconListItem>
+  <IconListItem icon={IncludesIcon}>3 breakfasts, 3 lunches, 3 dinners and snacks.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Kitchen, dining and toilet tents.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Porters for group equipment.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Official tour guide.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Citadel admission ticket.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Downhill bus ticket to Aguas Calientes.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Return train ticket to Ollantaytambo.</IconListItem>
+  <IconListItem icon={IncludesIcon}>Transfer from the train station to Plaza San Francisco.</IconListItem>
+</section>
+
+<section id="not-included">
+  <H2Tours>Not included</H2Tours>
+  <IconListItem icon={ExcludesIcon} tone="x">Additional drinks at breakfast.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Phone calls.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Sleeping bags.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Admission for additional days.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Personal porter to carry personal belongings.</IconListItem>
+  <IconListItem icon={ExcludesIcon} tone="x">Other costs and expenses not described in the itinerary.</IconListItem>
+</section>
+
+<section id="recommendations">
+  <H2Tours>Recommendations</H2Tours>
+  <IconListItem icon={IncludesIcon} tone="accent">Carry a valid passport or identity document throughout the tour.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Wear trekking boots, layered clothing, a rain poncho and a warm jacket.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Bring sunscreen, insect repellent, a headlamp, a water bottle and personal snacks.</IconListItem>
+  <IconListItem icon={IncludesIcon} tone="accent">Check Inca Trail permit availability well in advance.</IconListItem>
+</section>
+
+<section id="important">
+  <H2Tours>Important information</H2Tours>
+    The Inca Trail is a multiday trekking route requiring good physical
+    fitness, prior acclimatization in Cusco and available permits. Hot showers
+    at Wiñaywayna are optional and at the guest's own expense.
+  <div class="mt-5 border-l-4 border-brand-primary bg-brand-primary/8 px-5 py-4">
+      <strong>Difficulty:</strong> Grade III. On the second day, the route
+      reaches Warmiwañusca Pass at 4,200 m above sea level, its highest point.
+  </div>
+</section>
